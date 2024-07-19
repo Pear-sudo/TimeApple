@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */; };
 		00132E422C3EBFBB00BB7997 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E412C3EBFBB00BB7997 /* ContentView.swift */; };
-		00132E442C3EBFBB00BB7997 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E432C3EBFBB00BB7997 /* Item.swift */; };
 		00132E462C3EBFBC00BB7997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E452C3EBFBC00BB7997 /* Assets.xcassets */; };
 		00132E4A2C3EBFBC00BB7997 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E492C3EBFBC00BB7997 /* Preview Assets.xcassets */; };
 		00132E542C3EBFBC00BB7997 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E532C3EBFBC00BB7997 /* TimeTests.swift */; };
 		00132E5E2C3EBFBC00BB7997 /* TimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E5D2C3EBFBC00BB7997 /* TimeUITests.swift */; };
 		00132E602C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E5F2C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift */; };
+		00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */; };
+		00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E7A2C46128200BB7997 /* ProjectItem.swift */; };
+		00132E812C47B01700BB7997 /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E802C47B01700BB7997 /* ItemListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +40,6 @@
 		00132E3C2C3EBFBB00BB7997 /* Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeApp.swift; sourceTree = "<group>"; };
 		00132E412C3EBFBB00BB7997 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		00132E432C3EBFBB00BB7997 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		00132E452C3EBFBC00BB7997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00132E472C3EBFBC00BB7997 /* Time.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Time.entitlements; sourceTree = "<group>"; };
 		00132E492C3EBFBC00BB7997 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -47,6 +48,9 @@
 		00132E592C3EBFBC00BB7997 /* TimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00132E5D2C3EBFBC00BB7997 /* TimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUITests.swift; sourceTree = "<group>"; };
 		00132E5F2C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItemView.swift; sourceTree = "<group>"; };
+		00132E7A2C46128200BB7997 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectItem.swift; path = Time/TimeView/Models/ProjectItem.swift; sourceTree = SOURCE_ROOT; };
+		00132E802C47B01700BB7997 /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +101,10 @@
 		00132E3E2C3EBFBB00BB7997 /* Time */ = {
 			isa = PBXGroup;
 			children = (
+				00132E7C2C4612A600BB7997 /* Models */,
+				00132E6C2C3EBFCC00BB7997 /* TimeView */,
 				00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */,
 				00132E412C3EBFBB00BB7997 /* ContentView.swift */,
-				00132E432C3EBFBB00BB7997 /* Item.swift */,
 				00132E452C3EBFBC00BB7997 /* Assets.xcassets */,
 				00132E472C3EBFBC00BB7997 /* Time.entitlements */,
 				00132E482C3EBFBC00BB7997 /* Preview Content */,
@@ -130,6 +135,24 @@
 				00132E5F2C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift */,
 			);
 			path = TimeUITests;
+			sourceTree = "<group>";
+		};
+		00132E6C2C3EBFCC00BB7997 /* TimeView */ = {
+			isa = PBXGroup;
+			children = (
+				00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */,
+				00132E802C47B01700BB7997 /* ItemListView.swift */,
+			);
+			path = TimeView;
+			sourceTree = "<group>";
+		};
+		00132E7C2C4612A600BB7997 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				00132E7A2C46128200BB7997 /* ProjectItem.swift */,
+			);
+			name = Models;
+			path = TimeView/Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,7 +286,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				00132E422C3EBFBB00BB7997 /* ContentView.swift in Sources */,
-				00132E442C3EBFBB00BB7997 /* Item.swift in Sources */,
+				00132E812C47B01700BB7997 /* ItemListView.swift in Sources */,
+				00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */,
+				00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
