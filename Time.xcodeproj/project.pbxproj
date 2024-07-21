@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */; };
-		00132E422C3EBFBB00BB7997 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E412C3EBFBB00BB7997 /* ContentView.swift */; };
 		00132E462C3EBFBC00BB7997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E452C3EBFBC00BB7997 /* Assets.xcassets */; };
 		00132E4A2C3EBFBC00BB7997 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E492C3EBFBC00BB7997 /* Preview Assets.xcassets */; };
 		00132E542C3EBFBC00BB7997 /* TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E532C3EBFBC00BB7997 /* TimeTests.swift */; };
@@ -17,6 +16,10 @@
 		00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */; };
 		00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E7A2C46128200BB7997 /* ProjectItem.swift */; };
 		00132E812C47B01700BB7997 /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E802C47B01700BB7997 /* ItemListView.swift */; };
+		00132E882C4B957400BB7997 /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E872C4B957400BB7997 /* CreationView.swift */; };
+		00132E952C4B9CDE00BB7997 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00132E942C4B9CDE00BB7997 /* GeneralMacro */; };
+		00132E972C4B9DA400BB7997 /* GeneralMacroClient in Frameworks */ = {isa = PBXBuildFile; productRef = 00132E962C4B9DA400BB7997 /* GeneralMacroClient */; };
+		00E15AAD2C4D23E20019FEE0 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E15AAC2C4D23E20019FEE0 /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +42,6 @@
 /* Begin PBXFileReference section */
 		00132E3C2C3EBFBB00BB7997 /* Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeApp.swift; sourceTree = "<group>"; };
-		00132E412C3EBFBB00BB7997 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		00132E452C3EBFBC00BB7997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00132E472C3EBFBC00BB7997 /* Time.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Time.entitlements; sourceTree = "<group>"; };
 		00132E492C3EBFBC00BB7997 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -51,6 +53,8 @@
 		00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItemView.swift; sourceTree = "<group>"; };
 		00132E7A2C46128200BB7997 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectItem.swift; path = Time/TimeView/Models/ProjectItem.swift; sourceTree = SOURCE_ROOT; };
 		00132E802C47B01700BB7997 /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
+		00132E872C4B957400BB7997 /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
+		00E15AAC2C4D23E20019FEE0 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00132E952C4B9CDE00BB7997 /* GeneralMacro in Frameworks */,
+				00132E972C4B9DA400BB7997 /* GeneralMacroClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +91,7 @@
 				00132E522C3EBFBC00BB7997 /* TimeTests */,
 				00132E5C2C3EBFBC00BB7997 /* TimeUITests */,
 				00132E3D2C3EBFBB00BB7997 /* Products */,
+				00132E8C2C4B98FA00BB7997 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,10 +108,10 @@
 		00132E3E2C3EBFBB00BB7997 /* Time */ = {
 			isa = PBXGroup;
 			children = (
+				00E15AAB2C4D23CE0019FEE0 /* Util */,
 				00132E7C2C4612A600BB7997 /* Models */,
 				00132E6C2C3EBFCC00BB7997 /* TimeView */,
 				00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */,
-				00132E412C3EBFBB00BB7997 /* ContentView.swift */,
 				00132E452C3EBFBC00BB7997 /* Assets.xcassets */,
 				00132E472C3EBFBC00BB7997 /* Time.entitlements */,
 				00132E482C3EBFBC00BB7997 /* Preview Content */,
@@ -142,6 +149,7 @@
 			children = (
 				00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */,
 				00132E802C47B01700BB7997 /* ItemListView.swift */,
+				00132E872C4B957400BB7997 /* CreationView.swift */,
 			);
 			path = TimeView;
 			sourceTree = "<group>";
@@ -153,6 +161,21 @@
 			);
 			name = Models;
 			path = TimeView/Models;
+			sourceTree = "<group>";
+		};
+		00132E8C2C4B98FA00BB7997 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		00E15AAB2C4D23CE0019FEE0 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				00E15AAC2C4D23E20019FEE0 /* Util.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +194,10 @@
 			dependencies = (
 			);
 			name = Time;
+			packageProductDependencies = (
+				00132E942C4B9CDE00BB7997 /* GeneralMacro */,
+				00132E962C4B9DA400BB7997 /* GeneralMacroClient */,
+			);
 			productName = Time;
 			productReference = 00132E3C2C3EBFBB00BB7997 /* Time.app */;
 			productType = "com.apple.product-type.application";
@@ -189,6 +216,8 @@
 				00132E512C3EBFBC00BB7997 /* PBXTargetDependency */,
 			);
 			name = TimeTests;
+			packageProductDependencies = (
+			);
 			productName = TimeTests;
 			productReference = 00132E4F2C3EBFBC00BB7997 /* TimeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -243,6 +272,9 @@
 				Base,
 			);
 			mainGroup = 00132E332C3EBFBB00BB7997;
+			packageReferences = (
+				00132E8F2C4B9C6A00BB7997 /* XCLocalSwiftPackageReference "../GeneralMacro" */,
+			);
 			productRefGroup = 00132E3D2C3EBFBB00BB7997 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -285,11 +317,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00132E422C3EBFBB00BB7997 /* ContentView.swift in Sources */,
 				00132E812C47B01700BB7997 /* ItemListView.swift in Sources */,
 				00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */,
 				00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */,
+				00E15AAD2C4D23E20019FEE0 /* Util.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
+				00132E882C4B957400BB7997 /* CreationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +679,26 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		00132E8F2C4B9C6A00BB7997 /* XCLocalSwiftPackageReference "../GeneralMacro" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../GeneralMacro;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		00132E942C4B9CDE00BB7997 /* GeneralMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00132E8F2C4B9C6A00BB7997 /* XCLocalSwiftPackageReference "../GeneralMacro" */;
+			productName = GeneralMacro;
+		};
+		00132E962C4B9DA400BB7997 /* GeneralMacroClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00132E8F2C4B9C6A00BB7997 /* XCLocalSwiftPackageReference "../GeneralMacro" */;
+			productName = GeneralMacroClient;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 00132E342C3EBFBB00BB7997 /* Project object */;
 }

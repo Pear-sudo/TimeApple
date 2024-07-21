@@ -10,17 +10,24 @@ import SwiftUI
 import SwiftData
 
 @Model
-class ProjectItem {
-    init(name: String, color: UInt32? = nil, parent: ProjectItem? = nil) {
+class ProjectItem: Identifiable {
+    init(name: String, parent: ProjectItem? = nil) {
         self.name = name
-        self.color = color
         self.parent = parent
     }
     
     var id = UUID()
+    var creationTime = Date()
     
     var name: String
-    var color: UInt32?
     var parent: ProjectItem?
     var notes: String?
+    
+    var r: Float = Float.random(in: 0...255) / 255
+    var g: Float = Float.random(in: 0...255) / 255
+    var b: Float = Float.random(in: 0...255) / 255
+    
+    var color: Color {
+        return Color(.displayP3, red: Double(r), green: Double(g), blue: Double(b))
+    }
 }

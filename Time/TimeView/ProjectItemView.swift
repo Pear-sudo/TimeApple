@@ -8,22 +8,50 @@
 import SwiftUI
 
 struct ProjectItemView: View {
-    @State var projectItem: ProjectItem
+    @State var item: ProjectItem
+    @State private var isExpanded = false
+    @State private var isDetailShown = false
     var body: some View {
         HStack {
             VStack {
-                Text(projectItem.name)
-                Text(projectItem.parent?.name ?? "")
+                Text(item.name)
+                Text(item.parent?.name ?? "")
                 Text(timeString)
             }
-            Image(systemName: "chevron.down")
-                .onTapGesture(perform: expand)
+            Button("more", systemImage: isExpanded ? "chevron.up" : "chevron.down", action: expand)
+                .labelStyle(.iconOnly)
+                .buttonStyle(PlainButtonStyle())
+            #if os(iOS)
             Button("more", systemImage: "ellipsis", action: more)
                 .labelStyle(.iconOnly)
+                .buttonStyle(PlainButtonStyle())
+            #endif
         }
+        .sheet(isPresented: $isDetailShown) {
+            CreationView(item: item) {
+                hideDetails()
+            } onUpdate: {
+                hideDetails()
+            }
+        }
+        #if os(macOS)
+        .contextMenu {
+            Button("Details") {
+                isDetailShown = true
+            }
+        }
+        #endif
+        .padding()
+        .background(item.color)
+        .clipShape(RoundedRectangle(cornerRadius: 25.0))
     }
+    
+    private func hideDetails() {
+        isDetailShown = false
+    }
+    
     private func expand() {
-        
+        isExpanded.toggle()
     }
     private func more() {
         
@@ -36,7 +64,6 @@ struct ProjectItemView: View {
 let sport = ProjectItem(name: "Sport")
 
 #Preview {
-    ProjectItemView(projectItem: sport)
+    ProjectItemView(item: sport)
         .padding()
-        .modelContainer(for: ProjectItem.self, inMemory: true)
 }
