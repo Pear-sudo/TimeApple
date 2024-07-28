@@ -21,6 +21,8 @@ struct ItemListView: View {
     @State var selections = Set<ProjectItem.ID>()
     
     @State var scrollId: ProjectItem.ID?
+    
+    private let horizontalSpacing: CGFloat = 8
         
     var body: some View {
         List(selection: $selections) {
@@ -28,12 +30,17 @@ struct ItemListView: View {
                 ActiveProjectView(period: lastStopped.first!)
                     .disabled(true)
                     .hidden()
-                ScrollView {
-                    HStack {
-                        ForEach(headerPeriods) { period in
-                            ActiveProjectView(period: period)
+                GeometryReader { geometry in
+                    ScrollView([.horizontal]) {
+                        HStack(spacing: horizontalSpacing) {
+                            ForEach(headerPeriods) { period in
+                                ActiveProjectView(period: period)
+                                    .frame(minWidth: calculateActiveProjectViewWidth(geometry.size.width))
+                            }
                         }
                     }
+                    .scrollIndicators(.hidden)
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
             }
             Section {
@@ -94,6 +101,16 @@ struct ItemListView: View {
         var color = headerPeriods.first?.project.color ?? Color.accentColor
         color = color.opacity(0.2)
         return color
+    }
+    
+    private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {
+        
+        let minWidth: CGFloat = 100
+        let numberOfPeriods = CGFloat(headerPeriods.count)
+        let availableWidth = width - (numberOfPeriods - 1) * horizontalSpacing
+        let calculatedWidth = availableWidth / numberOfPeriods
+        
+        return max(minWidth, calculatedWidth)
     }
     
     func startSelectedProjects() -> KeyPress.Result {

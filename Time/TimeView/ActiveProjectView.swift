@@ -64,10 +64,12 @@ struct ActiveProjectView: View {
                 Button("Add note") {
                     
                 }
+                .fixedSize()
                 .padding(.trailing ,20)
                 Button("Edit entry") {
                     
                 }
+                .fixedSize()
                 Spacer()
             }
             .buttonStyle(PlainButtonStyle())
@@ -95,7 +97,6 @@ struct ActiveProjectView_Previews: PreviewProvider {
                 for: [ProjectItem.self, PeriodRecord.self],
                 inMemory: true
             )
-            .frame(width: 300, height: 300)
             .padding()
     }
     struct PreviewWrapper: View {
