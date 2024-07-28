@@ -12,7 +12,7 @@ struct ItemListView: View {
     
     @Query var items: [ProjectItem]
     @Query(PeriodRecord.descriptorRunning, animation: .default) var runningItems: [PeriodRecord]
-    @Query(PeriodRecord.descriptorLastStopped) var lastStopped: [PeriodRecord]
+    @Query(PeriodRecord.descriptorLastStopped, animation: .default) var lastStopped: [PeriodRecord]
     
     @Environment(\.modelContext) private var context
     
@@ -24,13 +24,17 @@ struct ItemListView: View {
         
     var body: some View {
         List(selection: $selections) {
-            ForEach(headerPeriods) { period in
-                ActiveProjectView(period: period)
-                    .shadow(radius: 3)
-                    .padding(.bottom, 10)
-                    .padding(.top, 10)
-                    .listRowInsets(.init())
-                    .listRowSeparator(.hidden)
+            ZStack {
+                ActiveProjectView(period: lastStopped.first!)
+                    .disabled(true)
+                    .hidden()
+                ScrollView {
+                    HStack {
+                        ForEach(headerPeriods) { period in
+                            ActiveProjectView(period: period)
+                        }
+                    }
+                }
             }
             Section {
                 ForEach(items) {item in
