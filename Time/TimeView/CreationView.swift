@@ -16,6 +16,7 @@ struct CreationView: View {
     
     @State private var project: ProjectItem
     @State private var color: Color
+    @State private var detailExpanded: Bool = false
     
     var onCancel: VoidFunction? = nil
     var onCreate: VoidFunction? = nil
@@ -45,12 +46,22 @@ struct CreationView: View {
     
     var body: some View {
         Form {
-            TextField("Name:", text: $project.name)
-            HStack {
-                ColorPicker("Color:", selection: $color, supportsOpacity: false)
-                Text("\(project.r), \(project.g), \(project.b)")
+            ScrollView {
+                TextField("Name:", text: $project.name)
+                HStack {
+                    ColorPicker("Color:", selection: $color, supportsOpacity: false)
+                    Text("\(project.r), \(project.g), \(project.b)")
+                }
+                TextField("Notes:", text: #nullable(project.notes))
+                DisclosureGroup("Detail", isExpanded: $detailExpanded) {
+                    VStack(alignment: .leading) {
+                        Text("Created at: \(project.creationTime)")
+                        Text("ID: \(project.id)")
+                        Text("Parent ID: \(String(describing: project.parent?.id))")
+                    }
+                }
             }
-            TextField("Notes:", text: #nullable(project.notes))
+            .scrollIndicators(.hidden)
             HStack {
                 Spacer()
                 Button("Cancel") {

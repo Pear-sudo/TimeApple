@@ -30,4 +30,12 @@ class ProjectItem: Identifiable {
     var color: Color {
         return Color(.displayP3, red: Double(r), green: Double(g), blue: Double(b))
     }
+    
+    static func descriptorById(ids: Set<ProjectItem.ID>) -> FetchDescriptor<ProjectItem> {
+        return .init(
+            predicate: #Predicate {
+                ids.contains($0.id)
+            }
+        )
+    }
 }

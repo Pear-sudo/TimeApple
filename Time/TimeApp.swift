@@ -13,6 +13,7 @@ struct TimeApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             ProjectItem.self,
+            PeriodRecord.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

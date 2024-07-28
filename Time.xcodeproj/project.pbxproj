@@ -19,7 +19,10 @@
 		00132E882C4B957400BB7997 /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E872C4B957400BB7997 /* CreationView.swift */; };
 		00132E952C4B9CDE00BB7997 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00132E942C4B9CDE00BB7997 /* GeneralMacro */; };
 		00132E972C4B9DA400BB7997 /* GeneralMacroClient in Frameworks */ = {isa = PBXBuildFile; productRef = 00132E962C4B9DA400BB7997 /* GeneralMacroClient */; };
+		00D385522C5606380091135F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D385512C5606380091135F /* MainView.swift */; };
+		00D385542C56066D0091135F /* ActiveProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D385532C56066D0091135F /* ActiveProjectView.swift */; };
 		00E15AAD2C4D23E20019FEE0 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E15AAC2C4D23E20019FEE0 /* Util.swift */; };
+		00E15AB52C514B010019FEE0 /* PeriodRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E15AB42C514B010019FEE0 /* PeriodRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +57,10 @@
 		00132E7A2C46128200BB7997 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectItem.swift; path = Time/TimeView/Models/ProjectItem.swift; sourceTree = SOURCE_ROOT; };
 		00132E802C47B01700BB7997 /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
 		00132E872C4B957400BB7997 /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
+		00D385512C5606380091135F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		00D385532C56066D0091135F /* ActiveProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveProjectView.swift; sourceTree = "<group>"; };
 		00E15AAC2C4D23E20019FEE0 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		00E15AB42C514B010019FEE0 /* PeriodRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRecord.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +156,8 @@
 				00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */,
 				00132E802C47B01700BB7997 /* ItemListView.swift */,
 				00132E872C4B957400BB7997 /* CreationView.swift */,
+				00D385512C5606380091135F /* MainView.swift */,
+				00D385532C56066D0091135F /* ActiveProjectView.swift */,
 			);
 			path = TimeView;
 			sourceTree = "<group>";
@@ -158,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				00132E7A2C46128200BB7997 /* ProjectItem.swift */,
+				00E15AB42C514B010019FEE0 /* PeriodRecord.swift */,
 			);
 			name = Models;
 			path = TimeView/Models;
@@ -318,9 +327,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				00132E812C47B01700BB7997 /* ItemListView.swift in Sources */,
+				00D385522C5606380091135F /* MainView.swift in Sources */,
+				00D385542C56066D0091135F /* ActiveProjectView.swift in Sources */,
 				00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */,
 				00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */,
 				00E15AAD2C4D23E20019FEE0 /* Util.swift in Sources */,
+				00E15AB52C514B010019FEE0 /* PeriodRecord.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
 				00132E882C4B957400BB7997 /* CreationView.swift in Sources */,
 			);

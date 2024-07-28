@@ -42,8 +42,8 @@ struct ProjectItemView: View {
         }
         #endif
         .padding()
+        .frame(maxWidth: .infinity)
         .background(item.color)
-        .clipShape(RoundedRectangle(cornerRadius: 25.0))
     }
     
     private func hideDetails() {
