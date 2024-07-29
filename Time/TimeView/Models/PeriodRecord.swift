@@ -14,7 +14,7 @@ class PeriodRecord {
     private(set) var id: UUID = UUID()
     private(set) var creationTime: Date = Date()
     
-    var beginTime: Date?
+    var startTime: Date?
     var endTime: Date?
     
     var project: ProjectItem
@@ -25,17 +25,17 @@ class PeriodRecord {
     
     static let descriptorRunning = FetchDescriptor<PeriodRecord>(
         predicate: #Predicate { record in
-            record.beginTime != nil && record.endTime == nil
+            record.startTime != nil && record.endTime == nil
         },
         sortBy: [
-            .init(\.beginTime, order: .forward)
+            .init(\.startTime, order: .forward)
         ]
     )
     
     static let descriptorLastStopped: FetchDescriptor<PeriodRecord> = {
         var descriptor = FetchDescriptor<PeriodRecord> (
             predicate: #Predicate { record in
-                record.beginTime != nil && record.endTime != nil
+                record.startTime != nil && record.endTime != nil
             },
             sortBy: [
                 .init(\.endTime, order: .reverse)
@@ -46,7 +46,7 @@ class PeriodRecord {
     }()
     
     func start() {
-        self.beginTime = Date()
+        self.startTime = Date()
     }
     
     func end() {
@@ -54,15 +54,15 @@ class PeriodRecord {
     }
     
     var isPending: Bool {
-        self.beginTime == nil && self.endTime == nil
+        self.startTime == nil && self.endTime == nil
     }
     
     var isRunning: Bool {
-        self.beginTime != nil && self.endTime == nil
+        self.startTime != nil && self.endTime == nil
     }
     
     var isStopped: Bool {
-        self.beginTime != nil && self.endTime != nil
+        self.startTime != nil && self.endTime != nil
     }
     
     var status: Status {

@@ -32,3 +32,16 @@ class DelayedExecutor {
         timer = nil
     }
 }
+
+func RadixTransform<T: BinaryInteger>(source: T, radices: [T]) -> [T] {
+    var source = source
+    var result: [T] = []
+    for r in radices {
+        let remainder = source % r
+        result.append(remainder)
+        source = source / r
+    }
+    result.append(source)
+    result.reverse()
+    return result
+}

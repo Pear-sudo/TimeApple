@@ -54,6 +54,7 @@ struct CreationView: View {
                 }
                 TextField("Notes:", text: #nullable(project.notes))
                 DisclosureGroup("Detail", isExpanded: $detailExpanded) {
+                    // TODO: auto scroll to this when shown
                     VStack(alignment: .leading) {
                         Text("Created at: \(project.creationTime)")
                         Text("ID: \(project.id)")
@@ -65,6 +66,7 @@ struct CreationView: View {
             HStack {
                 Spacer()
                 Button("Cancel") {
+                    // TODO: do not save when cancel
                     onCancel?()
                 }
                 if isUpdating {

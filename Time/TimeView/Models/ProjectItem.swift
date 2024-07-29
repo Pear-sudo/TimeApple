@@ -27,6 +27,9 @@ class ProjectItem: Identifiable {
     var g: Float = Float.random(in: 0...255) / 255
     var b: Float = Float.random(in: 0...255) / 255
     
+    @Attribute(.ephemeral)
+    var isPopoverShown = false
+    
     var color: Color {
         return Color(.displayP3, red: Double(r), green: Double(g), blue: Double(b))
     }

@@ -40,6 +40,19 @@ struct ProjectItemView: View {
                 isDetailShown = true
             }
         }
+        .popover(isPresented: Binding(get: {item.isPopoverShown}, set: {item.isPopoverShown = $0}), content: {
+            CreationView(item: item) {
+                item.isPopoverShown = false
+            } onUpdate: {
+                item.isPopoverShown = false
+            }
+        })
+        .onKeyPress(.space) {
+            if item.isPopoverShown {
+                item.isPopoverShown = false
+            }
+            return .handled
+        }
         #endif
         .padding()
         .frame(maxWidth: .infinity)
