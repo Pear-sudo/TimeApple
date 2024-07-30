@@ -17,8 +17,15 @@
 		00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E7A2C46128200BB7997 /* ProjectItem.swift */; };
 		00132E812C47B01700BB7997 /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E802C47B01700BB7997 /* ItemListView.swift */; };
 		00132E882C4B957400BB7997 /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E872C4B957400BB7997 /* CreationView.swift */; };
-		00132E952C4B9CDE00BB7997 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00132E942C4B9CDE00BB7997 /* GeneralMacro */; };
-		00132E972C4B9DA400BB7997 /* GeneralMacroClient in Frameworks */ = {isa = PBXBuildFile; productRef = 00132E962C4B9DA400BB7997 /* GeneralMacroClient */; };
+		00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1ED2C57DE690026CE81 /* GeneralMacro */; };
+		00B1A1F02C57DE690026CE81 /* GeneralMacroClient in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1EF2C57DE690026CE81 /* GeneralMacroClient */; };
+		00B1A1F42C57E1530026CE81 /* BitCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1F32C57E1530026CE81 /* BitCollections */; };
+		00B1A1F62C57E1530026CE81 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1F52C57E1530026CE81 /* Collections */; };
+		00B1A1F82C57E1530026CE81 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1F72C57E1530026CE81 /* DequeModule */; };
+		00B1A1FA2C57E1530026CE81 /* HashTreeCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1F92C57E1530026CE81 /* HashTreeCollections */; };
+		00B1A1FC2C57E1530026CE81 /* HeapModule in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1FB2C57E1530026CE81 /* HeapModule */; };
+		00B1A1FE2C57E1530026CE81 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1FD2C57E1530026CE81 /* OrderedCollections */; };
+		00B1A2002C57E1530026CE81 /* _RopeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1FF2C57E1530026CE81 /* _RopeModule */; };
 		00D385522C5606380091135F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D385512C5606380091135F /* MainView.swift */; };
 		00D385542C56066D0091135F /* ActiveProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D385532C56066D0091135F /* ActiveProjectView.swift */; };
 		00E15AAD2C4D23E20019FEE0 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E15AAC2C4D23E20019FEE0 /* Util.swift */; };
@@ -57,6 +64,7 @@
 		00132E7A2C46128200BB7997 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectItem.swift; path = Time/TimeView/Models/ProjectItem.swift; sourceTree = SOURCE_ROOT; };
 		00132E802C47B01700BB7997 /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
 		00132E872C4B957400BB7997 /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
+		00B1A1F12C57E0610026CE81 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		00D385512C5606380091135F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		00D385532C56066D0091135F /* ActiveProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveProjectView.swift; sourceTree = "<group>"; };
 		00E15AAC2C4D23E20019FEE0 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
@@ -68,8 +76,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00132E952C4B9CDE00BB7997 /* GeneralMacro in Frameworks */,
-				00132E972C4B9DA400BB7997 /* GeneralMacroClient in Frameworks */,
+				00B1A2002C57E1530026CE81 /* _RopeModule in Frameworks */,
+				00B1A1FA2C57E1530026CE81 /* HashTreeCollections in Frameworks */,
+				00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */,
+				00B1A1F02C57DE690026CE81 /* GeneralMacroClient in Frameworks */,
+				00B1A1FC2C57E1530026CE81 /* HeapModule in Frameworks */,
+				00B1A1F82C57E1530026CE81 /* DequeModule in Frameworks */,
+				00B1A1F62C57E1530026CE81 /* Collections in Frameworks */,
+				00B1A1FE2C57E1530026CE81 /* OrderedCollections in Frameworks */,
+				00B1A1F42C57E1530026CE81 /* BitCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +108,7 @@
 		00132E332C3EBFBB00BB7997 = {
 			isa = PBXGroup;
 			children = (
+				00B1A1F12C57E0610026CE81 /* Playground.playground */,
 				00132E3E2C3EBFBB00BB7997 /* Time */,
 				00132E522C3EBFBC00BB7997 /* TimeTests */,
 				00132E5C2C3EBFBC00BB7997 /* TimeUITests */,
@@ -204,8 +220,15 @@
 			);
 			name = Time;
 			packageProductDependencies = (
-				00132E942C4B9CDE00BB7997 /* GeneralMacro */,
-				00132E962C4B9DA400BB7997 /* GeneralMacroClient */,
+				00B1A1ED2C57DE690026CE81 /* GeneralMacro */,
+				00B1A1EF2C57DE690026CE81 /* GeneralMacroClient */,
+				00B1A1F32C57E1530026CE81 /* BitCollections */,
+				00B1A1F52C57E1530026CE81 /* Collections */,
+				00B1A1F72C57E1530026CE81 /* DequeModule */,
+				00B1A1F92C57E1530026CE81 /* HashTreeCollections */,
+				00B1A1FB2C57E1530026CE81 /* HeapModule */,
+				00B1A1FD2C57E1530026CE81 /* OrderedCollections */,
+				00B1A1FF2C57E1530026CE81 /* _RopeModule */,
 			);
 			productName = Time;
 			productReference = 00132E3C2C3EBFBB00BB7997 /* Time.app */;
@@ -283,6 +306,8 @@
 			mainGroup = 00132E332C3EBFBB00BB7997;
 			packageReferences = (
 				00132E8F2C4B9C6A00BB7997 /* XCLocalSwiftPackageReference "../GeneralMacro" */,
+				00D385562C57D1BF0091135F /* XCRemoteSwiftPackageReference "not-just-another-init-macro" */,
+				00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 00132E3D2C3EBFBB00BB7997 /* Products */;
 			projectDirPath = "";
@@ -498,6 +523,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Time;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -536,6 +563,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Time;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -699,16 +728,70 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.2;
+			};
+		};
+		00D385562C57D1BF0091135F /* XCRemoteSwiftPackageReference "not-just-another-init-macro" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TheInkedEngineer/not-just-another-init-macro";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		00132E942C4B9CDE00BB7997 /* GeneralMacro */ = {
+		00B1A1ED2C57DE690026CE81 /* GeneralMacro */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 00132E8F2C4B9C6A00BB7997 /* XCLocalSwiftPackageReference "../GeneralMacro" */;
 			productName = GeneralMacro;
 		};
-		00132E962C4B9DA400BB7997 /* GeneralMacroClient */ = {
+		00B1A1EF2C57DE690026CE81 /* GeneralMacroClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 00132E8F2C4B9C6A00BB7997 /* XCLocalSwiftPackageReference "../GeneralMacro" */;
 			productName = GeneralMacroClient;
+		};
+		00B1A1F32C57E1530026CE81 /* BitCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = BitCollections;
+		};
+		00B1A1F52C57E1530026CE81 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		00B1A1F72C57E1530026CE81 /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		00B1A1F92C57E1530026CE81 /* HashTreeCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = HashTreeCollections;
+		};
+		00B1A1FB2C57E1530026CE81 /* HeapModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = HeapModule;
+		};
+		00B1A1FD2C57E1530026CE81 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		00B1A1FF2C57E1530026CE81 /* _RopeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = _RopeModule;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

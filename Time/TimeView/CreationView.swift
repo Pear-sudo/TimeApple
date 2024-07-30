@@ -7,12 +7,15 @@
 
 import SwiftUI
 import GeneralMacro
+import SwiftData
 
 struct CreationView: View {
     typealias VoidFunction = () -> Void
     
     @Environment(\.self) var environment
     @Environment(\.modelContext) var context
+    
+    @Query private var items: [ProjectItem]
     
     @State private var project: ProjectItem
     @State private var color: Color
@@ -51,6 +54,12 @@ struct CreationView: View {
                 HStack {
                     ColorPicker("Color:", selection: $color, supportsOpacity: false)
                     Text("\(project.r), \(project.g), \(project.b)")
+                }
+                Picker("Parent", selection: $project.parent) {
+                    Text("").tag(nil as ProjectItem?)
+                    ForEach(items) { item in
+                        Text(item.name).tag(item as ProjectItem?)
+                    }
                 }
                 TextField("Notes:", text: #nullable(project.notes))
                 DisclosureGroup("Detail", isExpanded: $detailExpanded) {
