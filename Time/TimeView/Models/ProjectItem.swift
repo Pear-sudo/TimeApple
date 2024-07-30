@@ -18,6 +18,7 @@ class ProjectItem: Identifiable {
     
     var id = UUID()
     var creationTime = Date()
+    var accessTime = Date()
     
     var name: String
     var parent: ProjectItem?
@@ -41,4 +42,8 @@ class ProjectItem: Identifiable {
             }
         )
     }
+    
+    static let sortByAccessTime = FetchDescriptor<ProjectItem>(
+        sortBy: [.init(\.accessTime, order: .reverse)]
+    )
 }

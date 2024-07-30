@@ -10,7 +10,7 @@ import SwiftData
 
 struct ItemListView: View {
     
-    @Query var items: [ProjectItem]
+    @Query(ProjectItem.sortByAccessTime, animation: .default) var items: [ProjectItem]
     @Query(PeriodRecord.descriptorRunning, animation: .default) var runningItems: [PeriodRecord]
     @Query(PeriodRecord.descriptorLastStopped, animation: .default) var lastStopped: [PeriodRecord]
     

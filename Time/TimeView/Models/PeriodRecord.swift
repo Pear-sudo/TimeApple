@@ -46,7 +46,9 @@ class PeriodRecord {
     }()
     
     func start() {
-        self.startTime = Date()
+        let now = Date()
+        self.startTime = now
+        self.project.accessTime = now
     }
     
     func end() {

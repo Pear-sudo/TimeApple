@@ -63,7 +63,7 @@ struct ActiveProjectView: View {
             }
             .onAppear {
                 if isRunning {
-                    elapsedTimeString = "0s"
+                    elapsedTimeString = elapsedTime
                     startTimer()
                 }
             }
@@ -76,8 +76,8 @@ struct ActiveProjectView: View {
                     period.endTime = Date()
                 } else if period.isStopped {
                     let p = PeriodRecord(project: period.project)
-                    p.start()
                     context.insert(p)
+                    p.start()
                     period = p
                 }
             }
