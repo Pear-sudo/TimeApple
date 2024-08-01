@@ -15,8 +15,10 @@
 		00132E602C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E5F2C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift */; };
 		00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */; };
 		00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E7A2C46128200BB7997 /* ProjectItem.swift */; };
-		00132E812C47B01700BB7997 /* ItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E802C47B01700BB7997 /* ItemListView.swift */; };
+		00132E812C47B01700BB7997 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E802C47B01700BB7997 /* ContentView.swift */; };
 		00132E882C4B957400BB7997 /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E872C4B957400BB7997 /* CreationView.swift */; };
+		003D166C2C5B5F4900D02472 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166B2C5B5F4900D02472 /* ViewModel.swift */; };
+		003D166E2C5B739600D02472 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166D2C5B739600D02472 /* SortButton.swift */; };
 		00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1ED2C57DE690026CE81 /* GeneralMacro */; };
 		00B1A1F02C57DE690026CE81 /* GeneralMacroClient in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1EF2C57DE690026CE81 /* GeneralMacroClient */; };
 		00B1A1F42C57E1530026CE81 /* BitCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1F32C57E1530026CE81 /* BitCollections */; };
@@ -26,7 +28,6 @@
 		00B1A1FC2C57E1530026CE81 /* HeapModule in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1FB2C57E1530026CE81 /* HeapModule */; };
 		00B1A1FE2C57E1530026CE81 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1FD2C57E1530026CE81 /* OrderedCollections */; };
 		00B1A2002C57E1530026CE81 /* _RopeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1FF2C57E1530026CE81 /* _RopeModule */; };
-		00D385522C5606380091135F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D385512C5606380091135F /* MainView.swift */; };
 		00D385542C56066D0091135F /* ActiveProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D385532C56066D0091135F /* ActiveProjectView.swift */; };
 		00E15AAD2C4D23E20019FEE0 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E15AAC2C4D23E20019FEE0 /* Util.swift */; };
 		00E15AB52C514B010019FEE0 /* PeriodRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E15AB42C514B010019FEE0 /* PeriodRecord.swift */; };
@@ -62,10 +63,11 @@
 		00132E5F2C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItemView.swift; sourceTree = "<group>"; };
 		00132E7A2C46128200BB7997 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectItem.swift; path = Time/TimeView/Models/ProjectItem.swift; sourceTree = SOURCE_ROOT; };
-		00132E802C47B01700BB7997 /* ItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListView.swift; sourceTree = "<group>"; };
+		00132E802C47B01700BB7997 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		00132E872C4B957400BB7997 /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
+		003D166B2C5B5F4900D02472 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		003D166D2C5B739600D02472 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		00B1A1F12C57E0610026CE81 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		00D385512C5606380091135F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		00D385532C56066D0091135F /* ActiveProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveProjectView.swift; sourceTree = "<group>"; };
 		00E15AAC2C4D23E20019FEE0 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		00E15AB42C514B010019FEE0 /* PeriodRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRecord.swift; sourceTree = "<group>"; };
@@ -170,9 +172,8 @@
 			isa = PBXGroup;
 			children = (
 				00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */,
-				00132E802C47B01700BB7997 /* ItemListView.swift */,
+				00132E802C47B01700BB7997 /* ContentView.swift */,
 				00132E872C4B957400BB7997 /* CreationView.swift */,
-				00D385512C5606380091135F /* MainView.swift */,
 				00D385532C56066D0091135F /* ActiveProjectView.swift */,
 			);
 			path = TimeView;
@@ -183,6 +184,8 @@
 			children = (
 				00132E7A2C46128200BB7997 /* ProjectItem.swift */,
 				00E15AB42C514B010019FEE0 /* PeriodRecord.swift */,
+				003D166B2C5B5F4900D02472 /* ViewModel.swift */,
+				003D166D2C5B739600D02472 /* SortButton.swift */,
 			);
 			name = Models;
 			path = TimeView/Models;
@@ -351,8 +354,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00132E812C47B01700BB7997 /* ItemListView.swift in Sources */,
-				00D385522C5606380091135F /* MainView.swift in Sources */,
+				003D166C2C5B5F4900D02472 /* ViewModel.swift in Sources */,
+				00132E812C47B01700BB7997 /* ContentView.swift in Sources */,
+				003D166E2C5B739600D02472 /* SortButton.swift in Sources */,
 				00D385542C56066D0091135F /* ActiveProjectView.swift in Sources */,
 				00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */,
 				00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */,

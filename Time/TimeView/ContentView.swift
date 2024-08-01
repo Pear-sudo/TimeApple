@@ -8,9 +8,9 @@
 import SwiftUI
 import SwiftData
 
-struct ItemListView: View {
+struct ContentView: View {
     
-    @Query(ProjectItem.sortByAccessTime, animation: .default) var items: [ProjectItem]
+    @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var items: [ProjectItem]
     @Query(PeriodRecord.descriptorRunning, animation: .default) var runningItems: [PeriodRecord]
     @Query(PeriodRecord.descriptorLastStopped, animation: .default) var lastStopped: [PeriodRecord]
     
@@ -20,6 +20,7 @@ struct ItemListView: View {
     @State var isAlertShown = false
     @State var selections = Set<ProjectItem.ID>()
     @State private var searchText: String = ""
+    @State private var sortOrder = SortDescriptor(\ProjectItem.accessTime, order: .reverse)
     
     #if os(macOS)
     #endif
@@ -71,6 +72,7 @@ struct ItemListView: View {
                 Text("\(selections.count) selected")
             }
             Button("Add", systemImage: "plus", action: addItem)
+            SortButton()
         }
         .sheet(isPresented: $isCreationViewPresent) {
             CreationView {
@@ -95,6 +97,7 @@ struct ItemListView: View {
             }
         }
         .searchable(text: $searchText) // TODO: implement advanced search
+        .onChange(of: sortOrder, handleSortOrderChange)
     }
     
     var headerPeriods: [PeriodRecord] {
@@ -108,6 +111,10 @@ struct ItemListView: View {
         var color = headerPeriods.first?.project.color ?? Color.accentColor
         color = color.opacity(0.2)
         return color
+    }
+    
+    private func handleSortOrderChange() {
+//        self._items = Query(sort: sortOrder, animation: .default)
     }
     
     private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {
@@ -167,6 +174,7 @@ let items = [
 ]
 
 #Preview {
-    ItemListView()
+    ContentView()
         .modelContainer(for: [ProjectItem.self, PeriodRecord.self])
+        .environment(ViewModel())
 }

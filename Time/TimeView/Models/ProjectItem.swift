@@ -47,3 +47,11 @@ class ProjectItem: Identifiable {
         sortBy: [.init(\.accessTime, order: .reverse)]
     )
 }
+
+enum SortParameter: String, CaseIterable, Identifiable {
+    case recentness, name
+    var id: Self { self }
+    var name: String {
+        rawValue.capitalized
+    }
+}

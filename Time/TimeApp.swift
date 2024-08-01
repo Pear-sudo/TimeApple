@@ -10,9 +10,12 @@ import SwiftData
 
 @main
 struct TimeApp: App {
+    @State private var viewModel = ViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ItemListView()
+            ContentView()
+                .environment(viewModel)
         }
         .modelContainer(for: [ProjectItem.self, PeriodRecord.self], isUndoEnabled: false)
     }

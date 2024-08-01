@@ -1,0 +1,42 @@
+{
+  "originHash" : "59d91ca80cbe9c6ba4440c8fdacbd2850151c2b6e3a7e59b0e59f1719c0c8c46",
+  "pins" : [
+    {
+      "identity" : "not-just-another-init-macro",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TheInkedEngineer/not-just-another-init-macro",
+      "state" : {
+        "branch" : "main",
+        "revision" : "05d624ba4fb868fc8360e0fa22bb51b65efea1df"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "3d2dc41a01f9e49d84f0a3925fb858bed64f702d",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "swift-literal-type-inference",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/p-x9/swift-literal-type-inference.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4de2706aee972bc87e1723578b75fa403fc779dd"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "64889f0c732f210a935a0ad7cda38f77f876262d",
+        "version" : "509.1.1"
+      }
+    }
+  ],
+  "version" : 3
+}
