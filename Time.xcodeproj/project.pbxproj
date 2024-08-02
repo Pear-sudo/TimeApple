@@ -19,6 +19,7 @@
 		00132E882C4B957400BB7997 /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E872C4B957400BB7997 /* CreationView.swift */; };
 		003D166C2C5B5F4900D02472 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166B2C5B5F4900D02472 /* ViewModel.swift */; };
 		003D166E2C5B739600D02472 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166D2C5B739600D02472 /* SortButton.swift */; };
+		003D16702C5B7C2500D02472 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166F2C5B7C2500D02472 /* ProjectList.swift */; };
 		00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1ED2C57DE690026CE81 /* GeneralMacro */; };
 		00B1A1F02C57DE690026CE81 /* GeneralMacroClient in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1EF2C57DE690026CE81 /* GeneralMacroClient */; };
 		00B1A1F42C57E1530026CE81 /* BitCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1F32C57E1530026CE81 /* BitCollections */; };
@@ -67,6 +68,7 @@
 		00132E872C4B957400BB7997 /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
 		003D166B2C5B5F4900D02472 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		003D166D2C5B739600D02472 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
+		003D166F2C5B7C2500D02472 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		00B1A1F12C57E0610026CE81 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		00D385532C56066D0091135F /* ActiveProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveProjectView.swift; sourceTree = "<group>"; };
 		00E15AAC2C4D23E20019FEE0 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				00132E802C47B01700BB7997 /* ContentView.swift */,
 				00132E872C4B957400BB7997 /* CreationView.swift */,
 				00D385532C56066D0091135F /* ActiveProjectView.swift */,
+				003D166F2C5B7C2500D02472 /* ProjectList.swift */,
 			);
 			path = TimeView;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 			files = (
 				003D166C2C5B5F4900D02472 /* ViewModel.swift in Sources */,
 				00132E812C47B01700BB7997 /* ContentView.swift in Sources */,
+				003D16702C5B7C2500D02472 /* ProjectList.swift in Sources */,
 				003D166E2C5B739600D02472 /* SortButton.swift in Sources */,
 				00D385542C56066D0091135F /* ActiveProjectView.swift in Sources */,
 				00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */,
