@@ -9,10 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationSplitView {
+            Text("default list")
+                .navigationSplitViewColumnWidth(min: 200, ideal: 200, max: 200)
+        } detail: {
+            DetailView()
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .modelContainer(for: [ProjectItem.self, PeriodRecord.self])
+        .environment(ViewModel())
 }

@@ -15,8 +15,10 @@
 		00132E602C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E5F2C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift */; };
 		00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */; };
 		00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E7A2C46128200BB7997 /* ProjectItem.swift */; };
-		00132E812C47B01700BB7997 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E802C47B01700BB7997 /* ContentView.swift */; };
+		00132E812C47B01700BB7997 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E802C47B01700BB7997 /* DetailView.swift */; };
 		00132E882C4B957400BB7997 /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E872C4B957400BB7997 /* CreationView.swift */; };
+		0015458F2C5E00C800CC5D6E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015458E2C5E00C800CC5D6E /* SettingsView.swift */; };
+		001545912C5E09EB00CC5D6E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001545902C5E09EB00CC5D6E /* ContentView.swift */; };
 		003D166C2C5B5F4900D02472 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166B2C5B5F4900D02472 /* ViewModel.swift */; };
 		003D166E2C5B739600D02472 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166D2C5B739600D02472 /* SortButton.swift */; };
 		003D16702C5B7C2500D02472 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166F2C5B7C2500D02472 /* ProjectList.swift */; };
@@ -64,8 +66,10 @@
 		00132E5F2C3EBFBC00BB7997 /* TimeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItemView.swift; sourceTree = "<group>"; };
 		00132E7A2C46128200BB7997 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectItem.swift; path = Time/TimeView/Models/ProjectItem.swift; sourceTree = SOURCE_ROOT; };
-		00132E802C47B01700BB7997 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		00132E802C47B01700BB7997 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		00132E872C4B957400BB7997 /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
+		0015458E2C5E00C800CC5D6E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		001545902C5E09EB00CC5D6E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		003D166B2C5B5F4900D02472 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		003D166D2C5B739600D02472 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		003D166F2C5B7C2500D02472 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
@@ -174,10 +178,12 @@
 			isa = PBXGroup;
 			children = (
 				00132E6F2C3EC04500BB7997 /* ProjectItemView.swift */,
-				00132E802C47B01700BB7997 /* ContentView.swift */,
+				00132E802C47B01700BB7997 /* DetailView.swift */,
 				00132E872C4B957400BB7997 /* CreationView.swift */,
 				00D385532C56066D0091135F /* ActiveProjectView.swift */,
 				003D166F2C5B7C2500D02472 /* ProjectList.swift */,
+				0015458E2C5E00C800CC5D6E /* SettingsView.swift */,
+				001545902C5E09EB00CC5D6E /* ContentView.swift */,
 			);
 			path = TimeView;
 			sourceTree = "<group>";
@@ -358,14 +364,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				003D166C2C5B5F4900D02472 /* ViewModel.swift in Sources */,
-				00132E812C47B01700BB7997 /* ContentView.swift in Sources */,
+				00132E812C47B01700BB7997 /* DetailView.swift in Sources */,
 				003D16702C5B7C2500D02472 /* ProjectList.swift in Sources */,
 				003D166E2C5B739600D02472 /* SortButton.swift in Sources */,
 				00D385542C56066D0091135F /* ActiveProjectView.swift in Sources */,
 				00132E702C3EC04500BB7997 /* ProjectItemView.swift in Sources */,
+				0015458F2C5E00C800CC5D6E /* SettingsView.swift in Sources */,
 				00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */,
 				00E15AAD2C4D23E20019FEE0 /* Util.swift in Sources */,
 				00E15AB52C514B010019FEE0 /* PeriodRecord.swift in Sources */,
+				001545912C5E09EB00CC5D6E /* ContentView.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
 				00132E882C4B957400BB7997 /* CreationView.swift in Sources */,
 			);

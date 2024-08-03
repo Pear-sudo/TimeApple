@@ -46,6 +46,7 @@ struct ActiveProjectView: View {
                         .resizable()
                         .frame(width: 20, height: 20)
                         .animation(.easeIn, value: isRunning)
+                        .shadow(radius: 10)
                 }
                 Circle()
                     .frame(width: 10, height: 10)

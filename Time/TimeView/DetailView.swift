@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 
+// this view cannot be the main view as the tool bar will not be shown in iOS
 struct DetailView: View {
     
     @Environment(\.modelContext) private var context
