@@ -58,6 +58,7 @@ struct ProjectItemView: View {
             item.start(context: context)
         }
 #endif
+        
     }
     
     private func hideDetails() {

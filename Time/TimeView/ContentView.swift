@@ -14,7 +14,6 @@ struct ContentView: View {
     @Environment(ViewModel.self) private var viewModel
 
     @State var selectedIds: Set<ProjectItem.ID> = .init()
-    @State private var searchText: String = ""
     @State private var sortOrder = SortDescriptor(\ProjectItem.accessTime, order: .reverse)
     @State var isCreationViewPresent = false
     @State var isAlertShown = false
@@ -23,12 +22,14 @@ struct ContentView: View {
     #endif
             
     var body: some View {
+        @Bindable var viewModel = viewModel
         // TODO: change to lazy list
         // TODO: Use navigation split view on large screen devices
         // TODO: Show Keyboard shortcut in menu
         // TODO: allow user to set custom keyboard shortcut
         ProjectList(
             selectedIds: $selectedIds,
+            searchText: viewModel.searchText,
             sortParameter: viewModel.sortParameter,
             sortOrder: viewModel.sortOrder
         )
@@ -57,7 +58,7 @@ struct ContentView: View {
         .onKeyPress(.return, action: {startSelectedProjects(); return .handled})
         .onKeyPress(.space, action: showSelectedPopover)
 #endif
-        .searchable(text: $searchText) // TODO: implement advanced search
+        .searchable(text: $viewModel.searchText) // TODO: implement advanced search
         .onChange(of: sortOrder, handleSortOrderChange)
     }
     

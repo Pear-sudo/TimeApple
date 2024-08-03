@@ -11,6 +11,7 @@ import SwiftData
 struct ProjectList: View {
     
     @Environment(\.modelContext) private var context
+    @Environment(ViewModel.self) private var viewModel
     
     @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var items: [ProjectItem]
     @Query(PeriodRecord.descriptorRunning, animation: .default) var runningItems: [PeriodRecord]
@@ -24,15 +25,18 @@ struct ProjectList: View {
     init(
         selectedIds: Binding<Set<ProjectItem.ID>>,
         
+        searchText: String = "",
+        
         sortParameter: SortParameter = .recentness,
         sortOrder: SortOrder = .reverse
     ) {
         self._selectedIds = selectedIds
+        let predicate = ProjectItem.predicate(searchText: searchText)
         switch sortParameter {
         case .recentness:
-            _items = Query(sort: \.accessTime, order: sortOrder)
+            _items = Query(filter: predicate, sort: \.accessTime, order: sortOrder, animation: .default)
         case .name:
-            _items = Query(sort: \.name, order: sortOrder)
+            _items = Query(filter: predicate, sort: \.name, order: sortOrder, animation: .default)
         }
     }
 
@@ -118,4 +122,5 @@ struct ProjectList: View {
 #Preview {
     ProjectList(selectedIds: Binding(projectedValue: .constant(Set<ProjectItem.ID>())))
         .modelContainer(for: [ProjectItem.self, PeriodRecord.self])
+        .environment(ViewModel())
 }

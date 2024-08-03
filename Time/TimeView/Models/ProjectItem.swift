@@ -41,6 +41,12 @@ class ProjectItem: Identifiable {
         period.start()
     }
     
+    static func predicate(searchText: String) -> Predicate<ProjectItem> {
+        return #Predicate<ProjectItem> { item in
+            searchText.isEmpty || item.name.localizedStandardContains(searchText)
+        }
+    }
+    
     static func descriptorById(ids: Set<ProjectItem.ID>) -> FetchDescriptor<ProjectItem> {
         return .init(
             predicate: #Predicate {

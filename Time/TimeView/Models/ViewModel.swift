@@ -11,4 +11,6 @@ import Foundation
 class ViewModel {
     var sortParameter: SortParameter = .recentness
     var sortOrder: SortOrder = .reverse
+    
+    var searchText: String = ""
 }
