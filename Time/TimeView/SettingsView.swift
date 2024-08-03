@@ -51,11 +51,12 @@ struct SettingsView: View {
             ForEach(Settings.allCases, id: \.self) { item in
                 Text("Work in progress...")
                     .tabItem {
-                        Label(item.rawValue, image: item.image)
+                        Label(item.rawValue, systemImage: item.image)
                     }
                     .tag(item)
             }
         }
+        .frame(minWidth: 375, minHeight: 150)
     }
 }
 

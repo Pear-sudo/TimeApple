@@ -10,8 +10,12 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationSplitView {
-            Text("default list")
-                .navigationSplitViewColumnWidth(min: 200, ideal: 200, max: 200)
+            Text("No groups yet")
+                .toolbar {
+                    Button("New Group", systemImage: "folder.badge.plus") {
+                        
+                    }
+                }
         } detail: {
             DetailView()
         }
