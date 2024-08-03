@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProjectItemView: View {
+    @Environment(\.modelContext) private var context
+    
     @State var item: ProjectItem
     @State private var isExpanded = false
     @State private var isDetailShown = false
@@ -40,23 +42,22 @@ struct ProjectItemView: View {
                 isDetailShown = true
             }
         }
-        .popover(isPresented: Binding(get: {item.isPopoverShown}, set: {item.isPopoverShown = $0}), content: {
+        .popover(isPresented: $item.isPopoverShown, content: {
             CreationView(item: item) {
                 item.isPopoverShown = false
             } onUpdate: {
                 item.isPopoverShown = false
             }
         })
-        .onKeyPress(.space) {
-            if item.isPopoverShown {
-                item.isPopoverShown = false
-            }
-            return .handled
-        }
         #endif
         .padding()
         .frame(maxWidth: .infinity)
         .background(item.color)
+#if os(iOS)
+        .onTapGesture {
+            item.start(context: context)
+        }
+#endif
     }
     
     private func hideDetails() {
@@ -79,4 +80,6 @@ let sport = ProjectItem(name: "Sport")
 #Preview {
     ProjectItemView(item: sport)
         .padding()
+        .environment(ViewModel())
+        .modelContainer(for: [ProjectItem.self, PeriodRecord.self], isUndoEnabled: false)
 }

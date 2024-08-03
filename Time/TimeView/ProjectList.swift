@@ -56,12 +56,17 @@ struct ProjectList: View {
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                 }
+                .listRowBackground(Color.white.opacity(0)) // note that this view is part of the surrounding list
+                .listRowSeparator(.hidden)
+                .shadow(radius: 3)
             }
             Section {
                 ForEach(items) {item in
                     ProjectItemView(item: item)
                         .listRowSeparator(.hidden)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
+                    //  listRowBackground is not same as background; it impacts the insects; and it stack on top of the background
+                        .listRowBackground(Color.white.opacity(0))
                 }
                 .shadow(radius: 3)
             }
@@ -72,6 +77,16 @@ struct ProjectList: View {
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .background(backgroundColor)
+        .animation(.easeIn, value: backgroundColor)
+        .onAppear {
+            if items.isEmpty {
+                print("Creating default items")
+                let item = ProjectItem(name: "Sample Project")
+                let item2 = ProjectItem(name: "Sample Project 2")
+                context.insert(item)
+                context.insert(item2)
+            }
+        }
     }
     
     private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {
@@ -102,4 +117,5 @@ struct ProjectList: View {
 
 #Preview {
     ProjectList(selectedIds: Binding(projectedValue: .constant(Set<ProjectItem.ID>())))
+        .modelContainer(for: [ProjectItem.self, PeriodRecord.self])
 }

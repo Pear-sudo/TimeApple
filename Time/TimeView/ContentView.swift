@@ -55,7 +55,7 @@ struct ContentView: View {
 #if os(macOS)
         .onDeleteCommand(perform: confirmDeleteSelectedItems)
         .onKeyPress(.return, action: {startSelectedProjects(); return .handled})
-        .onKeyPress(.space, action: {showSelectedPopover(); return .handled})
+        .onKeyPress(.space, action: showSelectedPopover)
 #endif
         .searchable(text: $searchText) // TODO: implement advanced search
         .onChange(of: sortOrder, handleSortOrderChange)
@@ -67,20 +67,23 @@ struct ContentView: View {
     
     func startSelectedProjects() {
         enumerateSelection { project in
-            let period = PeriodRecord(project: project)
-            context.insert(period)
-            period.start()
+            project.start(context: context)
         }
         selectedIds.removeAll()
     }
     
-    func showSelectedPopover() {
+    func showSelectedPopover() -> KeyPress.Result {
         guard selectedIds.count == 1 else {
-            return
+            return .ignored
         }
-        enumerateSelection { project in
-            project.isPopoverShown = true
+        guard let item = try? context.fetch(ProjectItem.descriptorById(ids: selectedIds)).first else {
+            return .ignored
         }
+        guard !item.isPopoverShown else {
+            return .ignored
+        }
+        item.isPopoverShown = true
+        return .handled
     }
     
     func enumerateSelection(block: (ProjectItem) -> Void) {

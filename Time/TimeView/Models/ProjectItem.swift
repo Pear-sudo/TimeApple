@@ -35,6 +35,12 @@ class ProjectItem: Identifiable {
         return Color(.displayP3, red: Double(r), green: Double(g), blue: Double(b))
     }
     
+    func start(context: ModelContext) {
+        let period = PeriodRecord(project: self)
+        context.insert(period)
+        period.start()
+    }
+    
     static func descriptorById(ids: Set<ProjectItem.ID>) -> FetchDescriptor<ProjectItem> {
         return .init(
             predicate: #Predicate {
