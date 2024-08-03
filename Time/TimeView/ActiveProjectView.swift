@@ -28,10 +28,8 @@ struct ActiveProjectView: View {
                     Text(project.name)
                         .bold()
                         .font(.title2)
-                    if let parent = project.parent {
-                        Text(parent.name)
-                            .padding(.top, 5)
-                    }
+                    Text(project.parent?.name ?? " ") // some character is necessary
+                        .padding(.top, 5)
                 }
                 .padding(.leading, 10)
                 Spacer()
