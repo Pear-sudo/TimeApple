@@ -28,7 +28,7 @@ struct TagSelector: View {
                     ForEach(Array(selectedTags.enumerated()), id: \.offset) { index, tag in
                         TagInput(index: index, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
                             .fixedSize()
-                        CompactTagView(tag: tag)
+                        CompactTagView(eventPublisher: eventPublisher, tag: tag)
                     }
                     TagInput(index: -1, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
                 }
@@ -192,19 +192,30 @@ struct TagView: View {
 }
 
 struct CompactTagView: View {
+    @ObservedObject var eventPublisher: EventPublisher
+    @State private var isSelected = false
     var tag: Tag
     var body: some View {
         Text(tag.name)
             .padding(.horizontal, 5)
-            .background(.gray)
+            .background(isSelected ? .blue : .gray)
             .clipShape(RoundedRectangle(cornerRadius: 3))
-            .onHover { hover in
-                if hover {
-                    NSCursor.arrow.push()
-                } else {
-                    NSCursor.pop()
-                }
+            .onTapGesture {
+                isSelected.toggle()
             }
+    }
+    
+    /// no longer needed, just for your reference for how to change the cursor
+    private func handleCursor(_ hover: Bool) {
+        if hover {
+            NSCursor.arrow.push()
+        } else {
+            NSCursor.pop()
+        }
+    }
+    
+    private var isDragging: Bool {
+        (ContinuousClock.now - eventPublisher.lastMouseDrag) < .milliseconds(500)
     }
 }
 
@@ -296,6 +307,7 @@ struct TagInput: View {
 
 class EventPublisher: ObservableObject {
     @Published var deletePressed: Bool = false
+    @Published var lastMouseDrag: ContinuousClock.Instant = ContinuousClock.now
 }
 
 struct KeyEventHandlingView: NSViewRepresentable {
@@ -309,6 +321,11 @@ struct KeyEventHandlingView: NSViewRepresentable {
             }
             return event
         }
+        let mouseMonitor = NSEvent.addLocalMonitorForEvents(matching: .leftMouseDragged) { event in
+            eventPublisher.lastMouseDrag = ContinuousClock.now
+            return event
+        }
+        context.coordinator.mouseMonitor = mouseMonitor
         context.coordinator.monitor = monitor
         return view
     }
@@ -319,6 +336,9 @@ struct KeyEventHandlingView: NSViewRepresentable {
         if let monitor = coordinator.monitor {
             NSEvent.removeMonitor(monitor)
         }
+        if let mouseMonitor = coordinator.mouseMonitor {
+            NSEvent.removeMonitor(mouseMonitor)
+        }
     }
     
     func makeCoordinator() -> Coordinator {
@@ -327,6 +347,7 @@ struct KeyEventHandlingView: NSViewRepresentable {
     
     class Coordinator {
         var monitor: Any?
+        var mouseMonitor: Any?
     }
 }
 
