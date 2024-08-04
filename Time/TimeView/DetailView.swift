@@ -122,6 +122,6 @@ let items = [
 
 #Preview {
     DetailView()
-        .modelContainer(for: [ProjectItem.self, PeriodRecord.self])
+        .modelContainer(for: models)
         .environment(ViewModel())
 }

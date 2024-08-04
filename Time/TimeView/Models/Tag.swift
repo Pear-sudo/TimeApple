@@ -12,7 +12,7 @@ import SwiftData
 class Tag {
     
     @Attribute(.unique)
-    private var name: String
+    private(set) var name: String
     
     let creationTime: Date = Date()
     private(set) var modificationTime: Date = Date()

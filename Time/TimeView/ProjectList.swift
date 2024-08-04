@@ -84,7 +84,6 @@ struct ProjectList: View {
         .animation(.easeIn, value: backgroundColor)
         .onAppear {
             if items.isEmpty {
-                print("Creating default items")
                 let item = ProjectItem(name: "Sample Project")
                 let item2 = ProjectItem(name: "Sample Project 2")
                 context.insert(item)

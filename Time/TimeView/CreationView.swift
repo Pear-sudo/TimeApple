@@ -51,6 +51,8 @@ struct CreationView: View {
         Form {
             ScrollView {
                 TextField("Name:", text: $project.name)
+                TagSelector()
+                    .frame(height: 100)
                 HStack {
                     ColorPicker("Color:", selection: $color, supportsOpacity: false)
                     Text("\(project.r), \(project.g), \(project.b)")
@@ -115,4 +117,5 @@ struct CreationView: View {
 
 #Preview {
     CreationView()
+        .modelContainer(for: models, inMemory: false)
 }
