@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import Collections
+import Combine
 
 struct TagSelector: View {
     
@@ -17,6 +18,7 @@ struct TagSelector: View {
     @Bindable private var share = Share()
     
     @FocusState private var focusIndex: Int?
+    @StateObject private var eventPublisher = EventPublisher()
             
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,6 +35,28 @@ struct TagSelector: View {
             .clipShape(RoundedRectangle(cornerRadius: 5))
             TagList(tagText: tagText, commands: $share.commands, selectedTags: $share.selectedTags)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
+        }
+        .background(KeyEventHandlingView(eventPublisher: eventPublisher))
+        .onReceive(eventPublisher.$deletePressed) { _ in
+            guard var index = focusIndex, !share.selectedTags.isEmpty else {
+                return
+            }
+            if index == -1 {
+                index = share.selectedTags.count
+            }
+            index -= 1
+            if index < 0 || index >= share.selectedTags.count {
+                return
+            }
+            share.selectedTags.remove(at: index)
+            var newFocus = index
+            if newFocus < 0 {
+                newFocus = 0
+            }
+            if newFocus == share.selectedTags.count {
+                newFocus = -1
+            }
+            focusIndex = newFocus
         }
     }
 }
@@ -193,12 +217,6 @@ struct TagInput: View {
             .onChange(of: focusIndex) {
                 tagText = ""
             }
-            .background(alignment: .center) {
-                KeyboardObserver {
-                    handleDelete()
-                    return .handled
-                }
-            }
     }
     
     private var isFocused: Bool {
@@ -234,24 +252,6 @@ struct TagInput: View {
         return .handled
     }
     
-    @discardableResult
-    private func handleDelete() -> KeyPress.Result {
-        print("my index \(index)")
-        guard tagText.isEmpty else {
-            return .ignored
-        }
-        removeSelectedTag(index: index - 1)
-        return .handled
-    }
-        
-    private func removeSelectedTag(index: Int) {
-        guard index >= 0 && index < selectedTags.count else {
-            return
-        }
-        print(index)
-        selectedTags.remove(at: index)
-    }
-    
     private var textAlignment: TextAlignment {
         if index < 0 {
             // end
@@ -279,42 +279,39 @@ struct TagInput: View {
     }
 }
 
-struct KeyboardObserver: NSViewRepresentable {
-    var onDelete: (() -> KeyPress.Result)?
+class EventPublisher: ObservableObject {
+    @Published var deletePressed: Bool = false
+}
+
+struct KeyEventHandlingView: NSViewRepresentable {
+    @ObservedObject var eventPublisher: EventPublisher
     
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
-        context.coordinator.startMonitoring(onDelete: onDelete)
+        let monitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+            if event.keyCode == 51 { // 51 is the keyCode for delete/backspace
+                eventPublisher.deletePressed.toggle()
+            }
+            return event
+        }
+        context.coordinator.monitor = monitor
         return view
     }
     
-    func updateNSView(_ nsView: NSView, context: Context) {
-        // No need to update the view in this case
+    func updateNSView(_ nsView: NSView, context: Context) {}
+    
+    static func dismantleNSView(_ nsView: NSView, coordinator: Coordinator) {
+        if let monitor = coordinator.monitor {
+            NSEvent.removeMonitor(monitor)
+        }
     }
     
     func makeCoordinator() -> Coordinator {
         Coordinator()
     }
-
-    class Coordinator: NSObject {
-        var eventMonitor: Any?
-        
-        func startMonitoring(onDelete: (() -> KeyPress.Result)?) {
-            eventMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-                if event.keyCode == 51 { // 51 is the keyCode for delete/backspace
-                    if let result = onDelete?(), result == .handled {
-                        return nil
-                    }
-                }
-                return event
-            }
-        }
-        
-        deinit {
-            if let eventMonitor = eventMonitor {
-                NSEvent.removeMonitor(eventMonitor)
-            }
-        }
+    
+    class Coordinator {
+        var monitor: Any?
     }
 }
 

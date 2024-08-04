@@ -59,13 +59,13 @@ extension Sequence where Element == ArrayExprSyntax {</string>
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>155</string>
+					<string>179</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>154</string>
+					<string>178</string>
 					<key>Timestamp</key>
-					<string>744444623.237439</string>
+					<string>744453615.256179</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
