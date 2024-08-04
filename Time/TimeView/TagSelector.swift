@@ -15,7 +15,8 @@ struct TagSelector: View {
     @Environment(\.modelContext) private var context
         
     @State private var tagText: String = ""
-    @Bindable private var share = Share()
+    @State private var commands: Deque<KeyEquivalent> = []
+    @Binding var selectedTags: [Tag]
     
     @FocusState private var focusIndex: Int?
     @StateObject private var eventPublisher = EventPublisher()
@@ -23,37 +24,37 @@ struct TagSelector: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 0) {
-                ForEach(Array(share.selectedTags.enumerated()), id: \.offset) { index, tag in
-                    TagInput(index: index, focusIndex: $focusIndex, tagText: $tagText, commands: $share.commands, selectedTags: $share.selectedTags)
+                ForEach(Array(selectedTags.enumerated()), id: \.offset) { index, tag in
+                    TagInput(index: index, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
                         .fixedSize()
                     CompactTagView(tag: tag)
                 }
-                TagInput(index: -1, focusIndex: $focusIndex, tagText: $tagText, commands: $share.commands, selectedTags: $share.selectedTags)
+                TagInput(index: -1, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
             }
             .padding(.vertical, 3)
-            .background(.white)
+            .background(Color.white.opacity(0.5))
             .clipShape(RoundedRectangle(cornerRadius: 5))
-            TagList(tagText: tagText, commands: $share.commands, selectedTags: $share.selectedTags)
+            TagList(tagText: tagText, commands: $commands, selectedTags: $selectedTags)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
         }
         .background(KeyEventHandlingView(eventPublisher: eventPublisher))
         .onReceive(eventPublisher.$deletePressed) { _ in
-            guard var index = focusIndex, !share.selectedTags.isEmpty else {
+            guard var index = focusIndex, !selectedTags.isEmpty else {
                 return
             }
             if index == -1 {
-                index = share.selectedTags.count
+                index = selectedTags.count
             }
             index -= 1
-            if index < 0 || index >= share.selectedTags.count {
+            if index < 0 || index >= selectedTags.count {
                 return
             }
-            share.selectedTags.remove(at: index)
+            selectedTags.remove(at: index)
             var newFocus = index
             if newFocus < 0 {
                 newFocus = 0
             }
-            if newFocus == share.selectedTags.count {
+            if newFocus == selectedTags.count {
                 newFocus = -1
             }
             focusIndex = newFocus
@@ -86,7 +87,7 @@ struct TagList: View {
     }
     
     var body: some View {
-        ScrollViewReader { reader in
+        ScrollViewReader { proxy in
             List(selection: $selectedId) {
                 if !tagText.isEmpty && tags.isEmpty {
                     Text("Create new tag \"\(tagText)\"")
@@ -127,22 +128,28 @@ struct TagList: View {
                         return
                     }
                 case .downArrow, .upArrow:
-                    let visibleTags = visibleTags
                     position = command == .downArrow ? position + 1 : position - 1
-                    if position >= visibleTags.count {
-                        position = visibleTags.count - 1
-                    }
-                    if position < 0 {
-                        position = 0
-                    }
-                    let selected = visibleTags[position]
-                    selectedId = [selected.name]
-                    reader.scrollTo(selected.name)
+                    syncPositionToSelection(proxy: proxy)
                     return
                 default:
                     return
                 }
             }
+        }
+    }
+    
+    private func syncPositionToSelection(proxy: ScrollViewProxy? = nil) {
+        let visibleTags = visibleTags
+        if position >= visibleTags.count {
+            position = visibleTags.count - 1
+        }
+        if position < 0 {
+            position = 0
+        }
+        let selected = visibleTags[position]
+        selectedId = [selected.name]
+        if let reader = proxy {
+            reader.scrollTo(selected.name)
         }
     }
     
@@ -162,6 +169,7 @@ struct TagList: View {
             selectedTags.append(contentsOf: tags)
             selectedId.removeAll()
         }
+        position = -1
     }
     
     private func selectTag(_ tag: Tag) {
@@ -322,7 +330,8 @@ struct KeyEventHandlingView: NSViewRepresentable {
 }
 
 #Preview {
-    TagSelector()
+    @State var selectedTags: [Tag] = []
+    return TagSelector(selectedTags: $selectedTags)
         .padding()
         .modelContainer(for: models, inMemory: false)
 }

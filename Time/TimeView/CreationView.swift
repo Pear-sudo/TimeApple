@@ -51,7 +51,7 @@ struct CreationView: View {
         Form {
             ScrollView {
                 TextField("Name:", text: $project.name)
-                TagSelector()
+                TagSelector(selectedTags: $project.tags)
                     .frame(height: 100)
                 HStack {
                     ColorPicker("Color:", selection: $color, supportsOpacity: false)

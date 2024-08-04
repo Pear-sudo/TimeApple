@@ -23,6 +23,7 @@ class ProjectItem: Identifiable {
     var name: String
     var parent: ProjectItem?
     var notes: String?
+    var tags: [Tag] = []
     
     var r: Float = Float.random(in: 0...255) / 255
     var g: Float = Float.random(in: 0...255) / 255
