@@ -156,11 +156,12 @@ struct TagList: View {
     }
     
     private func selectSelectedTag() {
-        try? context.enumerate(FetchDescriptor(predicate: #Predicate<Tag> {selectedId.contains($0.name)})) { tag in
-            selectTag(tag)
+        let predicate = #Predicate<Tag> {selectedId.contains($0.name)}
+        let descriptor = FetchDescriptor(predicate: predicate)
+        if let tags = try? context.fetch(descriptor) {
+            selectedTags.append(contentsOf: tags)
+            selectedId.removeAll()
         }
-        selectedId.removeAll()
-        return
     }
     
     private func selectTag(_ tag: Tag) {
