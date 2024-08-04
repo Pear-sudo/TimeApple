@@ -48,7 +48,7 @@ struct CreationView: View {
     }
     
     var body: some View {
-        Form {
+        VStack { // do not use form for complicated UI
             ScrollView {
                 TextField("Name:", text: $project.name)
                 TagSelector(selectedTags: $project.tags)

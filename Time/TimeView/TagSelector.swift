@@ -23,14 +23,17 @@ struct TagSelector: View {
             
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(spacing: 0) {
-                ForEach(Array(selectedTags.enumerated()), id: \.offset) { index, tag in
-                    TagInput(index: index, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
-                        .fixedSize()
-                    CompactTagView(tag: tag)
+            ScrollView([.horizontal]) {
+                HStack(spacing: 0) {
+                    ForEach(Array(selectedTags.enumerated()), id: \.offset) { index, tag in
+                        TagInput(index: index, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
+                            .fixedSize()
+                        CompactTagView(tag: tag)
+                    }
+                    TagInput(index: -1, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
                 }
-                TagInput(index: -1, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
             }
+            .scrollIndicators(.never, axes: [.horizontal])
             .padding(.vertical, 3)
             .background(Color.white.opacity(0.5))
             .clipShape(RoundedRectangle(cornerRadius: 5))
@@ -39,26 +42,29 @@ struct TagSelector: View {
         }
         .background(KeyEventHandlingView(eventPublisher: eventPublisher))
         .onReceive(eventPublisher.$deletePressed) { _ in
-            guard var index = focusIndex, !selectedTags.isEmpty else {
-                return
-            }
-            if index == -1 {
-                index = selectedTags.count
-            }
-            index -= 1
-            if index < 0 || index >= selectedTags.count {
-                return
-            }
-            selectedTags.remove(at: index)
-            var newFocus = index
-            if newFocus < 0 {
-                newFocus = 0
-            }
-            if newFocus == selectedTags.count {
-                newFocus = -1
-            }
-            focusIndex = newFocus
+            handleDelete()
         }
+    }
+    private func handleDelete() {
+        guard var index = focusIndex, !selectedTags.isEmpty && tagText.isEmpty else {
+            return
+        }
+        if index == -1 {
+            index = selectedTags.count
+        }
+        index -= 1
+        if index < 0 || index >= selectedTags.count {
+            return
+        }
+        selectedTags.remove(at: index)
+        var newFocus = index
+        if newFocus < 0 {
+            newFocus = 0
+        }
+        if newFocus == selectedTags.count {
+            newFocus = -1
+        }
+        focusIndex = newFocus
     }
 }
 
@@ -324,14 +330,15 @@ struct KeyEventHandlingView: NSViewRepresentable {
     }
 }
 
-@Observable class Share {
-    var commands: Deque<KeyEquivalent> = []
-    var selectedTags: [Tag] = []
-}
-
 #Preview {
-    @State var selectedTags: [Tag] = []
-    return TagSelector(selectedTags: $selectedTags)
-        .padding()
-        .modelContainer(for: models, inMemory: false)
+    struct PreviewWrapper: View {
+        @State var selectedTags: [Tag] = []
+        
+        var body: some View {
+            TagSelector(selectedTags: $selectedTags)
+                .padding()
+                .modelContainer(for: models, inMemory: false)
+        }
+    }
+    return PreviewWrapper()
 }
