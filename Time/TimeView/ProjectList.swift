@@ -42,6 +42,7 @@ struct ProjectList: View {
 
     var body: some View {
         List(selection: $selectedIds) {
+            Overview()
             if !headerPeriods.isEmpty {
                 ZStack {
                     ActiveProjectView(period: headerPeriods.first!)

@@ -10,22 +10,22 @@ import SwiftData
 
 let models: [any PersistentModel.Type] = [ProjectItem.self, PeriodRecord.self, Tag.self]
 
+/// a same model container must be shared between multiple window groups if you want the data to be synced
+var sharedModelContainer: ModelContainer = {
+    let schema = Schema(models)
+    let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+    do {
+        return try ModelContainer(for: schema, configurations: [modelConfiguration])
+    } catch {
+        fatalError("Could not create ModelContainer: \(error)")
+    }
+}()
+
 @main
 struct TimeApp: App {
     @State private var viewModel = ViewModel()
     
-    /// a same model container must be shared between multiple window groups if you want the data to be synced
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema(models)
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-        
     var body: some Scene {
 #if os(iOS)
         WindowGroup {
@@ -54,4 +54,14 @@ struct TimeApp: App {
 
 enum WindowId: String {
     case projectEditor
+}
+
+extension ModelContext {
+    var sqliteCommand: String {
+        if let url = container.configurations.first?.url.path(percentEncoded: false) {
+            "sqlite3 \"\(url)\""
+        } else {
+            "No SQLite database found."
+        }
+    }
 }

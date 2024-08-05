@@ -62,7 +62,7 @@ struct ActiveProjectView: View {
             }
             .onAppear {
                 if isRunning {
-                    elapsedTimeString = elapsedTime
+                    elapsedTimeString = period.elapsedTime
                     startTimer()
                 }
             }
@@ -106,7 +106,7 @@ struct ActiveProjectView: View {
         timerSubscription = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .sink { time in
-                elapsedTimeString = elapsedTime
+                elapsedTimeString = period.elapsedTime
                 animationTrigger.toggle()
             }
     }
@@ -124,27 +124,6 @@ struct ActiveProjectView: View {
     
     private var isRunning: Bool {
         period.isRunning
-    }
-    
-    private var elapsedTime: String {
-        guard var interval = period.startTime?.timeIntervalSinceNow else {
-            return ""
-        }
-        interval = abs(interval)
-        let results = RadixTransform(source: Int(interval), radices: [60, 60, 24])
-        let components = [
-            (results[0], "d"),
-            (results[1], "h"),
-            (results[2], "m"),
-            (results[3], "s")
-        ]
-        
-        if let firstNonZeroIndex = components.firstIndex(where: { $0.0 != 0 }) {
-            let nonZeroComponents = components[firstNonZeroIndex...]
-            return nonZeroComponents.map { "\($0.0)\($0.1)" }.joined()
-        }
-
-        return "0s"
     }
 }
 
