@@ -11,10 +11,13 @@ import SwiftData
 
 struct Overview: View {
     
+    @Environment(ViewModel.self) private var viewModel
+    
     @Query(Overview.getFetchDescriptor(predicate: PeriodRecord.predicateDailyApproximation)) private var dailyPeriods: [PeriodRecord]
     @Query(Overview.getFetchDescriptor(predicate: PeriodRecord.predicateWeeklyApproximation)) private var weeklyPeriods: [PeriodRecord]
     
     let calendar = Calendar.autoupdatingCurrent
+    private let viewID = UUID()
     
     var body: some View {
         HStack {
@@ -27,6 +30,15 @@ struct Overview: View {
                 Text(weekTotalSeconds.timeIntervalString)
             }
         }
+//        .onAppear {
+//            viewModel.subscribe(id: viewID) {
+//                // Your custom action here
+//                print("Timer fired in ContentView")
+//            }
+//        }
+//        .onDisappear {
+//            viewModel.unsubscribe(id: viewID)
+//        }
     }
     
     private var todayTotalSeconds: Double {
@@ -77,4 +89,5 @@ struct Overview: View {
 #Preview {
     Overview()
         .modelContainer(sharedModelContainer)
+        .environment(ViewModel())
 }

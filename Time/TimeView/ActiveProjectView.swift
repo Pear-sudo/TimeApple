@@ -11,12 +11,13 @@ import Combine
 
 struct ActiveProjectView: View {
     @Environment(\.modelContext) var context
+    @Environment(ViewModel.self) private var viewModel
+    
     @State var period: PeriodRecord
     @State var elapsedTimeString = "0s"
     
     @State var animationTrigger = false
-    @State private var timerSubscription: AnyCancellable?
-    
+        
     init(period: PeriodRecord) {
         self.period = period
     }
@@ -36,24 +37,24 @@ struct ActiveProjectView: View {
                 VStack(alignment: .trailing, spacing: 0) {
                     Text(elapsedTimeString)
                         .font(.callout.monospaced())
-                        .opacity(isRunning ? 1 : 0)
+                        .opacity(period.isRunning ? 1 : 0)
                         .padding(.bottom, 5)
-                        .animation(.easeIn, value: isRunning)
+                        .animation(.easeIn, value: period.isRunning)
                         .animation(.bouncy, value: elapsedTimeString)
-                    Image(systemName: isRunning ? "pause.circle.fill" : "play.circle.fill")
+                    Image(systemName: period.isRunning ? "pause.circle.fill" : "play.circle.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
-                        .animation(.easeIn, value: isRunning)
+                        .animation(.easeIn, value: period.isRunning)
                         .shadow(radius: 10)
                 }
                 Circle()
                     .frame(width: 10, height: 10)
                     .padding(.trailing, 5)
                     .opacity(animationTrigger ? 1 : 0)
-                    .animation(isRunning ? .linear(duration: 1) : .easeIn, value: animationTrigger)
+                    .animation(period.isRunning ? .linear(duration: 1) : .easeIn, value: animationTrigger)
             }
-            .onChange(of: isRunning) {
-                if isRunning {
+            .onChange(of: period.isRunning) {
+                if period.isRunning {
                     elapsedTimeString = "0s" // I intentionally reset the value here; if you reset in stopTimer, the user will see it when it is disappearing
                     startTimer()
                 } else {
@@ -61,7 +62,7 @@ struct ActiveProjectView: View {
                 }
             }
             .onAppear {
-                if isRunning {
+                if period.isRunning {
                     elapsedTimeString = period.elapsedTime
                     startTimer()
                 }
@@ -102,18 +103,17 @@ struct ActiveProjectView: View {
     }
     
     private func startTimer() {
-        stopTimer()
-        timerSubscription = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .sink { time in
-                elapsedTimeString = period.elapsedTime
-                animationTrigger.toggle()
-            }
+//        print("Start: \(Thread.current)")
+        viewModel.subscribe(id: viewID) {
+//            print("...: \(Thread.current)")
+            elapsedTimeString = period.elapsedTime
+            animationTrigger.toggle()
+        }
     }
     
     private func stopTimer() {
-        timerSubscription?.cancel()
-        timerSubscription = nil
+//        print("Stop: \(Thread.current)")
+        viewModel.unsubscribe(id: viewID)
         
         animationTrigger = false
     }
@@ -122,8 +122,8 @@ struct ActiveProjectView: View {
         period.project
     }
     
-    private var isRunning: Bool {
-        period.isRunning
+    private var viewID: UUID {
+        period.id
     }
 }
 
@@ -134,6 +134,7 @@ struct ActiveProjectView_Previews: PreviewProvider {
                 for: [ProjectItem.self, PeriodRecord.self],
                 inMemory: true
             )
+            .environment(ViewModel())
             .padding()
     }
     struct PreviewWrapper: View {
