@@ -17,11 +17,8 @@ struct ProjectList: View {
     @Query(PeriodRecord.descriptorRunning, animation: .default) var runningItems: [PeriodRecord]
     @Query(PeriodRecord.descriptorLastStopped, animation: .default) var lastStopped: [PeriodRecord]
 
-    
     @Binding var selectedIds: Set<ProjectItem.ID>
-    
-    private let horizontalSpacing: CGFloat = 8
-    
+        
     init(
         selectedIds: Binding<Set<ProjectItem.ID>>,
         
@@ -44,26 +41,7 @@ struct ProjectList: View {
         List(selection: $selectedIds) {
             Overview()
             if !headerPeriods.isEmpty {
-                ZStack {
-                    ActiveProjectView(period: headerPeriods.first!, isDummy: true)
-                        .disabled(true)
-                        .hidden()
-                    GeometryReader { geometry in
-                        ScrollView([.horizontal]) {
-                            HStack(spacing: horizontalSpacing) {
-                                ForEach(headerPeriods) { period in
-                                    ActiveProjectView(period: period)
-                                        .frame(minWidth: calculateActiveProjectViewWidth(geometry.size.width))
-                                }
-                            }
-                        }
-                        .scrollIndicators(.never, axes: [.horizontal, .vertical]) // do not use hidden; it will show white space on macos, and that's the indicator
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                    }
-                }
-                .listRowBackground(Color.white.opacity(0)) // note that this view is part of the surrounding list
-                .listRowSeparator(.hidden)
-                .shadow(radius: 3)
+                ActiveProjectsHeader(headerPeriods: headerPeriods)
             }
             Section {
                 ForEach(items) {item in
@@ -101,17 +79,6 @@ struct ProjectList: View {
         viewModel.runningProjectCount = runningItems.count
     }
     
-    private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {
-        
-        let minWidth: CGFloat = 100
-        let numberOfPeriods = CGFloat(headerPeriods.count)
-        let availableWidth = width - (numberOfPeriods - 1) * horizontalSpacing
-        let calculatedWidth = availableWidth / numberOfPeriods
-        
-        return max(minWidth, calculatedWidth)
-    }
-    
-
     
     var headerPeriods: [PeriodRecord] {
         if runningItems.isEmpty {
@@ -131,4 +98,44 @@ struct ProjectList: View {
     ProjectList(selectedIds: Binding(projectedValue: .constant(Set<ProjectItem.ID>())))
         .modelContainer(for: [ProjectItem.self, PeriodRecord.self])
         .environment(ViewModel())
+}
+
+struct ActiveProjectsHeader: View {
+    
+    var headerPeriods: [PeriodRecord]
+    
+    private let horizontalSpacing: CGFloat = 8
+    
+    var body: some View {
+        ZStack {
+            ActiveProjectView(period: headerPeriods.first!, isDummy: true)
+                .disabled(true)
+                .hidden()
+            GeometryReader { geometry in
+                ScrollView([.horizontal]) {
+                    HStack(spacing: horizontalSpacing) {
+                        ForEach(headerPeriods) { period in
+                            ActiveProjectView(period: period)
+                                .frame(minWidth: calculateActiveProjectViewWidth(geometry.size.width))
+                        }
+                    }
+                }
+                .scrollIndicators(.never, axes: [.horizontal, .vertical]) // do not use hidden; it will show white space on macos, and that's the indicator
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+            }
+        }
+        .listRowBackground(Color.white.opacity(0)) // note that this view is part of the surrounding list
+        .listRowSeparator(.hidden)
+        .shadow(radius: 3)
+    }
+    
+    private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {
+        
+        let minWidth: CGFloat = 100
+        let numberOfPeriods = CGFloat(headerPeriods.count)
+        let availableWidth = width - (numberOfPeriods - 1) * horizontalSpacing
+        let calculatedWidth = availableWidth / numberOfPeriods
+        
+        return max(minWidth, calculatedWidth)
+    }
 }
