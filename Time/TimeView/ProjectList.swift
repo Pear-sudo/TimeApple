@@ -57,7 +57,7 @@ struct ProjectList: View {
                                 }
                             }
                         }
-                        .scrollIndicators(.hidden)
+                        .scrollIndicators(.never, axes: [.horizontal, .vertical]) // do not use hidden; it will show white space on macos, and that's the indicator
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                 }
@@ -84,6 +84,7 @@ struct ProjectList: View {
         .background(backgroundColor)
         .animation(.easeIn, value: backgroundColor)
         .onAppear {
+            updateRunningItemsCount()
             if items.isEmpty {
                 let item = ProjectItem(name: "Sample Project")
                 let item2 = ProjectItem(name: "Sample Project 2")
@@ -92,8 +93,12 @@ struct ProjectList: View {
             }
         }
         .onChange(of: runningItems) {
-            viewModel.runningProjectCount = runningItems.count
+            updateRunningItemsCount()
         }
+    }
+    
+    private func updateRunningItemsCount() {
+        viewModel.runningProjectCount = runningItems.count
     }
     
     private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {
