@@ -17,31 +17,70 @@ struct Overview: View {
     @Query(Overview.getFetchDescriptor(predicate: PeriodRecord.predicateWeeklyApproximation)) private var weeklyPeriods: [PeriodRecord]
     
     let calendar = Calendar.autoupdatingCurrent
-    private let viewID = UUID()
+    @State private var viewID = UUID()
+    @State private var isUpdating = false
+    @State private var todayTotalSeconds: Double = 0
+    @State private var weekTotalSeconds: Double = 0
     
     var body: some View {
         HStack {
-            VStack {
+            Spacer()
+            VStack(alignment: .center) {
                 Text("Today")
                 Text(todayTotalSeconds.timeIntervalString)
+                    .font(.title)
             }
-            VStack {
+            Spacer()
+            VStack(alignment: .center) {
                 Text("This week")
                 Text(weekTotalSeconds.timeIntervalString)
+                    .font(.title)
             }
+            Spacer()
         }
-//        .onAppear {
-//            viewModel.subscribe(id: viewID) {
-//                // Your custom action here
-//                print("Timer fired in ContentView")
-//            }
-//        }
-//        .onDisappear {
-//            viewModel.unsubscribe(id: viewID)
-//        }
+        .onAppear {
+            updateSeconds()
+            checkUpdate()
+        }
+        .onDisappear {
+            endUpdate()
+        }
+        .onChange(of: viewModel.runningProjectCount) {
+            checkUpdate()
+        }
+        .onChange(of: dailyPeriods) {
+            updateSeconds()
+        }
     }
     
-    private var todayTotalSeconds: Double {
+    private func checkUpdate() {
+        if viewModel.runningProjectCount == 0 {
+            endUpdate()
+        } else {
+            if !isUpdating {
+                startUpdate()
+            }
+        }
+    }
+    
+    private func startUpdate() {
+        isUpdating = true
+        viewModel.subscribe(id: viewID) {
+            updateSeconds()
+        }
+    }
+    
+    private func endUpdate() {
+        isUpdating = false
+        viewModel.unsubscribe(id: viewID)
+    }
+    
+    private func updateSeconds() {
+        todayTotalSeconds = getTodayTotalSeconds()
+        weekTotalSeconds = getWeekTotalSeconds()
+    }
+    
+    private func getTodayTotalSeconds() -> Double {
         return dailyPeriods.reduce(0) { result, period in
             
             var end = period.endTime ?? Date.now
@@ -61,7 +100,7 @@ struct Overview: View {
         }
     }
     
-    private var weekTotalSeconds: Double {
+    private func getWeekTotalSeconds() -> Double {
         return weeklyPeriods.reduce(0) { result, period in
             var end = period.endTime ?? Date.now
             let weekEnd = calendar.dateInterval(of: .weekOfYear, for: .now)!.end

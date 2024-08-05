@@ -91,6 +91,9 @@ struct ProjectList: View {
                 context.insert(item2)
             }
         }
+        .onChange(of: runningItems) {
+            viewModel.runningProjectCount = runningItems.count
+        }
     }
     
     private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {

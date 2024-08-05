@@ -15,6 +15,10 @@ class ViewModel {
     
     var searchText: String = ""
     
+    var runningProjectCount: Int = 0
+    
+    // MARK: - Timer
+    
     private var timerSubscription: AnyCancellable?
     private var subscriberCount = 0
     
@@ -22,6 +26,7 @@ class ViewModel {
     private var timerActions: [UUID: () -> Void] = [:]
     
     private func startTimer() {
+        print("Build timer...")
         timerPublisher = Timer.publish(every: 1.0, on: .current, in: .common)
         timerSubscription = timerPublisher?
             .autoconnect()
@@ -31,6 +36,7 @@ class ViewModel {
     }
     
     private func stopTimer() {
+        print("Stop timer...")
         timerSubscription?.cancel()
         timerSubscription = nil
         timerPublisher = nil

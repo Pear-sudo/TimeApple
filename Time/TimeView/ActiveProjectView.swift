@@ -40,7 +40,7 @@ struct ActiveProjectView: View {
                         .opacity(period.isRunning ? 1 : 0)
                         .padding(.bottom, 5)
                         .animation(.easeIn, value: period.isRunning)
-                        .animation(.bouncy, value: elapsedTimeString)
+//                        .animation(.bouncy, value: elapsedTimeString)
                     Image(systemName: period.isRunning ? "pause.circle.fill" : "play.circle.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
