@@ -17,9 +17,13 @@ struct ActiveProjectView: View {
     @State var elapsedTimeString = "0s"
     
     @State var animationTrigger = false
+    @State var viewID = UUID()
+    
+    private let isDummy: Bool // if this view is hidden and for layout purpose
         
-    init(period: PeriodRecord) {
+    init(period: PeriodRecord, isDummy: Bool = false) {
         self.period = period
+        self.isDummy = isDummy
     }
     
     var body: some View {
@@ -67,6 +71,9 @@ struct ActiveProjectView: View {
                     startTimer()
                 }
             }
+            .onDisappear {
+                stopTimer()
+            }
             .padding(.vertical, 10)
             .background(period.project.color)
             .onTapGesture {
@@ -103,6 +110,9 @@ struct ActiveProjectView: View {
     }
     
     private func startTimer() {
+        guard !isDummy else {
+            return
+        }
 //        print("Start: \(Thread.current)")
         viewModel.subscribe(id: viewID) {
 //            print("...: \(Thread.current)")
@@ -112,6 +122,9 @@ struct ActiveProjectView: View {
     }
     
     private func stopTimer() {
+        guard !isDummy else {
+            return
+        }
 //        print("Stop: \(Thread.current)")
         viewModel.unsubscribe(id: viewID)
         
@@ -120,10 +133,6 @@ struct ActiveProjectView: View {
     
     private var project: ProjectItem {
         period.project
-    }
-    
-    private var viewID: UUID {
-        period.id
     }
 }
 

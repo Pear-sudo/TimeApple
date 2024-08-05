@@ -45,7 +45,7 @@ struct ProjectList: View {
             Overview()
             if !headerPeriods.isEmpty {
                 ZStack {
-                    ActiveProjectView(period: headerPeriods.first!)
+                    ActiveProjectView(period: headerPeriods.first!, isDummy: true)
                         .disabled(true)
                         .hidden()
                     GeometryReader { geometry in
