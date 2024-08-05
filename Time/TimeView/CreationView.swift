@@ -25,7 +25,8 @@ struct CreationView: View {
     var onCreate: VoidFunction? = nil
     var onUpdate: VoidFunction? = nil
     
-    private var isUpdating = false
+    @State private var isUpdating = false
+    private var uuid: UUID?
     
     init(onCancel: VoidFunction? = nil, onCreate: VoidFunction? = nil) {
         self.onCancel = onCancel
@@ -45,6 +46,11 @@ struct CreationView: View {
         color = item.color
         
         isUpdating = true
+    }
+    
+    init(id: UUID?) {
+        self.init()
+        self.uuid = id
     }
     
     var body: some View {
@@ -94,6 +100,25 @@ struct CreationView: View {
         }
         .onChange(of: color, DelayedExecutor(delay: 1, function: saveColor).callAsFunction)
         .padding()
+        .onAppear {
+            guard let uuid = uuid, project.id != uuid else {
+                return
+            }
+            guard let project = try? context.fetch(.init(predicate: #Predicate<ProjectItem>{$0.id == uuid})).first else {
+                
+                let item = ProjectItem(name: "")
+                project = item
+                color = item.color
+                return
+                
+            }
+            
+            self.project = project
+            self.color = project.color
+            
+            isUpdating = true
+        }
+        .navigationTitle("Project Editor: \(project.name)")
     }
     
     func createItem() {

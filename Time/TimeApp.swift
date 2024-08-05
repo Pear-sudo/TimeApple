@@ -13,6 +13,18 @@ let models: [any PersistentModel.Type] = [ProjectItem.self, PeriodRecord.self, T
 @main
 struct TimeApp: App {
     @State private var viewModel = ViewModel()
+    
+    /// a same model container must be shared between multiple window groups if you want the data to be synced
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema(models)
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }()
         
     var body: some Scene {
 #if os(iOS)
@@ -26,11 +38,20 @@ struct TimeApp: App {
             ContentView()
                 .environment(viewModel)
         }
-        .modelContainer(for: models, isUndoEnabled: false)
+        .modelContainer(sharedModelContainer)
+        
+        WindowGroup(id: WindowId.projectEditor.rawValue, for: UUID.self) { uuid in
+            CreationView(id: uuid.wrappedValue)
+        }
+        .modelContainer(sharedModelContainer)
         
         Settings {
             SettingsView()
         }
 #endif
     }
+}
+
+enum WindowId: String {
+    case projectEditor
 }

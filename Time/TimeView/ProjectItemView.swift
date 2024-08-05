@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ProjectItemView: View {
+    #if os(macOS)
+    @Environment(\.openWindow) private var openWindow
+    #endif
     @Environment(\.modelContext) private var context
     
     @State var item: ProjectItem
@@ -39,7 +42,7 @@ struct ProjectItemView: View {
         #if os(macOS)
         .contextMenu {
             Button("Details") {
-                isDetailShown = true
+                openWindow(id: WindowId.projectEditor.rawValue, value: item.id)
             }
         }
         .popover(isPresented: $item.isPopoverShown, content: {
