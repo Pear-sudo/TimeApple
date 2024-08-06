@@ -18,11 +18,15 @@ struct ProjectViewInList: View {
     @State private var isDetailShown = false
     var body: some View {
         HStack {
+            ColorBar(color: item.color)
             VStack {
                 Text(item.name)
                 Text(item.parent?.name ?? "")
                 Text(timeString)
             }
+            .padding(.vertical, 10)
+            .fixedSize()
+            Spacer()
             Button("more", systemImage: isExpanded ? "chevron.up" : "chevron.down", action: expand)
                 .labelStyle(.iconOnly)
                 .buttonStyle(PlainButtonStyle())
@@ -32,6 +36,7 @@ struct ProjectViewInList: View {
                 .buttonStyle(PlainButtonStyle())
             #endif
         }
+        .fixedSize(horizontal: false, vertical: true)
         .sheet(isPresented: $isDetailShown) {
             ProjectCreation(item: item) {
                 hideDetails()
@@ -55,7 +60,6 @@ struct ProjectViewInList: View {
         #endif
         .padding()
         .frame(maxWidth: .infinity)
-        .background(item.color)
 #if os(iOS)
         .onTapGesture {
             item.start(context: context)
@@ -76,6 +80,18 @@ struct ProjectViewInList: View {
     }
     var timeString: String {
         ""
+    }
+}
+
+struct ColorBar: View {
+    private var color: Color
+    init(color: Color) {
+        self.color = color
+    }
+    var body: some View {
+        Capsule()
+            .fill(color)
+            .frame(width: 6)
     }
 }
 
