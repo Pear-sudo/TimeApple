@@ -14,10 +14,10 @@ struct ProjectList: View {
     @Environment(ViewModel.self) private var viewModel
     
     @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var items: [ProjectItem]
-    @Query(PeriodRecord.descriptorRunning, animation: .default) var runningItems: [PeriodRecord]
     @Query(PeriodRecord.descriptorLastStopped, animation: .default) var lastStopped: [PeriodRecord]
 
     @Binding var selectedIds: Set<ProjectItem.ID>
+    private var runningItems: [PeriodRecord]
         
     init(
         selectedIds: Binding<Set<ProjectItem.ID>>,
@@ -25,9 +25,12 @@ struct ProjectList: View {
         searchText: String = "",
         
         sortParameter: SortParameter = .recentness,
-        sortOrder: SortOrder = .reverse
+        sortOrder: SortOrder = .reverse,
+        
+        runningItems: [PeriodRecord]
     ) {
         self._selectedIds = selectedIds
+        self.runningItems = runningItems
         let predicate = ProjectItem.predicate(searchText: searchText)
         switch sortParameter {
         case .recentness:
@@ -94,12 +97,6 @@ struct ProjectList: View {
     }
 }
 
-#Preview {
-    ProjectList(selectedIds: Binding(projectedValue: .constant(Set<ProjectItem.ID>())))
-        .modelContainer(for: [ProjectItem.self, PeriodRecord.self])
-        .environment(ViewModel())
-}
-
 struct ActiveProjectsHeader: View {
     
     var headerPeriods: [PeriodRecord]
@@ -138,4 +135,12 @@ struct ActiveProjectsHeader: View {
         
         return max(minWidth, calculatedWidth)
     }
+}
+
+// MARK: - Previews
+
+#Preview {
+    DetailView()
+        .modelContainer(for: models)
+        .environment(ViewModel())
 }
