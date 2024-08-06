@@ -23,16 +23,32 @@ struct ProjectHeader: View {
                 .disabled(true)
                 .hidden()
             GeometryReader { geometry in
-                ScrollView([.horizontal]) {
-                    HStack(spacing: horizontalSpacing) {
-                        ForEach(headerProjects) { project in
-                            ProjectViewInHeader(project: project)
-                                .frame(minWidth: calculateActiveProjectViewWidth(geometry.size.width))
+                ScrollViewReader { proxy in
+                    ScrollView([.horizontal]) {
+                        HStack(spacing: horizontalSpacing) {
+                            ForEach(headerProjects) { project in
+                                ProjectViewInHeader(project: project)
+                                    .frame(minWidth: calculateActiveProjectViewWidth(geometry.size.width))
+                                    .id(project.id)
+                            }
                         }
                     }
+                    .scrollIndicators(.never, axes: [.horizontal, .vertical]) // do not use hidden; it will show white space on macos, and that's the indicator
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
+//                    .onChange(of: headerProjects) { old, new in
+//                        if new.count <= old.count {
+//                            return
+//                        }
+//                        Task {
+//                            try? await Task.sleep(for: .milliseconds(300))
+//                            withAnimation {
+//                                if let lastProject = headerProjects.last {
+//                                    proxy.scrollTo(lastProject.id, anchor: .leading)
+//                                }
+//                            }
+//                        }
+//                    }
                 }
-                .scrollIndicators(.never, axes: [.horizontal, .vertical]) // do not use hidden; it will show white space on macos, and that's the indicator
-                .clipShape(RoundedRectangle(cornerRadius: 5))
             }
         }
         .listRowBackground(Color.white.opacity(0)) // note that this view is part of the surrounding list
