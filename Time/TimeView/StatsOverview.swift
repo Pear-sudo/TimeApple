@@ -9,12 +9,12 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-struct Overview: View {
+struct StatsOverview: View {
     
     @Environment(ViewModel.self) private var viewModel
     
-    @Query(Overview.getFetchDescriptor(predicate: PeriodRecord.predicateDailyApproximation)) private var dailyPeriods: [PeriodRecord]
-    @Query(Overview.getFetchDescriptor(predicate: PeriodRecord.predicateWeeklyApproximation)) private var weeklyPeriods: [PeriodRecord]
+    @Query(StatsOverview.getFetchDescriptor(predicate: PeriodRecord.predicateDailyApproximation)) private var dailyPeriods: [PeriodRecord]
+    @Query(StatsOverview.getFetchDescriptor(predicate: PeriodRecord.predicateWeeklyApproximation)) private var weeklyPeriods: [PeriodRecord]
     
     let calendar = Calendar.autoupdatingCurrent
     @State private var viewID = UUID()
@@ -126,7 +126,7 @@ struct Overview: View {
 }
 
 #Preview {
-    Overview()
+    StatsOverview()
         .modelContainer(sharedModelContainer)
         .environment(ViewModel())
 }

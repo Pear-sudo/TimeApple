@@ -42,13 +42,13 @@ struct ProjectList: View {
 
     var body: some View {
         List(selection: $selectedIds) {
-            Overview()
+            StatsOverview()
             if !projects.isEmpty {
-                ProjectsHeader(headerProjects: headerProjects)
+                ProjectHeader(headerProjects: headerProjects)
             }
             Section {
                 ForEach(projects) {item in
-                    ProjectItemView(item: item)
+                    ProjectViewInList(item: item)
                         .listRowSeparator(.hidden)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     //  listRowBackground is not same as background; it impacts the insects; and it stack on top of the background
@@ -103,7 +103,7 @@ struct ProjectList: View {
 // MARK: - Previews
 
 #Preview {
-    DetailView()
+    Dashboard()
         .modelContainer(for: models)
         .environment(ViewModel())
 }

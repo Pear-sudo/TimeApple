@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 import Combine
 
-struct ProjectHeaderView: View {
+struct ProjectViewInHeader: View {
     @Environment(\.modelContext) var context
     @Environment(ViewModel.self) private var viewModel
     
@@ -172,7 +172,7 @@ struct ActiveProjectView_Previews: PreviewProvider {
         var body: some View {
             VStack {
                 if !projects.isEmpty {
-                    ProjectHeaderView(project: projects.first!)
+                    ProjectViewInHeader(project: projects.first!)
                 }
             }
             .onAppear() {

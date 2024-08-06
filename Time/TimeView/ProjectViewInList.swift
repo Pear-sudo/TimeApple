@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjectItemView: View {
+struct ProjectViewInList: View {
     #if os(macOS)
     @Environment(\.openWindow) private var openWindow
     #endif
@@ -82,7 +82,7 @@ struct ProjectItemView: View {
 let sport = ProjectItem(name: "Sport")
 
 #Preview {
-    ProjectItemView(item: sport)
+    ProjectViewInList(item: sport)
         .padding()
         .environment(ViewModel())
         .modelContainer(for: [ProjectItem.self, PeriodRecord.self], isUndoEnabled: false)

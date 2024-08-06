@@ -17,7 +17,7 @@ struct ContentView: View {
                     }
                 }
         } detail: {
-            DetailView()
+            Dashboard()
         }
     }
 }

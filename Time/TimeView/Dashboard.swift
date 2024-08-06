@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 // this view cannot be the main view as the tool bar will not be shown in iOS
-struct DetailView: View {
+struct Dashboard: View {
     
     @Environment(\.modelContext) private var context
     @Environment(ViewModel.self) private var viewModel
@@ -128,7 +128,7 @@ let items = [
 ]
 
 #Preview {
-    DetailView()
+    Dashboard()
         .modelContainer(for: models)
         .environment(ViewModel())
 }

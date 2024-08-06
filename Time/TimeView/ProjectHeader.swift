@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjectsHeader: View {
+struct ProjectHeader: View {
     
     private var headerProjects: [ProjectItem]
     
@@ -19,14 +19,14 @@ struct ProjectsHeader: View {
     
     var body: some View {
         ZStack {
-            ProjectHeaderView(project: headerProjects.first!, isDummy: true)
+            ProjectViewInHeader(project: headerProjects.first!, isDummy: true)
                 .disabled(true)
                 .hidden()
             GeometryReader { geometry in
                 ScrollView([.horizontal]) {
                     HStack(spacing: horizontalSpacing) {
                         ForEach(headerProjects) { project in
-                            ProjectHeaderView(project: project)
+                            ProjectViewInHeader(project: project)
                                 .frame(minWidth: calculateActiveProjectViewWidth(geometry.size.width))
                         }
                     }
