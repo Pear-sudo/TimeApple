@@ -91,9 +91,19 @@ extension PeriodRecord {
         let endOfToday = calendar.dateInterval(of: .day, for: .now)!.end
         return #Predicate<PeriodRecord> { period in
             if let startTime = period.startTime {
-                return startTime >= startOfToday && startTime < endOfToday
+                if startTime >= startOfToday && startTime < endOfToday {
+                    return true // started today
+                }
+                else {
+                    if let endTime = period.endTime {
+                        return endTime > startOfToday // ended today or ended in the future
+                    }
+                    else {
+                        return true // running/active period
+                    }
+                }
             } else {
-                return false
+                return false // not started
             }
         }
     }
@@ -103,9 +113,19 @@ extension PeriodRecord {
         let endOfWeek = calendar.dateInterval(of: .weekOfYear, for: .now)!.end
         return #Predicate<PeriodRecord> { period in
             if let startTime = period.startTime {
-                return startTime >= startOfWeek && startTime < endOfWeek
+                if startTime >= startOfWeek && startTime < endOfWeek {
+                    return true // started this week
+                }
+                else {
+                    if let endTime = period.endTime {
+                        return endTime > startOfWeek // ended in this week or ended in the future
+                    }
+                    else {
+                        return true // running/active period
+                    }
+                }
             } else {
-                return false
+                return false // not started
             }
         }
     }
