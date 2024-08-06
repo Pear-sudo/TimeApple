@@ -41,7 +41,7 @@ struct TimeApp: App {
         .modelContainer(sharedModelContainer)
         
         WindowGroup(id: WindowId.projectEditor.rawValue, for: UUID.self) { uuid in
-            CreationView(id: uuid.wrappedValue)
+            ProjectCreation(id: uuid.wrappedValue)
         }
         .modelContainer(sharedModelContainer)
         

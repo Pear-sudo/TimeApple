@@ -1,5 +1,5 @@
 //
-//  CreationView.swift
+//  ProjectCreation.swift
 //  Time
 //
 //  Created by A on 20/07/2024.
@@ -9,7 +9,7 @@ import SwiftUI
 import GeneralMacro
 import SwiftData
 
-struct CreationView: View {
+struct ProjectCreation: View {
     typealias VoidFunction = () -> Void
     
     @Environment(\.self) var environment
@@ -141,6 +141,6 @@ struct CreationView: View {
 }
 
 #Preview {
-    CreationView()
+    ProjectCreation()
         .modelContainer(for: models, inMemory: false)
 }

@@ -38,7 +38,7 @@ struct Dashboard: View {
             runningItems: runningItems
         )
         .sheet(isPresented: $isCreationViewPresent) {
-            CreationView {
+            ProjectCreation {
                 dismissCreationView()
             } onCreate: {
                 dismissCreationView()

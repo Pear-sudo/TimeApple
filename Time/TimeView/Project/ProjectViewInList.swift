@@ -33,7 +33,7 @@ struct ProjectViewInList: View {
             #endif
         }
         .sheet(isPresented: $isDetailShown) {
-            CreationView(item: item) {
+            ProjectCreation(item: item) {
                 hideDetails()
             } onUpdate: {
                 hideDetails()
@@ -46,7 +46,7 @@ struct ProjectViewInList: View {
             }
         }
         .popover(isPresented: $item.isPopoverShown, content: {
-            CreationView(item: item) {
+            ProjectCreation(item: item) {
                 item.isPopoverShown = false
             } onUpdate: {
                 item.isPopoverShown = false

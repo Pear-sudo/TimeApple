@@ -16,7 +16,7 @@
 		00132E702C3EC04500BB7997 /* ProjectViewInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E6F2C3EC04500BB7997 /* ProjectViewInList.swift */; };
 		00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E7A2C46128200BB7997 /* ProjectItem.swift */; };
 		00132E812C47B01700BB7997 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E802C47B01700BB7997 /* Dashboard.swift */; };
-		00132E882C4B957400BB7997 /* CreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E872C4B957400BB7997 /* CreationView.swift */; };
+		00132E882C4B957400BB7997 /* ProjectCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E872C4B957400BB7997 /* ProjectCreation.swift */; };
 		0015458F2C5E00C800CC5D6E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015458E2C5E00C800CC5D6E /* SettingsView.swift */; };
 		001545912C5E09EB00CC5D6E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001545902C5E09EB00CC5D6E /* ContentView.swift */; };
 		001545932C5E191000CC5D6E /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001545922C5E191000CC5D6E /* Tag.swift */; };
@@ -71,7 +71,7 @@
 		00132E6F2C3EC04500BB7997 /* ProjectViewInList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewInList.swift; sourceTree = "<group>"; };
 		00132E7A2C46128200BB7997 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectItem.swift; path = Time/TimeView/Models/ProjectItem.swift; sourceTree = SOURCE_ROOT; };
 		00132E802C47B01700BB7997 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
-		00132E872C4B957400BB7997 /* CreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreationView.swift; sourceTree = "<group>"; };
+		00132E872C4B957400BB7997 /* ProjectCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCreation.swift; sourceTree = "<group>"; };
 		0015458E2C5E00C800CC5D6E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		001545902C5E09EB00CC5D6E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		001545922C5E191000CC5D6E /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				00132E6F2C3EC04500BB7997 /* ProjectViewInList.swift */,
-				00132E872C4B957400BB7997 /* CreationView.swift */,
+				00132E872C4B957400BB7997 /* ProjectCreation.swift */,
 				00D385532C56066D0091135F /* ProjectViewInHeader.swift */,
 				003D166F2C5B7C2500D02472 /* ProjectList.swift */,
 				0016C0992C6213DA005308EA /* ProjectHeader.swift */,
@@ -399,7 +399,7 @@
 				001545952C5E1B8100CC5D6E /* TagSelector.swift in Sources */,
 				001545912C5E09EB00CC5D6E /* ContentView.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
-				00132E882C4B957400BB7997 /* CreationView.swift in Sources */,
+				00132E882C4B957400BB7997 /* ProjectCreation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
