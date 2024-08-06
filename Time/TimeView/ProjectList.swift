@@ -13,7 +13,7 @@ struct ProjectList: View {
     @Environment(\.modelContext) private var context
     @Environment(ViewModel.self) private var viewModel
     
-    @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var items: [ProjectItem]
+    @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var projects: [ProjectItem]
     @Query(PeriodRecord.descriptorLastStopped, animation: .default) var lastStopped: [PeriodRecord]
 
     @Binding var selectedIds: Set<ProjectItem.ID>
@@ -34,20 +34,20 @@ struct ProjectList: View {
         let predicate = ProjectItem.predicate(searchText: searchText)
         switch sortParameter {
         case .recentness:
-            _items = Query(filter: predicate, sort: \.accessTime, order: sortOrder, animation: .default)
+            _projects = Query(filter: predicate, sort: \.accessTime, order: sortOrder, animation: .default)
         case .name:
-            _items = Query(filter: predicate, sort: \.name, order: sortOrder, animation: .default)
+            _projects = Query(filter: predicate, sort: \.name, order: sortOrder, animation: .default)
         }
     }
 
     var body: some View {
         List(selection: $selectedIds) {
             Overview()
-            if !headerPeriods.isEmpty {
-                ActiveProjectsHeader(headerPeriods: headerPeriods)
+            if !projects.isEmpty {
+                ProjectsHeader(headerProjects: headerProjects)
             }
             Section {
-                ForEach(items) {item in
+                ForEach(projects) {item in
                     ProjectItemView(item: item)
                         .listRowSeparator(.hidden)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
@@ -66,7 +66,7 @@ struct ProjectList: View {
         .animation(.easeIn, value: backgroundColor)
         .onAppear {
             updateRunningItemsCount()
-            if items.isEmpty {
+            if projects.isEmpty {
                 let item = ProjectItem(name: "Sample Project")
                 let item2 = ProjectItem(name: "Sample Project 2")
                 context.insert(item)
@@ -83,36 +83,43 @@ struct ProjectList: View {
     }
     
     
-    var headerPeriods: [PeriodRecord] {
-        if runningItems.isEmpty {
-            return lastStopped
+    var headerProjects: [ProjectItem] {
+        guard !runningItems.isEmpty else {
+            if let firstProject = projects.first {
+                return [firstProject]
+            }
+            return []
         }
-        return runningItems
+        return runningItems.map(\.project)
     }
     
     var backgroundColor: Color {
-        var color = headerPeriods.first?.project.color ?? Color.accentColor
+        var color = headerProjects.first?.color ?? Color.accentColor
         color = color.opacity(0.2)
         return color
     }
 }
 
-struct ActiveProjectsHeader: View {
+struct ProjectsHeader: View {
     
-    var headerPeriods: [PeriodRecord]
+    private var headerProjects: [ProjectItem]
     
     private let horizontalSpacing: CGFloat = 8
     
+    init(headerProjects: [ProjectItem]) {
+        self.headerProjects = headerProjects
+    }
+    
     var body: some View {
         ZStack {
-            ActiveProjectView(period: headerPeriods.first!, isDummy: true)
+            ProjectHeaderView(project: headerProjects.first!, isDummy: true)
                 .disabled(true)
                 .hidden()
             GeometryReader { geometry in
                 ScrollView([.horizontal]) {
                     HStack(spacing: horizontalSpacing) {
-                        ForEach(headerPeriods) { period in
-                            ActiveProjectView(period: period)
+                        ForEach(headerProjects) { project in
+                            ProjectHeaderView(project: project)
                                 .frame(minWidth: calculateActiveProjectViewWidth(geometry.size.width))
                         }
                     }
@@ -129,7 +136,7 @@ struct ActiveProjectsHeader: View {
     private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {
         
         let minWidth: CGFloat = 100
-        let numberOfPeriods = CGFloat(headerPeriods.count)
+        let numberOfPeriods = CGFloat(headerProjects.count)
         let availableWidth = width - (numberOfPeriods - 1) * horizontalSpacing
         let calculatedWidth = availableWidth / numberOfPeriods
         

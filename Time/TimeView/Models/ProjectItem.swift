@@ -10,7 +10,12 @@ import SwiftUI
 import SwiftData
 
 @Model
-class ProjectItem: Identifiable {
+class ProjectItem: Identifiable, CustomStringConvertible {
+    
+    var description: String {
+        self.name
+    }
+    
     init(name: String, parent: ProjectItem? = nil) {
         self.name = name
         self.parent = parent

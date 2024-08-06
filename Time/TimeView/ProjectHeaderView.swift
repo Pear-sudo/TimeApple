@@ -9,21 +9,33 @@ import SwiftUI
 import SwiftData
 import Combine
 
-struct ActiveProjectView: View {
+struct ProjectHeaderView: View {
     @Environment(\.modelContext) var context
     @Environment(ViewModel.self) private var viewModel
     
-    @State var period: PeriodRecord
+    @State var project: ProjectItem
     @State var elapsedTimeString = "0s"
     
     @State var animationTrigger = false
     @State var viewID = UUID()
     
+    @Query(filter: #Predicate<PeriodRecord> { period in
+        !(period.startTime != nil && period.endTime != nil)
+    }, animation: .default) private var periods: [PeriodRecord]
+    
     private let isDummy: Bool // if this view is hidden and for layout purpose
         
-    init(period: PeriodRecord, isDummy: Bool = false) {
-        self.period = period
+    init(project: ProjectItem, isDummy: Bool = false) {
+        self.project = project
         self.isDummy = isDummy
+        
+        let id = project.id // make sure id is a constant, project.id won't work as it is indeed a computed var
+        self._periods = Query(
+            filter: #Predicate<PeriodRecord> { period in
+                period.project.id == id && !(period.startTime != nil && period.endTime != nil)
+            },
+            animation: .default
+        )
     }
     
     var body: some View {
@@ -41,24 +53,24 @@ struct ActiveProjectView: View {
                 VStack(alignment: .trailing, spacing: 0) {
                     Text(elapsedTimeString)
                         .font(.callout.monospaced())
-                        .opacity(period.isRunning ? 1 : 0)
+                        .opacity(hasRunningPeriod ? 1 : 0)
                         .padding(.bottom, 5)
-                        .animation(.easeIn, value: period.isRunning)
+                        .animation(.easeIn, value: hasRunningPeriod)
 //                        .animation(.bouncy, value: elapsedTimeString)
-                    Image(systemName: period.isRunning ? "pause.circle.fill" : "play.circle.fill")
+                    Image(systemName: hasRunningPeriod ? "pause.circle.fill" : "play.circle.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
-                        .animation(.easeIn, value: period.isRunning)
+                        .animation(.easeIn, value: hasRunningPeriod)
                         .shadow(radius: 10)
                 }
                 Circle()
                     .frame(width: 10, height: 10)
                     .padding(.trailing, 5)
                     .opacity(animationTrigger ? 1 : 0)
-                    .animation(period.isRunning ? .linear(duration: 1) : .easeIn, value: animationTrigger)
+                    .animation(hasRunningPeriod ? .linear(duration: 1) : .easeIn, value: animationTrigger)
             }
-            .onChange(of: period.isRunning) {
-                if period.isRunning {
+            .onChange(of: hasRunningPeriod) {
+                if hasRunningPeriod {
                     elapsedTimeString = "0s" // I intentionally reset the value here; if you reset in stopTimer, the user will see it when it is disappearing
                     startTimer()
                 } else {
@@ -66,8 +78,8 @@ struct ActiveProjectView: View {
                 }
             }
             .onAppear {
-                if period.isRunning {
-                    elapsedTimeString = period.elapsedTime
+                if hasRunningPeriod {
+                    elapsedTimeString = period!.elapsedTime
                     startTimer()
                 }
             }
@@ -75,17 +87,14 @@ struct ActiveProjectView: View {
                 stopTimer()
             }
             .padding(.vertical, 10)
-            .background(period.project.color)
+            .background(project.color)
             .onTapGesture {
-                if period.isPending {
-                    period.startTime = Date()
-                } else if period.isRunning {
-                    period.endTime = Date()
-                } else if period.isStopped {
-                    let p = PeriodRecord(project: period.project)
+                if hasRunningPeriod {
+                    period!.endTime = Date()
+                } else {
+                    let p = PeriodRecord(project: project)
                     context.insert(p)
                     p.start()
-                    period = p
                 }
             }
             HStack {
@@ -116,6 +125,9 @@ struct ActiveProjectView: View {
 //        print("Start: \(Thread.current)")
         viewModel.subscribe(id: viewID) {
 //            print("...: \(Thread.current)")
+            guard let period = period else {
+                return
+            }
             elapsedTimeString = period.elapsedTime
             animationTrigger.toggle()
         }
@@ -131,9 +143,17 @@ struct ActiveProjectView: View {
         animationTrigger = false
     }
     
-    private var project: ProjectItem {
-        period.project
+    private var hasRunningPeriod: Bool {
+        !periods.isEmpty
     }
+    
+    private var period: PeriodRecord? {
+        return periods.first
+    }
+    
+//    private var period: PeriodRecord {
+//        
+//    }
 }
 
 struct ActiveProjectView_Previews: PreviewProvider {
@@ -147,12 +167,12 @@ struct ActiveProjectView_Previews: PreviewProvider {
             .padding()
     }
     struct PreviewWrapper: View {
-        @Query var periods: [PeriodRecord]
+        @Query var projects: [ProjectItem]
         @Environment(\.modelContext) var context
         var body: some View {
             VStack {
-                if !periods.isEmpty {
-                    ActiveProjectView(period: periods.first!)
+                if !projects.isEmpty {
+                    ProjectHeaderView(project: projects.first!)
                 }
             }
             .onAppear() {
