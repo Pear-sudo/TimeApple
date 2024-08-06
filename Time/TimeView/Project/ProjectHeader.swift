@@ -35,19 +35,7 @@ struct ProjectHeader: View {
                     }
                     .scrollIndicators(.never, axes: [.horizontal, .vertical]) // do not use hidden; it will show white space on macos, and that's the indicator
                     .clipShape(RoundedRectangle(cornerRadius: 5))
-//                    .onChange(of: headerProjects) { old, new in
-//                        if new.count <= old.count {
-//                            return
-//                        }
-//                        Task {
-//                            try? await Task.sleep(for: .milliseconds(300))
-//                            withAnimation {
-//                                if let lastProject = headerProjects.last {
-//                                    proxy.scrollTo(lastProject.id, anchor: .leading)
-//                                }
-//                            }
-//                        }
-//                    }
+                    .defaultScrollAnchor(.trailing)
                 }
             }
         }
@@ -65,4 +53,10 @@ struct ProjectHeader: View {
         
         return max(minWidth, calculatedWidth)
     }
+}
+
+#Preview {
+    Dashboard()
+        .modelContainer(for: models)
+        .environment(ViewModel())
 }
