@@ -13,8 +13,7 @@ struct Dashboard: View {
     
     @Environment(\.modelContext) private var context
     @Environment(\.viewModel) private var viewModel
-    
-    @Query(PeriodRecord.descriptorRunning, animation: .default) var runningItems: [PeriodRecord]
+    @Environment(\.viewModel.periodRecordService) private var periodRecordService
 
     @State var selectedIds: Set<ProjectItem.ID> = .init()
     @State private var sortOrder = SortDescriptor(\ProjectItem.accessTime, order: .reverse)
@@ -34,8 +33,7 @@ struct Dashboard: View {
             selectedIds: $selectedIds,
             searchText: viewModel.searchText,
             sortParameter: viewModel.sortParameter,
-            sortOrder: viewModel.sortOrder,
-            runningItems: runningItems
+            sortOrder: viewModel.sortOrder
         )
         .sheet(isPresented: $isCreationViewPresent) {
             ProjectCreation {
@@ -71,12 +69,8 @@ struct Dashboard: View {
     }
     
     func startSelectedProjects() {
-        let runningProjects = runningItems.map(\.project)
         enumerateSelection { project in
-            if runningProjects.contains(project) {
-                return // we do not allow one project to have two active instances
-            }
-            project.start(context: context)
+            periodRecordService.start(project: project)
         }
         selectedIds.removeAll()
     }

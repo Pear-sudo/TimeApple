@@ -15,9 +15,7 @@ class ViewModel {
     var sortOrder: SortOrder = .reverse
     
     var searchText: String = ""
-    
-    var runningProjectCount: Int = 0
-    
+        
     private var context: ModelContext
     
     @ObservationIgnored

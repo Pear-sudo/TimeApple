@@ -11,6 +11,9 @@ import SwiftData
 @Observable
 class PeriodRecordService {
 
+    @ObservationIgnored
+    private let calendar = Calendar.autoupdatingCurrent
+    @ObservationIgnored
     private var context: ModelContext
     private(set) var activePeriods: [UUID:PeriodRecord] = [:]
     
@@ -57,6 +60,8 @@ class PeriodRecordService {
         if let period = activePeriods[project.id] {
             period.stop()
             activePeriods[project.id] = nil
+            accumulateDaily(period: period)
+            accumulateWeekly(period: period)
         }
     }
     
@@ -66,5 +71,88 @@ class PeriodRecordService {
     
     func hasActivePeriods(for project: ProjectItem) -> Bool {
         return activePeriods[project.id] != nil
+    }
+    
+    private func getFetchDescriptor(predicate: Predicate<PeriodRecord>) -> FetchDescriptor<PeriodRecord> {
+        var descriptor = FetchDescriptor(predicate: predicate)
+        descriptor.propertiesToFetch = [\.startTime, \.endTime]
+        return descriptor
+    }
+    
+    /// https://forums.swift.org/t/lazy-var-on-observable-class/66541/2
+    /// private vars are synthesized; since they can compose to public accessors. lazy cannot be transformed due to not being able to synthesize that effect (hence the error). If you need a lazy property you can add the @ObservationIgnored macro on it and the observation system will ignore synthesis for that property.
+    @ObservationIgnored
+    private var accumulatedSecondsDaily: Double? = nil
+    @ObservationIgnored
+    private var accumulatedSecondsWeekly: Double? = nil
+    
+    private func accumulateDaily(period: PeriodRecord) {
+        guard accumulatedSecondsDaily != nil else {
+            return
+        }
+        accumulatedSecondsDaily = accumulatedSecondsDaily! + sumPeriods(periods: [period], component: .day)
+    }
+    
+    private func accumulateWeekly(period: PeriodRecord) {
+        guard accumulatedSecondsWeekly != nil else {
+            return
+        }
+        accumulatedSecondsWeekly = accumulatedSecondsWeekly! + sumPeriods(periods: [period], component: .weekOfYear)
+    }
+    
+    var totalSecondsDaily: Double {
+        if accumulatedSecondsDaily == nil {
+            guard let dailyPeriods = try? context.fetch(getFetchDescriptor(predicate: PeriodRecord.predicateDailyApproximation)) else {
+                return 0
+            }
+            accumulatedSecondsDaily = sumPeriods(periods: dailyPeriods.filter(\.isStopped), component: .day)
+        }
+        return sumPeriods(periods: activePeriods.map(\.value), component: .day) + (accumulatedSecondsDaily ?? 0)
+    }
+    
+    var totalSecondsWeekly: Double {
+        if accumulatedSecondsWeekly == nil {
+            guard let weeklyPeriods = try? context.fetch(getFetchDescriptor(predicate: PeriodRecord.predicateWeeklyApproximation)) else {
+                return 0
+            }
+            accumulatedSecondsWeekly = sumPeriods(periods: weeklyPeriods.filter(\.isStopped), component: .weekOfYear)
+        }
+        return sumPeriods(periods: activePeriods.map(\.value), component: .weekOfYear) + (accumulatedSecondsWeekly ?? 0)
+    }
+    
+    private func sumPeriods(periods: [PeriodRecord], component: Calendar.Component) -> Double {
+        let result =  periods.reduce(0) { result, period in
+            
+            guard var start = period.startTime else { // we must have a start time
+                print("error") // TODO: error logging
+                return result
+            }
+            
+            let now = Date.now
+            
+            guard let interval = calendar.dateInterval(of: component, for: now) else {
+                print("error") // TODO: error logging
+                return result
+            }
+            let intervalStart = interval.start
+            let intervalEnd = interval.end
+            
+            if start < intervalStart { // start is at the beginning of the interval, end is the beginning of next interval, see apple doc, that's why I use < here and use >= later
+                start = intervalStart
+            }
+            
+            var end = period.endTime ?? Date.now // for active period without end
+            if end >= intervalEnd {
+                end = intervalEnd.addingTimeInterval(-1)
+            }
+            
+            let duration = end.timeIntervalSince(start)
+            if duration <= 0 {
+                return result
+            }
+            
+            return result + duration
+        }
+        return result
     }
 }

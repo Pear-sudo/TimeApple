@@ -12,12 +12,12 @@ struct ProjectList: View {
     
     @Environment(\.modelContext) private var context
     @Environment(\.viewModel) private var viewModel
+    @Environment(\.viewModel.periodRecordService) private var periodRecordService
     @Environment(\.colorScheme) private var colorScheme
     
     @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var projects: [ProjectItem]
 
     @Binding var selectedIds: Set<ProjectItem.ID>
-    private var runningItems: [PeriodRecord]
         
     init(
         selectedIds: Binding<Set<ProjectItem.ID>>,
@@ -25,12 +25,9 @@ struct ProjectList: View {
         searchText: String = "",
         
         sortParameter: SortParameter = .recentness,
-        sortOrder: SortOrder = .reverse,
-        
-        runningItems: [PeriodRecord]
+        sortOrder: SortOrder = .reverse
     ) {
         self._selectedIds = selectedIds
-        self.runningItems = runningItems
         let predicate = ProjectItem.predicate(searchText: searchText)
         switch sortParameter {
         case .recentness:
@@ -88,7 +85,6 @@ struct ProjectList: View {
         .background(backgroundColor)
         .animation(.easeIn, value: backgroundColor)
         .onAppear {
-            updateRunningItemsCount()
             if projects.isEmpty {
                 let item = ProjectItem(name: "Sample Project")
                 let item2 = ProjectItem(name: "Sample Project 2")
@@ -96,24 +92,17 @@ struct ProjectList: View {
                 context.insert(item2)
             }
         }
-        .onChange(of: runningItems) {
-            updateRunningItemsCount()
-        }
-    }
-    
-    private func updateRunningItemsCount() {
-        viewModel.runningProjectCount = runningItems.count
     }
     
     
     var headerProjects: [ProjectItem] {
-        guard !runningItems.isEmpty else {
+        guard periodRecordService.hasActivePeriods() else {
             if let firstProject = projects.first {
                 return [firstProject]
             }
             return []
         }
-        return runningItems.map(\.project)
+        return periodRecordService.activePeriods.map(\.value.project)
     }
     
     var backgroundColor: Color {
