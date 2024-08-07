@@ -15,7 +15,6 @@ struct ProjectList: View {
     @Environment(\.colorScheme) private var colorScheme
     
     @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var projects: [ProjectItem]
-    @Query(PeriodRecord.descriptorLastStopped, animation: .default) var lastStopped: [PeriodRecord]
 
     @Binding var selectedIds: Set<ProjectItem.ID>
     private var runningItems: [PeriodRecord]
