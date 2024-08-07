@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ProjectViewInList: View {
-    #if os(macOS)
+#if os(macOS)
     @Environment(\.openWindow) private var openWindow
-    #endif
-    @Environment(\.modelContext) private var context
+#endif
+    @Environment(\.viewModel.periodRecordService) private var periodRecordService
     
     @State var item: ProjectItem
     @State private var isExpanded = false
@@ -31,11 +31,11 @@ struct ProjectViewInList: View {
             Button("more", systemImage: isExpanded ? "chevron.up" : "chevron.down", action: expand)
                 .labelStyle(.iconOnly)
                 .buttonStyle(PlainButtonStyle())
-            #if os(iOS)
+#if os(iOS)
             Button("more", systemImage: "ellipsis", action: more)
                 .labelStyle(.iconOnly)
                 .buttonStyle(PlainButtonStyle())
-            #endif
+#endif
         }
         .fixedSize(horizontal: false, vertical: true)
         .sheet(isPresented: $isDetailShown) {
@@ -45,7 +45,8 @@ struct ProjectViewInList: View {
                 hideDetails()
             }
         }
-        #if os(macOS)
+        .frame(maxWidth: .infinity)
+#if os(macOS)
         .contextMenu {
             Button("Details") {
                 openWindow(id: WindowId.projectEditor.rawValue, value: item.id)
@@ -58,12 +59,9 @@ struct ProjectViewInList: View {
                 item.isPopoverShown = false
             }
         })
-        #endif
-        .frame(maxWidth: .infinity)
+#endif
 #if os(iOS)
-        .onTapGesture {
-            item.start(context: context)
-        }
+        .onTapGesture(perform: onTap)
 #endif
         
     }
@@ -75,9 +73,15 @@ struct ProjectViewInList: View {
     private func expand() {
         isExpanded.toggle()
     }
+    
     private func more() {
         
     }
+    
+    private func onTap() {
+        periodRecordService.start(project: item)
+    }
+    
     var timeString: String {
         ""
     }
