@@ -73,7 +73,11 @@ private struct ViewModelEnvironmentKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var viewModel: ViewModel {
-        get { self[ViewModelEnvironmentKey.self] }
-        set { self[ViewModelEnvironmentKey.self] = newValue }
+        get {
+            self[ViewModelEnvironmentKey.self]
+        }
+        set {
+            self[ViewModelEnvironmentKey.self] = newValue
+        }
     }
 }

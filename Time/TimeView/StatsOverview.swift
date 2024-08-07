@@ -26,7 +26,9 @@ struct StatsOverview: View {
                     HStack(alignment: .firstTextBaseline, spacing: 0) {
                         Text(periodRecordService.totalSecondsDaily.timeIntervalString)
                             .font(.title)
+                            .textSelection(.enabled)
                         Text(" / \((periodRecordService.totalSecondsDaily / secondsInDay).toPercentage(decimalPlaces: 2))")
+                            .textSelection(.enabled)
                     }
                 }
                 Spacer()
@@ -35,7 +37,9 @@ struct StatsOverview: View {
                     HStack(alignment: .firstTextBaseline, spacing: 0) {
                         Text(periodRecordService.totalSecondsWeekly.timeIntervalString)
                             .font(.title)
+                            .textSelection(.enabled)
                         Text(" / \((periodRecordService.totalSecondsWeekly / secondsInWeek).toPercentage(decimalPlaces: 2))")
+                            .textSelection(.enabled)
                     }
                 }
                 Spacer()
