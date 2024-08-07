@@ -41,7 +41,6 @@ struct ProjectHeader: View {
         }
         .listRowBackground(Color.white.opacity(0)) // note that this view is part of the surrounding list
         .listRowSeparator(.hidden)
-        .shadow(radius: 3)
     }
     
     private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {

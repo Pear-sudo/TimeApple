@@ -19,8 +19,9 @@ struct ProjectViewInList: View {
     var body: some View {
         HStack {
             ColorBar(color: item.color)
-            VStack {
+            VStack(alignment: .leading) {
                 Text(item.name)
+                    .font(.title2)
                 Text(item.parent?.name ?? "")
                 Text(timeString)
             }
@@ -58,7 +59,6 @@ struct ProjectViewInList: View {
             }
         })
         #endif
-        .padding()
         .frame(maxWidth: .infinity)
 #if os(iOS)
         .onTapGesture {
@@ -99,6 +99,7 @@ let sport = ProjectItem(name: "Sport")
 
 #Preview {
     ProjectViewInList(item: sport)
+        .border(.white)
         .padding()
         .environment(ViewModel())
         .modelContainer(for: [ProjectItem.self, PeriodRecord.self], isUndoEnabled: false)

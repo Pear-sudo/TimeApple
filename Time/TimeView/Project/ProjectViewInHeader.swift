@@ -113,7 +113,7 @@ struct ProjectViewInHeader: View {
             .foregroundStyle(.blue)
             .padding(.all, 10)
             .frame(maxWidth: .infinity)
-            .background(.white) // the order matters, set size first, then color
+            .background(Color.backgroundColor) // the order matters, set size first, then color
         }
         .clipShape(RoundedRectangle(cornerRadius: 5))
     }

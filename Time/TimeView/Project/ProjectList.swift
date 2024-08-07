@@ -12,6 +12,7 @@ struct ProjectList: View {
     
     @Environment(\.modelContext) private var context
     @Environment(ViewModel.self) private var viewModel
+    @Environment(\.colorScheme) private var colorScheme
     
     @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var projects: [ProjectItem]
     @Query(PeriodRecord.descriptorLastStopped, animation: .default) var lastStopped: [PeriodRecord]
@@ -43,22 +44,37 @@ struct ProjectList: View {
     var body: some View {
         List(selection: $selectedIds) {
             StatsOverview()
+                .padding()
+                .background(Color.backgroundColor)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+                .padding(.bottom, 5)
+                .shadow(radius: 3)
             if !projects.isEmpty {
                 ProjectHeader(headerProjects: headerProjects)
+                    .padding(.bottom, 5)
+                    .shadow(radius: 3)
             }
-            Section {
-                ForEach(projects) {item in
-                    ProjectViewInList(item: item)
-                        .listRowSeparator(.hidden)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                    //  listRowBackground is not same as background; it impacts the insects; and it stack on top of the background
-                        .listRowBackground(Color.white.opacity(0))
-                }
-                .shadow(radius: 3)
+            UnevenRoundedRectangle(cornerRadii: .init(topLeading: 5, topTrailing: 5))
+                .fill(Color.backgroundColor)
+                .frame(height: 5)
+                .listRowInsets(.init())
+            ForEach(projects) { item in
+                ProjectViewInList(item: item)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init())
+                    .padding(.vertical, 3)
+                    .padding(.horizontal, 10)
+                    .background(Color.backgroundColor)
+                    .foregroundStyle(Color.textColor)
+                //  listRowBackground is not same as background; it impacts the insects; and it stack on top of the background
+                    .listRowBackground(Color.white.opacity(0))
             }
-            .listRowSeparator(.hidden)
-            .listSectionSeparator(.hidden)
+            UnevenRoundedRectangle(cornerRadii: .init(bottomLeading: 5, bottomTrailing: 5))
+                .fill(Color.backgroundColor)
+                .frame(height: 5)
+                .listRowInsets(.init())
         }
+        .environment(\.defaultMinListRowHeight, 0)
         .padding(10)
         .listStyle(.plain)
         .scrollContentBackground(.hidden)

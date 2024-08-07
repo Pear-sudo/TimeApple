@@ -22,19 +22,28 @@ struct StatsOverview: View {
     @State private var todayTotalSeconds: Double = 0
     @State private var weekTotalSeconds: Double = 0
     
+    let secondsInDay = 86400.0
+    let secondsInWeek = 604800.0
+    
     var body: some View {
         HStack {
             Spacer()
             VStack(alignment: .center) {
                 Text("Today")
-                Text(todayTotalSeconds.timeIntervalString)
-                    .font(.title)
+                HStack(alignment: .firstTextBaseline, spacing: 0) {
+                    Text(todayTotalSeconds.timeIntervalString)
+                        .font(.title)
+                    Text(" / \((todayTotalSeconds / secondsInDay).toPercentage(decimalPlaces: 2))")
+                }
             }
             Spacer()
             VStack(alignment: .center) {
                 Text("This week")
-                Text(weekTotalSeconds.timeIntervalString)
-                    .font(.title)
+                HStack(alignment: .firstTextBaseline, spacing: 0) {
+                    Text(weekTotalSeconds.timeIntervalString)
+                        .font(.title)
+                    Text(" / \((weekTotalSeconds / secondsInWeek).toPercentage(decimalPlaces: 2))")
+                }
             }
             Spacer()
         }
@@ -123,6 +132,12 @@ struct StatsOverview: View {
         return descriptor
     }
     
+}
+
+extension Double {
+    func toPercentage(decimalPlaces: Int) -> String {
+        return String(format: "%.\(decimalPlaces)f%%", self * 100)
+    }
 }
 
 #Preview {
