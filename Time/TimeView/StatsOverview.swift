@@ -11,7 +11,7 @@ import SwiftData
 
 struct StatsOverview: View {
     
-    @Environment(ViewModel.self) private var viewModel
+    @Environment(\.viewModel) private var viewModel
     
     @Query(StatsOverview.getFetchDescriptor(predicate: PeriodRecord.predicateDailyApproximation)) private var dailyPeriods: [PeriodRecord]
     @Query(StatsOverview.getFetchDescriptor(predicate: PeriodRecord.predicateWeeklyApproximation)) private var weeklyPeriods: [PeriodRecord]
@@ -143,5 +143,5 @@ extension Double {
 #Preview {
     StatsOverview()
         .modelContainer(sharedModelContainer)
-        .environment(ViewModel())
+        .environment(\.viewModel, viewModel)
 }

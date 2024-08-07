@@ -25,5 +25,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: [ProjectItem.self, PeriodRecord.self])
-        .environment(ViewModel())
+        .environment(\.viewModel, viewModel)
 }

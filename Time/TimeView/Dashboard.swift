@@ -12,7 +12,7 @@ import SwiftData
 struct Dashboard: View {
     
     @Environment(\.modelContext) private var context
-    @Environment(ViewModel.self) private var viewModel
+    @Environment(\.viewModel) private var viewModel
     
     @Query(PeriodRecord.descriptorRunning, animation: .default) var runningItems: [PeriodRecord]
 
@@ -130,5 +130,5 @@ let items = [
 #Preview {
     Dashboard()
         .modelContainer(for: models)
-        .environment(ViewModel())
+        .environment(\.viewModel, viewModel)
 }

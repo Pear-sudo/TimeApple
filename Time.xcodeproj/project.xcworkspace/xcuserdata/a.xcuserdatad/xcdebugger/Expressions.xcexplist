@@ -9,18 +9,29 @@
                value = "self.viewID">
             </PersistentString>
             <PersistentString
-               value = "self.period.project.name">
+               value = "self.isDummy">
             </PersistentString>
             <PersistentString
-               value = "self.isDummy">
+               value = "self.period.project.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #2 in closure #1 in ActiveProjectView.body.getter:ActiveProjectView.swift">
+         contextName = "ProjectList.headerProjects.getter:ProjectList.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.runningItems">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #3 in closure #1 in ActiveProjectView.body.getter:ActiveProjectView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "PeriodRecordService.hasActivePeriods(for:):PeriodRecordService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in ActiveProjectView.body.getter:ActiveProjectView.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

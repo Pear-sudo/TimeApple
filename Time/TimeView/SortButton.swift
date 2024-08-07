@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SortButton: View {
-    @Environment(ViewModel.self) private var viewModel
+    @Environment(\.viewModel) private var viewModel
     
     var body: some View {
         @Bindable var viewModel = viewModel
@@ -42,5 +42,5 @@ extension SortOrder {
 
 #Preview {
     SortButton()
-        .environment(ViewModel())
+        .environment(\.viewModel, viewModel)
 }

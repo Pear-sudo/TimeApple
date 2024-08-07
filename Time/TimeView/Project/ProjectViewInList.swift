@@ -101,6 +101,6 @@ let sport = ProjectItem(name: "Sport")
     ProjectViewInList(item: sport)
         .border(.white)
         .padding()
-        .environment(ViewModel())
+        .environment(\.viewModel, viewModel)
         .modelContainer(for: [ProjectItem.self, PeriodRecord.self], isUndoEnabled: false)
 }

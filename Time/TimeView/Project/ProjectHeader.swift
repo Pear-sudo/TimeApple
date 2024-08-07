@@ -57,5 +57,5 @@ struct ProjectHeader: View {
 #Preview {
     Dashboard()
         .modelContainer(for: models)
-        .environment(ViewModel())
+        .environment(\.viewModel, viewModel)
 }

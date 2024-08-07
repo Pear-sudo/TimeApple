@@ -18,6 +18,16 @@ class ViewModel {
     
     var runningProjectCount: Int = 0
     
+    private var context: ModelContext
+    
+    @ObservationIgnored
+    let periodRecordService: PeriodRecordService
+    
+    init(context: ModelContext = ModelContext(sharedModelContainer)) {
+        self.context = context
+        self.periodRecordService = PeriodRecordService(context: context)
+    }
+    
     // MARK: - Timer
     
     private var timerSubscription: AnyCancellable?

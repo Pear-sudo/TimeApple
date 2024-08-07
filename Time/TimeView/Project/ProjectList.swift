@@ -11,7 +11,7 @@ import SwiftData
 struct ProjectList: View {
     
     @Environment(\.modelContext) private var context
-    @Environment(ViewModel.self) private var viewModel
+    @Environment(\.viewModel) private var viewModel
     @Environment(\.colorScheme) private var colorScheme
     
     @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var projects: [ProjectItem]
@@ -129,5 +129,5 @@ struct ProjectList: View {
 #Preview {
     Dashboard()
         .modelContainer(for: models)
-        .environment(ViewModel())
+        .environment(\.viewModel, viewModel)
 }

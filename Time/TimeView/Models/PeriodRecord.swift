@@ -44,17 +44,21 @@ class PeriodRecord {
         descriptor.fetchLimit = 1
         return descriptor
     }()
-    
+}
+
+extension PeriodRecord {
     func start() {
         let now = Date()
         self.startTime = now
         self.project.accessTime = now
     }
     
-    func end() {
+    func stop() {
         self.endTime = Date()
     }
-    
+}
+
+extension PeriodRecord {
     var isPending: Bool {
         self.startTime == nil && self.endTime == nil
     }
