@@ -124,27 +124,8 @@ class PeriodRecordService {
     private func sumPeriods(periods: [PeriodRecord], component: Calendar.Component) -> Double {
         let result =  periods.reduce(0) { result, period in
             
-            guard var start = period.startTime else { // we must have a start time
-                print("error") // TODO: error logging
+            guard let (start, end) = clipPeriod(period, into: component) else {
                 return result
-            }
-            
-            let now = Date.now
-            
-            guard let interval = calendar.dateInterval(of: component, for: now) else {
-                print("error") // TODO: error logging
-                return result
-            }
-            let intervalStart = interval.start
-            let intervalEnd = interval.end
-            
-            if start < intervalStart { // start is at the beginning of the interval, end is the beginning of next interval, see apple doc, that's why I use < here and use >= later
-                start = intervalStart
-            }
-            
-            var end = period.endTime ?? Date.now // for active period without end
-            if end >= intervalEnd {
-                end = intervalEnd.addingTimeInterval(-1)
             }
             
             let duration = end.timeIntervalSince(start)
@@ -155,5 +136,33 @@ class PeriodRecordService {
             return result + duration
         }
         return result
+    }
+    
+    private func clipPeriod(_ period: PeriodRecord, into component: Calendar.Component, anchor: Date = .now) -> (Date, Date)? {
+        
+        guard var start = period.startTime else { // we must have a start time
+            print("error") // TODO: error logging
+            return nil
+        }
+        
+        let now = Date.now
+        
+        guard let interval = calendar.dateInterval(of: component, for: now) else {
+            print("error") // TODO: error logging
+            return nil
+        }
+        let intervalStart = interval.start
+        let intervalEnd = interval.end
+        
+        if start < intervalStart { // start is at the beginning of the interval, end is the beginning of next interval, see apple doc, that's why I use < here and use >= later
+            start = intervalStart
+        }
+        
+        var end = period.endTime ?? Date.now // for active period without end
+        if end >= intervalEnd {
+            end = intervalEnd.addingTimeInterval(-1)
+        }
+        
+        return (start, end)
     }
 }
