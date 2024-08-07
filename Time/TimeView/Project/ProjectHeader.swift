@@ -33,6 +33,7 @@ struct ProjectHeader: View {
                             }
                         }
                     }
+                    .animation(.easeInOut, value: headerProjects) // do not put animation too far away from the changing view or it won't work
                     .scrollIndicators(.never, axes: [.horizontal, .vertical]) // do not use hidden; it will show white space on macos, and that's the indicator
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                     .defaultScrollAnchor(.trailing)

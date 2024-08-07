@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import Collections
 
 @Observable
 class PeriodRecordService {
@@ -15,7 +16,7 @@ class PeriodRecordService {
     private let calendar = Calendar.autoupdatingCurrent
     @ObservationIgnored
     private var context: ModelContext
-    private(set) var activePeriods: [UUID:PeriodRecord] = [:]
+    private(set) var activePeriods: OrderedDictionary<UUID, PeriodRecord> = [:]
     
     init(context: ModelContext) {
         self.context = context
@@ -23,7 +24,7 @@ class PeriodRecordService {
             predicate: #Predicate<PeriodRecord> { period in
                 !(period.startTime != nil && period.endTime != nil)
             })) {
-            var activePeriods: [UUID:PeriodRecord] = [:]
+            var activePeriods: OrderedDictionary<UUID, PeriodRecord> = [:]
             unfinishedPeriods.forEach { period in
                 if period.startTime !=  nil {
                     if activePeriods[period.project.id] != nil {
