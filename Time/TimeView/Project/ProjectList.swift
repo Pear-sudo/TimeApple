@@ -11,23 +11,23 @@ import SwiftData
 struct ProjectList: View {
     
     @Environment(\.modelContext) private var context
+    @Environment(\.colorScheme) private var colorScheme
+    
     @Environment(\.viewModel) private var viewModel
     @Environment(\.viewModel.periodRecordService) private var periodRecordService
-    @Environment(\.colorScheme) private var colorScheme
     
     @Query(sort: [SortDescriptor(\ProjectItem.accessTime, order: .reverse)], animation: .default) var projects: [ProjectItem]
 
-    @Binding var selectedIds: Set<ProjectItem.ID>
+    @State var selectedIds: Set<ProjectItem.ID> = .init()
+    @State var isAlertShown = false
+    @State var isCreationViewPresent = false
         
-    init(
-        selectedIds: Binding<Set<ProjectItem.ID>>,
-        
+    init(        
         searchText: String = "",
         
         sortParameter: SortParameter = .recentness,
         sortOrder: SortOrder = .reverse
     ) {
-        self._selectedIds = selectedIds
         let predicate = ProjectItem.predicate(searchText: searchText)
         switch sortParameter {
         case .recentness:
@@ -38,6 +38,7 @@ struct ProjectList: View {
     }
 
     var body: some View {
+        @Bindable var viewModel = viewModel
         List(selection: $selectedIds) {
             Group {
                 StatsOverview()
@@ -84,6 +85,7 @@ struct ProjectList: View {
         .scrollContentBackground(.hidden)
         .background(backgroundColor)
         .animation(.easeIn, value: backgroundColor)
+        // MARK: interaction
         .onAppear {
             if projects.isEmpty {
                 let item = ProjectItem(name: "Sample Project")
@@ -92,8 +94,34 @@ struct ProjectList: View {
                 context.insert(item2)
             }
         }
+        .sheet(isPresented: $isCreationViewPresent) {
+            ProjectCreation {
+                dismissCreationView()
+            } onCreate: {
+                dismissCreationView()
+            }
+        }
+        .alert("Delete \(selectedIds.count) items?", isPresented: $isAlertShown) {
+            Button("Delete", role: .destructive) {
+                deleteSelectedItems()
+            }
+        }
+        .toolbar {
+            if !selectedIds.isEmpty {
+                Text("\(selectedIds.count) selected")
+            }
+            Button("Add", systemImage: "plus", action: showCreationView)
+            SortButton()
+        }
+        .searchable(text: $viewModel.searchText) // TODO: implement advanced search
+#if os(macOS)
+        .onDeleteCommand(perform: confirmDeleteSelectedItems)
+        .onKeyPress(.return, action: {startSelectedProjects(); return .handled})
+        .onKeyPress(.space, action: showSelectedPopover)
+#endif
     }
     
+    // MARK: functions
     
     var headerProjects: [ProjectItem] {
         guard periodRecordService.hasActivePeriods() else {
@@ -109,6 +137,54 @@ struct ProjectList: View {
         var color = headerProjects.first?.color ?? Color.accentColor
         color = color.opacity(0.2)
         return color
+    }
+    
+    // MARK: creation
+    
+    func showCreationView() {
+        isCreationViewPresent = true
+    }
+    
+    func dismissCreationView() {
+        isCreationViewPresent = false
+    }
+    
+    // MARK: selection
+    
+    func deleteSelectedItems() {
+        try? context.delete(model: ProjectItem.self, where: #Predicate { item in
+            selectedIds.contains(item.id)
+        })
+        selectedIds.removeAll()
+    }
+    
+    func confirmDeleteSelectedItems() {
+        isAlertShown = true
+    }
+    
+    func startSelectedProjects() {
+        enumerateSelection { project in
+            periodRecordService.start(project: project)
+        }
+        selectedIds.removeAll()
+    }
+    
+    func showSelectedPopover() -> KeyPress.Result {
+        guard selectedIds.count == 1 else {
+            return .ignored
+        }
+        guard let item = try? context.fetch(ProjectItem.descriptorById(ids: selectedIds)).first else {
+            return .ignored
+        }
+        guard !item.isPopoverShown else {
+            return .ignored
+        }
+        item.isPopoverShown = true
+        return .handled
+    }
+    
+    func enumerateSelection(block: (ProjectItem) -> Void) {
+        try? context.enumerate(ProjectItem.descriptorById(ids: selectedIds), block: block)
     }
 }
 

@@ -26,6 +26,7 @@
 		003D166E2C5B739600D02472 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166D2C5B739600D02472 /* SortButton.swift */; };
 		003D16702C5B7C2500D02472 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003D166F2C5B7C2500D02472 /* ProjectList.swift */; };
 		004559A22C6342FB00A0C857 /* PeriodRecordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004559A12C6342FB00A0C857 /* PeriodRecordService.swift */; };
+		004559A42C6389C500A0C857 /* ProjectItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004559A32C6389C500A0C857 /* ProjectItemService.swift */; };
 		008039B32C630DD600B49561 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008039B22C630DD600B49561 /* Color.swift */; };
 		0086A3E42C605499004B574E /* StatsOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086A3E32C605499004B574E /* StatsOverview.swift */; };
 		00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1ED2C57DE690026CE81 /* GeneralMacro */; };
@@ -83,6 +84,7 @@
 		003D166D2C5B739600D02472 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		003D166F2C5B7C2500D02472 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		004559A12C6342FB00A0C857 /* PeriodRecordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRecordService.swift; sourceTree = "<group>"; };
+		004559A32C6389C500A0C857 /* ProjectItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItemService.swift; sourceTree = "<group>"; };
 		008039B22C630DD600B49561 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0086A3E32C605499004B574E /* StatsOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsOverview.swift; sourceTree = "<group>"; };
 		00B1A1F12C57E0610026CE81 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				004559A12C6342FB00A0C857 /* PeriodRecordService.swift */,
+				004559A32C6389C500A0C857 /* ProjectItemService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 			files = (
 				0086A3E42C605499004B574E /* StatsOverview.swift in Sources */,
 				003D166C2C5B5F4900D02472 /* ViewModel.swift in Sources */,
+				004559A42C6389C500A0C857 /* ProjectItemService.swift in Sources */,
 				00132E812C47B01700BB7997 /* Dashboard.swift in Sources */,
 				003D16702C5B7C2500D02472 /* ProjectList.swift in Sources */,
 				003D166E2C5B739600D02472 /* SortButton.swift in Sources */,

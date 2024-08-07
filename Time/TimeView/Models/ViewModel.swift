@@ -20,10 +20,13 @@ class ViewModel {
     
     @ObservationIgnored
     let periodRecordService: PeriodRecordService
+    @ObservationIgnored
+    let projectItemService: ProjectItemService
     
     init(context: ModelContext = ModelContext(sharedModelContainer)) {
         self.context = context
         self.periodRecordService = PeriodRecordService(context: context)
+        self.projectItemService = ProjectItemService(context: context)
     }
     
     // MARK: - Timer
