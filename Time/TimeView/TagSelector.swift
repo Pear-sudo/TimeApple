@@ -40,7 +40,9 @@ struct TagSelector: View {
             TagList(tagText: tagText, commands: $commands, selectedTags: $selectedTags)
                 .clipShape(RoundedRectangle(cornerRadius: 5))
         }
+        #if os(macOS)
         .background(KeyEventHandlingView(eventPublisher: eventPublisher))
+        #endif
         .onReceive(eventPublisher.$deletePressed) { _ in
             handleDelete()
         }
@@ -204,7 +206,7 @@ struct CompactTagView: View {
                 isSelected.toggle()
             }
     }
-    
+    #if os(macOS)
     /// no longer needed, just for your reference for how to change the cursor
     private func handleCursor(_ hover: Bool) {
         if hover {
@@ -213,6 +215,7 @@ struct CompactTagView: View {
             NSCursor.pop()
         }
     }
+    #endif
     
     private var isDragging: Bool {
         (ContinuousClock.now - eventPublisher.lastMouseDrag) < .milliseconds(500)
@@ -310,6 +313,8 @@ class EventPublisher: ObservableObject {
     @Published var lastMouseDrag: ContinuousClock.Instant = ContinuousClock.now
 }
 
+#if os(macOS)
+
 struct KeyEventHandlingView: NSViewRepresentable {
     @ObservedObject var eventPublisher: EventPublisher
     
@@ -350,6 +355,8 @@ struct KeyEventHandlingView: NSViewRepresentable {
         var mouseMonitor: Any?
     }
 }
+
+#endif
 
 #Preview {
     struct PreviewWrapper: View {

@@ -43,39 +43,47 @@ struct ProjectList: View {
 
     var body: some View {
         List(selection: $selectedIds) {
-            StatsOverview()
-                .padding()
-                .background(Color.backgroundColor)
-                .clipShape(RoundedRectangle(cornerRadius: 5))
-                .padding(.bottom, 5)
-                .shadow(radius: 3)
-            if !projects.isEmpty {
-                ProjectHeader(headerProjects: headerProjects)
-                    .padding(.bottom, 5)
-                    .shadow(radius: 3)
-            }
-            UnevenRoundedRectangle(cornerRadii: .init(topLeading: 5, topTrailing: 5))
-                .fill(Color.backgroundColor)
-                .frame(height: 5)
-                .listRowInsets(.init())
-            ForEach(projects) { item in
-                ProjectViewInList(item: item)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(.init())
-                    .padding(.vertical, 3)
-                    .padding(.horizontal, 10)
+            Group {
+                StatsOverview()
+                    .padding()
                     .background(Color.backgroundColor)
-                    .foregroundStyle(Color.textColor)
-                //  listRowBackground is not same as background; it impacts the insects; and it stack on top of the background
-                    .listRowBackground(Color.white.opacity(0))
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    .shadow(radius: 3)
+                    .padding(.bottom, 4)
+#if os(macOS)
+                    .padding(.top, 8)
+#endif
+                if !projects.isEmpty {
+                    ProjectHeader(headerProjects: headerProjects)
+                        .shadow(radius: 3)
+                        .padding(.top, 4)
+                        .padding(.bottom, 8)
+                }
+                
+                UnevenRoundedRectangle(cornerRadii: .init(topLeading: 5, topTrailing: 5))
+                    .fill(Color.backgroundColor)
+                    .frame(height: 5)
+
+                ForEach(projects) { item in
+                    ProjectViewInList(item: item)
+                        .padding(.vertical, 3)
+                        .padding(.horizontal, 10)
+                        .background(Color.backgroundColor)
+                        .foregroundStyle(Color.textColor)
+                }
+                
+                UnevenRoundedRectangle(cornerRadii: .init(bottomLeading: 5, bottomTrailing: 5))
+                    .fill(Color.backgroundColor)
+                    .frame(height: 5)
             }
-            UnevenRoundedRectangle(cornerRadii: .init(bottomLeading: 5, bottomTrailing: 5))
-                .fill(Color.backgroundColor)
-                .frame(height: 5)
-                .listRowInsets(.init())
+            .listRowBackground(Color.white.opacity(0))
+            .listRowSeparator(.hidden)
+            .listRowInsets(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
         }
+#if os(macOS)
+        .padding(.bottom, 10)
+#endif
         .environment(\.defaultMinListRowHeight, 0)
-        .padding(10)
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .background(backgroundColor)
