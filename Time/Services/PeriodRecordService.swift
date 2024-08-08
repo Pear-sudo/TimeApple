@@ -8,9 +8,12 @@
 import Foundation
 import SwiftData
 import Collections
+import OSLog
 
 @Observable
 class PeriodRecordService {
+    @ObservationIgnored
+    private let logger = Logger(subsystem: "cyou.b612.model.service", category: "period_record")
 
     @ObservationIgnored
     private let calendar = Calendar.autoupdatingCurrent
@@ -73,11 +76,44 @@ class PeriodRecordService {
     func hasActivePeriods(for project: ProjectItem) -> Bool {
         return activePeriods[project.id] != nil
     }
-    
-    private func getFetchDescriptor(predicate: Predicate<PeriodRecord>) -> FetchDescriptor<PeriodRecord> {
+        
+    private func getTimeOnlyFetchDescriptor(predicate: Predicate<PeriodRecord>) -> FetchDescriptor<PeriodRecord> {
         var descriptor = FetchDescriptor(predicate: predicate)
         descriptor.propertiesToFetch = [\.startTime, \.endTime]
         return descriptor
+    }
+    
+    private func getRangedPredicate(start: Date, end: Date, strict: Bool = false, polarize: Bool = true) -> Predicate<PeriodRecord>? {
+        var start = start
+        var end = end
+        if polarize {
+            start = calendar.startOfDay(for: start)
+            if calendar.compare(end, to: end - 1, toGranularity: .day) == .orderedSame {
+                // in case end date is already polarized, that is, it is the very beginning of the next date
+                guard let e = calendar.dateInterval(of: .day, for: end)?.end else {
+                    logger.error("Calendar cannot return the requested date")
+                    return nil
+                }
+                end = e
+            }
+        }
+        return #Predicate<PeriodRecord> { period in
+            if let startTime = period.startTime { // has start time
+                if startTime >= start && startTime < end { // started in this interval
+                    return true
+                }
+                else { // start time not in the interval
+                    if let endTime = period.endTime { // has end time
+                        return endTime > start // the end time is in the interval or at some point later than the interval, if we assume the end is always later than the start, this test is equivalent to startTime < start
+                    }
+                    else { // does not has end time (active)
+                        return startTime < start // started earlier than the interval and is active
+                    }
+                }
+            } else {
+                return false // not started
+            }
+        }
     }
     
     /// https://forums.swift.org/t/lazy-var-on-observable-class/66541/2
@@ -103,7 +139,7 @@ class PeriodRecordService {
     
     var totalSecondsDaily: Double {
         if accumulatedSecondsDaily == nil {
-            guard let dailyPeriods = try? context.fetch(getFetchDescriptor(predicate: PeriodRecord.predicateDailyApproximation)) else {
+            guard let dailyPeriods = try? context.fetch(getTimeOnlyFetchDescriptor(predicate: PeriodRecord.predicateDailyApproximation)) else {
                 return 0
             }
             accumulatedSecondsDaily = sumPeriods(periods: dailyPeriods.filter(\.isStopped), component: .day)
@@ -113,12 +149,44 @@ class PeriodRecordService {
     
     var totalSecondsWeekly: Double {
         if accumulatedSecondsWeekly == nil {
-            guard let weeklyPeriods = try? context.fetch(getFetchDescriptor(predicate: PeriodRecord.predicateWeeklyApproximation)) else {
+            guard let weeklyPeriods = try? context.fetch(getTimeOnlyFetchDescriptor(predicate: PeriodRecord.predicateWeeklyApproximation)) else {
                 return 0
             }
             accumulatedSecondsWeekly = sumPeriods(periods: weeklyPeriods.filter(\.isStopped), component: .weekOfYear)
         }
         return sumPeriods(periods: activePeriods.map(\.value), component: .weekOfYear) + (accumulatedSecondsWeekly ?? 0)
+    }
+    
+    func getClippedPeriods(`in` component: Calendar.Component, anchor: Date) -> [PeriodRecord] {
+        guard let interval = calendar.dateInterval(of: component, for: anchor) else {
+            logger.error("Calendar cannot return the requested date")
+            return []
+        }
+        let (start, end) = (interval.start, interval.end)
+        guard let predicate = getRangedPredicate(start: start, end: end) else {
+            return []
+        }
+        guard let periods = try? context.fetch(FetchDescriptor(predicate: predicate)) else {
+            return []
+        }
+        return periods
+    }
+    
+    func getDailyClippedPeriods(from: Date, to: Date) -> [PeriodRecord] {
+        if from >= to {
+            return []
+        }
+        var periods: [PeriodRecord] = []
+        var position = from
+        while calendar.compare(position, to: to, toGranularity: .day) != .orderedDescending {
+            periods.append(contentsOf: getClippedPeriods(in: .day, anchor: position))
+            guard let newPosition = calendar.date(byAdding: .day, value: 1, to: position) else {
+                logger.error("Calendar cannot return the requested date")
+                break
+            }
+            position = newPosition
+        }
+        return periods
     }
     
     private func sumPeriods(periods: [PeriodRecord], component: Calendar.Component) -> Double {
