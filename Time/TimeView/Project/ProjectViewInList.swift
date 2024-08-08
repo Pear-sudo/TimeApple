@@ -49,11 +49,7 @@ struct ProjectViewInList: View {
             }
         }
         .popover(isPresented: $item.isPopoverShown, content: {
-            ProjectCreation(item: item) {
-                item.isPopoverShown = false
-            } onUpdate: {
-                item.isPopoverShown = false
-            }
+            ProjectCreation(item: item)
         })
 #endif
 #if os(iOS)

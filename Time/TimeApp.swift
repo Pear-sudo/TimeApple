@@ -40,6 +40,7 @@ struct TimeApp: App {
                     openWindow(id: WindowId.projectEditor.rawValue)
                 }
                 .keyboardShortcut("p")
+                Divider()
             }
         }
         
