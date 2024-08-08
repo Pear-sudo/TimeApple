@@ -55,29 +55,34 @@ struct ProjectCreation: View {
     }
     
     var body: some View {
-        VStack { // do not use form for complicated UI
-            ScrollView {
-                TextField("Name:", text: $name)
-                TagSelector(selectedTags: $tags)
-                    .frame(height: 100)
-                ColorPicker("Color:", selection: $color, supportsOpacity: false)
-                Picker("Parent", selection: $parent) {
-                    Text("").tag(nil as ProjectItem?)
-                    ForEach(items) { item in
-                        Text(item.name).tag(item as ProjectItem?)
+        VStack {
+            VStack(alignment: .leading) {
+                Group {
+                    TextField("Name:", text: $name)
+                    TagSelector(selectedTags: $tags)
+                    ColorPicker("", selection: $color, supportsOpacity: false)
+                        .stableLabel("Color: ")
+                    Picker("", selection: $parent) {
+                        Text("").tag(nil as ProjectItem?)
+                        ForEach(parentCandidates) { parentProject in
+                            Text(parentProject.name).tag(parentProject as ProjectItem?)
+                        }
                     }
-                }
-                TextField("Notes:", text: $notes)
-                if let project = givenProject {
-                    DisclosureGroup("Detail", isExpanded: $detailExpanded) {
-                        // TODO: auto scroll to this when shown
-                        VStack(alignment: .leading) {
-                            Text("Created at: \(project.creationTime)")
-                            Text("ID: \(project.id)")
-                            Text("Parent ID: \(String(describing: project.parent?.id))")
+                    .stableLabel("Parent: ")
+                    TextField("Notes:", text: $notes)
+                    if let project = givenProject {
+                        DisclosureGroup("Detail", isExpanded: $detailExpanded) {
+                            // TODO: auto scroll to this when shown
+                            VStack(alignment: .leading) {
+                                Text("Created at: \(project.creationTime)")
+                                Text("ID: \(project.id)")
+                                Text("Parent ID: \(String(describing: project.parent?.id))")
+                            }
                         }
                     }
                 }
+                .labelsHidden()
+                .textFieldStyle(.roundedBorder)
             }
             .scrollIndicators(.hidden)
             HStack {
@@ -89,6 +94,14 @@ struct ProjectCreation: View {
         .padding()
         .onAppear(perform: onAppear)
         .navigationTitle("Project editor - \(name)")
+    }
+    
+    private var parentCandidates: [ProjectItem] {
+        if let givenProject = givenProject {
+            return items.filter({$0.id != givenProject.id})
+        } else {
+            return items
+        }
     }
     
     private func onAppear() {
@@ -166,6 +179,25 @@ struct ProjectCreation: View {
     
     private func closeSelf() {
         dismiss()
+    }
+}
+
+struct StableLabel: ViewModifier {
+    private let text: String
+    init(text: String) {
+        self.text = text
+    }
+    func body(content: Content) -> some View {
+        HStack(spacing: 0) {
+            Text(text)
+            content
+        }
+    }
+}
+
+extension View {
+    func stableLabel(_ text: String) -> some View {
+        modifier(StableLabel(text: text))
     }
 }
 

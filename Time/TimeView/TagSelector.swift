@@ -22,29 +22,32 @@ struct TagSelector: View {
     @StateObject private var eventPublisher = EventPublisher()
             
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView([.horizontal]) {
-                HStack(spacing: 0) {
-                    ForEach(Array(selectedTags.enumerated()), id: \.offset) { index, tag in
-                        TagInput(index: index, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
-                            .fixedSize()
-                        CompactTagView(eventPublisher: eventPublisher, tag: tag)
+        GeometryReader { reader in
+            VStack(alignment: .leading) {
+                ScrollView([.horizontal]) {
+                    HStack(spacing: 0) {
+                        ForEach(Array(selectedTags.enumerated()), id: \.offset) { index, tag in
+                            TagInput(index: index, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
+                                .fixedSize()
+                            CompactTagView(eventPublisher: eventPublisher, tag: tag)
+                        }
+                        TagInput(index: -1, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
+                            .frame(minWidth: reader.size.width)
                     }
-                    TagInput(index: -1, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
                 }
-            }
-            .scrollIndicators(.never, axes: [.horizontal])
-            .padding(.vertical, 3)
-            .background(Color.white.opacity(0.5))
-            .clipShape(RoundedRectangle(cornerRadius: 5))
-            TagList(tagText: tagText, commands: $commands, selectedTags: $selectedTags)
+                .scrollIndicators(.never, axes: [.horizontal])
+                .padding(.vertical, 3)
+                .background(Color.white.opacity(0.5))
                 .clipShape(RoundedRectangle(cornerRadius: 5))
-        }
-        #if os(macOS)
-        .background(KeyEventHandlingView(eventPublisher: eventPublisher))
-        #endif
-        .onReceive(eventPublisher.$deletePressed) { _ in
-            handleDelete()
+                TagList(tagText: tagText, commands: $commands, selectedTags: $selectedTags)
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
+            }
+            #if os(macOS)
+            .background(KeyEventHandlingView(eventPublisher: eventPublisher))
+            #endif
+            .onReceive(eventPublisher.$deletePressed) { _ in
+                handleDelete()
+            }
         }
     }
     private func handleDelete() {
