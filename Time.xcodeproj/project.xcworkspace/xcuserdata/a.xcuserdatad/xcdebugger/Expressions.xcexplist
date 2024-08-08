@@ -9,10 +9,10 @@
                value = "self.viewID">
             </PersistentString>
             <PersistentString
-               value = "self.isDummy">
+               value = "self.period.project.name">
             </PersistentString>
             <PersistentString
-               value = "self.period.project.name">
+               value = "self.isDummy">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -32,6 +32,14 @@
       </ContextState>
       <ContextState
          contextName = "closure #2 in closure #1 in ActiveProjectView.body.getter:ActiveProjectView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProjectItem.setColor(to:environment:):ProjectItem.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "resolved.red">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -11,7 +11,7 @@ import SwiftData
 struct ProjectList: View {
     
     @Environment(\.modelContext) private var context
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.openWindow) private var openWindow
     
     @Environment(\.viewModel) private var viewModel
     @Environment(\.viewModel.periodRecordService) private var periodRecordService
@@ -20,9 +20,9 @@ struct ProjectList: View {
 
     @State var selectedIds: Set<ProjectItem.ID> = .init()
     @State var isAlertShown = false
-    @State var isCreationViewPresent = false
+    @State var isCreationSheetPresent = false
         
-    init(        
+    init(
         searchText: String = "",
         
         sortParameter: SortParameter = .recentness,
@@ -94,12 +94,8 @@ struct ProjectList: View {
                 context.insert(item2)
             }
         }
-        .sheet(isPresented: $isCreationViewPresent) {
-            ProjectCreation {
-                dismissCreationView()
-            } onCreate: {
-                dismissCreationView()
-            }
+        .sheet(isPresented: $isCreationSheetPresent) {
+            ProjectCreation()
         }
         .alert("Delete \(selectedIds.count) items?", isPresented: $isAlertShown) {
             Button("Delete", role: .destructive) {
@@ -142,11 +138,15 @@ struct ProjectList: View {
     // MARK: creation
     
     func showCreationView() {
-        isCreationViewPresent = true
+#if os(macOS)
+        openWindow(id: WindowId.projectEditor.rawValue)
+#elseif os(iOS)
+        isCreationSheetPresent = true
+#endif
     }
     
     func dismissCreationView() {
-        isCreationViewPresent = false
+        isCreationSheetPresent = false
     }
     
     // MARK: selection

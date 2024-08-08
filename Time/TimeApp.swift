@@ -26,30 +26,32 @@ var sharedModelContainer: ModelContainer = {
 @main
 struct TimeApp: App {
     @State private var viewModel = ViewModel(context: ModelContext(sharedModelContainer))
+    @Environment(\.openWindow) private var openWindow
     
     var body: some Scene {
-#if os(iOS)
-        WindowGroup {
-            ContentView()
-                .environment(viewModel)
-        }
-        .modelContainer(for: models, isUndoEnabled: false)
-#elseif os(macOS)
         WindowGroup {
             ContentView()
                 .environment(\.viewModel, viewModel)
         }
         .modelContainer(sharedModelContainer)
+        .commands() {
+            CommandGroup(before: .newItem) {
+                Button("New Project") {
+                    openWindow(id: WindowId.projectEditor.rawValue)
+                }
+                .keyboardShortcut("p")
+            }
+        }
         
-        WindowGroup(id: WindowId.projectEditor.rawValue, for: UUID.self) { uuid in
-            ProjectCreation(id: uuid.wrappedValue)
+        WindowGroup(id: WindowId.projectEditor.rawValue, for: PersistentIdentifier.self) { id in
+            ProjectCreation(id: id.wrappedValue)
         }
         .modelContainer(sharedModelContainer)
-        
+        #if os(macOS)
         Settings {
             SettingsView()
         }
-#endif
+        #endif
     }
 }
 

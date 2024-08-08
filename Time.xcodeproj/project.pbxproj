@@ -194,6 +194,8 @@
 		00132E6C2C3EBFCC00BB7997 /* TimeView */ = {
 			isa = PBXGroup;
 			children = (
+				00522DCA2C64A7D400DA781A /* Commands */,
+				00522DC92C64A38B00DA781A /* Periods */,
 				004559A62C63B26E00A0C857 /* Charts */,
 				00E88DB82C621A5E0036D88C /* Project */,
 				003D166D2C5B739600D02472 /* SortButton.swift */,
@@ -240,6 +242,20 @@
 				004559A72C63B29500A0C857 /* History.swift */,
 			);
 			path = Charts;
+			sourceTree = "<group>";
+		};
+		00522DC92C64A38B00DA781A /* Periods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Periods;
+			sourceTree = "<group>";
+		};
+		00522DCA2C64A7D400DA781A /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Commands;
 			sourceTree = "<group>";
 		};
 		00E15AAB2C4D23CE0019FEE0 /* Util */ = {

@@ -14,129 +14,158 @@ struct ProjectCreation: View {
     
     @Environment(\.self) var environment
     @Environment(\.modelContext) var context
+    @Environment(\.dismiss) private var dismiss
     
     @Query private var items: [ProjectItem]
     
-    @State private var project: ProjectItem
-    @State private var color: Color
+    /// the project passed by the caller, i.e. to modify it
+    @State private var givenProject: ProjectItem?
+    
+    @State private var name = ""
+    @State private var tags = [Tag]()
+    @State private var color = Color.randomColor
+    @State private var parent = nil as ProjectItem?
+    @State private var notes = ""
+    
     @State private var detailExpanded: Bool = false
     
     var onCancel: VoidFunction? = nil
     var onCreate: VoidFunction? = nil
     var onUpdate: VoidFunction? = nil
     
-    @State private var isUpdating = false
-    private var uuid: UUID?
+    private var persistentIdentifier: PersistentIdentifier?
     
+    
+    /// create the project
     init(onCancel: VoidFunction? = nil, onCreate: VoidFunction? = nil) {
         self.onCancel = onCancel
         self.onCreate = onCreate
-        
-        let item = ProjectItem(name: "")
-        project = item
-        color = item.color
     }
     
+    /// edit the project
     init(item: ProjectItem, onCancel: VoidFunction? = nil, onUpdate: VoidFunction? = nil) {
-        
         self.onCancel = onCancel
         self.onUpdate = onUpdate
-        
-        project = item
-        color = item.color
-        
-        isUpdating = true
+        givenProject = item
     }
     
-    init(id: UUID?) {
-        self.init()
-        self.uuid = id
+    /// edit the project (window)
+    init(id: PersistentIdentifier?) {
+        self.persistentIdentifier = id
     }
     
     var body: some View {
         VStack { // do not use form for complicated UI
             ScrollView {
-                TextField("Name:", text: $project.name)
-                TagSelector(selectedTags: $project.tags)
+                TextField("Name:", text: $name)
+                TagSelector(selectedTags: $tags)
                     .frame(height: 100)
-                HStack {
-                    ColorPicker("Color:", selection: $color, supportsOpacity: false)
-                    Text("\(project.r), \(project.g), \(project.b)")
-                }
-                Picker("Parent", selection: $project.parent) {
+                ColorPicker("Color:", selection: $color, supportsOpacity: false)
+                Picker("Parent", selection: $parent) {
                     Text("").tag(nil as ProjectItem?)
                     ForEach(items) { item in
                         Text(item.name).tag(item as ProjectItem?)
                     }
                 }
-                TextField("Notes:", text: #nullable(project.notes))
-                DisclosureGroup("Detail", isExpanded: $detailExpanded) {
-                    // TODO: auto scroll to this when shown
-                    VStack(alignment: .leading) {
-                        Text("Created at: \(project.creationTime)")
-                        Text("ID: \(project.id)")
-                        Text("Parent ID: \(String(describing: project.parent?.id))")
+                TextField("Notes:", text: $notes)
+                if let project = givenProject {
+                    DisclosureGroup("Detail", isExpanded: $detailExpanded) {
+                        // TODO: auto scroll to this when shown
+                        VStack(alignment: .leading) {
+                            Text("Created at: \(project.creationTime)")
+                            Text("ID: \(project.id)")
+                            Text("Parent ID: \(String(describing: project.parent?.id))")
+                        }
                     }
                 }
             }
             .scrollIndicators(.hidden)
             HStack {
                 Spacer()
-                Button("Cancel") {
-                    // TODO: do not save when cancel
-                    onCancel?()
-                }
-                if isUpdating {
-                    Button("Update") {
-                        onUpdate?()
-                    }
-                } else {
-                    Button("Create") {
-                        createItem()
-                        onCreate?()
-                    }
-                }
+                Button("Cancel", action: handleCancel)
+                Button(givenProject == nil ? "Create" : "Update", action: handleCreateAndUpdate)
             }
         }
-        .onChange(of: color, DelayedExecutor(delay: 1, function: saveColor).callAsFunction)
         .padding()
-        .onAppear {
-            guard let uuid = uuid, project.id != uuid else {
-                return
-            }
-            guard let project = try? context.fetch(.init(predicate: #Predicate<ProjectItem>{$0.id == uuid})).first else {
-                
-                let item = ProjectItem(name: "")
-                project = item
-                color = item.color
-                return
-                
-            }
-            
-            self.project = project
-            self.color = project.color
-            
-            isUpdating = true
+        .onAppear(perform: onAppear)
+        .navigationTitle("Project editor - \(name)")
+    }
+    
+    private func onAppear() {
+        checkAndFetchProject()
+        checkAndCopyGivenProject()
+    }
+    
+    private func checkAndFetchProject() {
+        guard let id = persistentIdentifier else {
+            return
         }
-        .navigationTitle("Project Editor: \(project.name)")
+        givenProject = context.registeredModel(for: id)
     }
     
-    func createItem() {
-        saveColor()
-        context.insert(project)
-        reset()
+    private func checkAndCopyGivenProject() {
+        if let givenProject = givenProject {
+            name = givenProject.name
+            tags = givenProject.tags
+            color = givenProject.color
+            parent = givenProject.parent
+            notes = givenProject.notes
+        }
     }
     
-    func reset(with item: ProjectItem = ProjectItem(name: "")) {
-        project = item
-        color = Color(red: Double(item.r), green: Double(item.g), blue: Double(item.b))
+    private func handleCancel() {
+        closeSelf()
     }
     
-    func saveColor() {
+    private func handleCreateAndUpdate() {
+        if givenProject != nil {
+            handleUpdate()
+        } else {
+            handleCreate()
+        }
+    }
+    
+    private func handleCreate() {
+        createItem()
+        onCreate?()
+        closeSelf()
+    }
+    
+    private func handleUpdate() {
+        updateItem()
+        onUpdate?()
+        closeSelf()
+    }
+    
+    private func updateItem() {
+        if let givenProject = givenProject {
+            givenProject.name = name
+            givenProject.tags = tags
+            setColor(project: givenProject, color: color)
+            givenProject.parent = parent
+            givenProject.notes = notes
+        }
+    }
+    
+    private func createItem() {
+        let newProject = ProjectItem(name: name)
+        newProject.tags = tags
+        setColor(project: newProject, color: color)
+        newProject.parent = parent
+        newProject.notes = notes
+        context.insert(newProject)
+        closeSelf()
+    }
+    
+    func setColor(project: ProjectItem, color: Color) { // I don not know why many weird things would happen if you resolve the color in other places, so update the color in this view.
         let resolved = color.resolve(in: environment)
         project.r = resolved.red
         project.g = resolved.green
         project.b = resolved.blue
+    }
+    
+    private func closeSelf() {
+        dismiss()
     }
 }
 

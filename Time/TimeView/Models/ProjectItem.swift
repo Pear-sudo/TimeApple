@@ -27,7 +27,7 @@ class ProjectItem: Identifiable, CustomStringConvertible {
     
     var name: String
     var parent: ProjectItem?
-    var notes: String?
+    var notes: String = ""
     var tags: [Tag] = []
     
     var r: Float = Float.random(in: 0...255) / 255
@@ -71,5 +71,12 @@ enum SortParameter: String, CaseIterable, Identifiable {
     var id: Self { self }
     var name: String {
         rawValue.capitalized
+    }
+}
+
+extension Color {
+    static var randomColor: Color {
+        let range = 0.0...1.0
+        return Color(.displayP3, red: .random(in: range), green: .random(in: range), blue: .random(in: range))
     }
 }

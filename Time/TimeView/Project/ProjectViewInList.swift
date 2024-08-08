@@ -39,17 +39,13 @@ struct ProjectViewInList: View {
         }
         .fixedSize(horizontal: false, vertical: true)
         .sheet(isPresented: $isDetailShown) {
-            ProjectCreation(item: item) {
-                hideDetails()
-            } onUpdate: {
-                hideDetails()
-            }
+            ProjectCreation(item: item)
         }
         .frame(maxWidth: .infinity)
 #if os(macOS)
         .contextMenu {
             Button("Details") {
-                openWindow(id: WindowId.projectEditor.rawValue, value: item.id)
+                openWindow(id: WindowId.projectEditor.rawValue, value: item.persistentModelID)
             }
         }
         .popover(isPresented: $item.isPopoverShown, content: {
@@ -64,10 +60,6 @@ struct ProjectViewInList: View {
         .onTapGesture(perform: onTap)
 #endif
         
-    }
-    
-    private func hideDetails() {
-        isDetailShown = false
     }
     
     private func expand() {
