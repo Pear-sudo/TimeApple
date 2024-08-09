@@ -48,11 +48,12 @@ struct TimeApp: App {
             ProjectCreation(id: id.wrappedValue)
         }
         .modelContainer(sharedModelContainer)
-        #if os(macOS)
+        
+#if os(macOS)
         Settings {
             SettingsView()
         }
-        #endif
+#endif
     }
 }
 

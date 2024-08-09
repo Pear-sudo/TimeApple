@@ -63,11 +63,14 @@ struct ProjectCreation: View {
                     ColorPicker("", selection: $color, supportsOpacity: false)
                         .stableLabel("Color: ")
                     Picker("", selection: $parent) {
-                        Text("").tag(nil as ProjectItem?)
+                        Text("None")
+                            .tag(nil as ProjectItem?)
                         ForEach(parentCandidates) { parentProject in
                             Text(parentProject.name).tag(parentProject as ProjectItem?)
                         }
                     }
+                    .pickerStyle(.automatic)
+                    .controlSize(.regular)
                     .stableLabel("Parent: ")
                     TextField("Notes:", text: $notes)
                     if let project = givenProject {

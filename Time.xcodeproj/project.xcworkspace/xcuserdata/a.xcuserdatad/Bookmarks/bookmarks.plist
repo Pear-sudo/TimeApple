@@ -59,13 +59,13 @@ extension Sequence where Element == ArrayExprSyntax {</string>
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>228</string>
+					<string>321</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>227</string>
+					<string>320</string>
 					<key>Timestamp</key>
-					<string>744815361.376712</string>
+					<string>744882769.513894</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -88,9 +88,9 @@ extension Sequence where Element == ArrayExprSyntax {</string>
 
 </string>
 				<key>trailing</key>
-				<string>    var index: Int
+				<string>    let titleKey: LocalizedStringKey
+    var index: Int
     @FocusState.Binding var focusIndex: Int?
-    @Binding var tagText: String
 </string>
 			</dict>
 			<key>title</key>

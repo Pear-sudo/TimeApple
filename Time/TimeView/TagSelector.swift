@@ -20,26 +20,51 @@ struct TagSelector: View {
     
     @FocusState private var focusIndex: Int?
     @StateObject private var eventPublisher = EventPublisher()
+    
+    @State private var headerWidth: Double?
             
     var body: some View {
         GeometryReader { reader in
             VStack(alignment: .leading) {
                 ScrollView([.horizontal]) {
                     HStack(spacing: 0) {
-                        ForEach(Array(selectedTags.enumerated()), id: \.offset) { index, tag in
-                            TagInput(index: index, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
-                                .fixedSize()
-                            CompactTagView(eventPublisher: eventPublisher, tag: tag)
+                        HStack(spacing: 0) {
+                            ForEach(Array(selectedTags.enumerated()), id: \.offset) { index, tag in
+                                TagInput(index: index, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
+                                    .fixedSize()
+                                CompactTagView(eventPublisher: eventPublisher, tag: tag, selectedTags: $selectedTags)
+                            }
                         }
-                        TagInput(index: -1, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
-                            .frame(minWidth: reader.size.width)
+                        .background {
+                            GeometryReader { geometry in
+                                Rectangle().fill(.clear).onChange(of: selectedTags) {
+                                    headerWidth = geometry.size.width
+                                }
+                            }
+                        }
+                        TagInput(selectedTags.isEmpty ? "type tag here" : "", index: -1, focusIndex: $focusIndex, tagText: $tagText, commands: $commands, selectedTags: $selectedTags)
+                            .frame(minWidth: max(reader.size.width - (headerWidth ?? 0), 0))
                     }
+                    .coordinateSpace(.named("compactTags"))
                 }
+                .dropDestination(for: String.self, action: { names, position in
+                    if let tags = try? context.fetch(FetchDescriptor(predicate: #Predicate<Tag>{names.contains($0.name)})) {
+                        let selection = Set(selectedTags)
+                        let addition =  Set(tags)
+                        let effectiveAddition = addition.subtracting(selection)
+                        if effectiveAddition.isEmpty {
+                            return false
+                        }
+                        selectedTags.append(contentsOf: effectiveAddition)
+                        return true
+                    }
+                    return false
+                })
                 .scrollIndicators(.never, axes: [.horizontal])
                 .padding(.vertical, 3)
                 .background(Color.white.opacity(0.5))
                 .clipShape(RoundedRectangle(cornerRadius: 5))
-                TagList(tagText: tagText, commands: $commands, selectedTags: $selectedTags)
+                TagList(tagText: $tagText, commands: $commands, selectedTags: $selectedTags, focusIndex: $focusIndex)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
             }
             #if os(macOS)
@@ -84,13 +109,17 @@ struct TagList: View {
     @Binding private var commands: Deque<KeyEquivalent>
     @Binding private var selectedTags: [Tag]
         
-    private var tagText: String = ""
+    @Binding private var tagText: String
     
-    init(tagText: String, commands: Binding<Deque<KeyEquivalent>>, selectedTags: Binding<[Tag]>) {
-        self.tagText = tagText
+    @FocusState.Binding var focusIndex: Int?
+    
+    init(tagText: Binding<String>, commands: Binding<Deque<KeyEquivalent>>, selectedTags: Binding<[Tag]>, focusIndex: FocusState<Int?>.Binding) {
+        self._tagText = tagText
         self._commands = commands
         self._selectedTags = selectedTags
+        self._focusIndex = focusIndex
         
+        let tagText = tagText.wrappedValue
         let predicate = #Predicate<Tag> { tag in
             return tagText.isEmpty ? true : tag.name.localizedStandardContains(tagText)
         }
@@ -115,6 +144,20 @@ struct TagList: View {
                     }
                 }
             }
+            .overlay {
+                if tags.isEmpty {
+                    Text("No tags yet")
+                } else if tags.count - selectedTags.count == 0 {
+                    Text("No remaining tags")
+                }
+            }
+            #if os(macOS)
+            .onDeleteCommand {
+                try? context.enumerate(FetchDescriptor(predicate: #Predicate<Tag>{selectedId.contains($0.name)})) { tag in
+                    context.delete(tag)
+                }
+            }
+            #endif
             .onKeyPress(keys: [.tab, .return], action: {_ in selectSelectedTag(); return .handled})
             .onChange(of: tagText) {
                 position = -1
@@ -127,6 +170,7 @@ struct TagList: View {
                 switch command {
                 case .return, .tab:
                     guard selectedId.isEmpty else {
+                        // if we have some selected tags to add to the 'selected tags'
                         selectSelectedTag()
                         return
                     }
@@ -170,14 +214,30 @@ struct TagList: View {
     
     private func createTag() {
         let newTag = Tag(name: tagText)
+        tagText = ""
+        insertTagsAndFocus(tags: [newTag])
         context.insert(newTag)
+    }
+    
+    private func insertTagsAndFocus(tags: [Tag]) {
+        if var index = focusIndex, index != -1 {
+            selectedTags.insert(contentsOf: tags, at: index)
+            index = index + tags.count
+            if index == selectedTags.count {
+                index = -1
+            }
+            focusIndex = index
+        } else {
+            selectedTags.append(contentsOf: tags)
+            focusIndex = -1
+        }
     }
     
     private func selectSelectedTag() {
         let predicate = #Predicate<Tag> {selectedId.contains($0.name)}
         let descriptor = FetchDescriptor(predicate: predicate)
         if let tags = try? context.fetch(descriptor) {
-            selectedTags.append(contentsOf: tags)
+            insertTagsAndFocus(tags: tags)
             selectedId.removeAll()
         }
         position = -1
@@ -190,25 +250,62 @@ struct TagList: View {
 }
 
 struct TagView: View {
+    @Environment(\.modelContext) private var context
     var tag: Tag
     var body: some View {
         Text(tag.name)
+            .swipeActions {
+                Button("Delete", systemImage: "trash.fill", role: .destructive) {
+                    context.delete(tag)
+                }
+            }
+            .draggable(tag.name)
     }
 }
 
 struct CompactTagView: View {
+    
     @ObservedObject var eventPublisher: EventPublisher
-    @State private var isSelected = false
     var tag: Tag
+    @Binding var selectedTags: [Tag]
+    
+    @State private var frame: CGRect?
+    
     var body: some View {
         Text(tag.name)
             .padding(.horizontal, 5)
-            .background(isSelected ? .blue : .gray)
+            .background(.gray)
             .clipShape(RoundedRectangle(cornerRadius: 3))
-            .onTapGesture {
-                isSelected.toggle()
+        #if os(macOS)
+            .onTapGesture(count: 2, perform: {
+                removeSelf()
+            })
+        #elseif os(iOS)
+            .onTapGesture(count: 1, perform: {
+                removeSelf()
+            })
+        #endif
+            .gesture(DragGesture(coordinateSpace: .named("compactTags")).onEnded { value in
+                let location = value.location
+                if location.x < 0 || location.y < 0 || location.y > frame?.height ?? 100 {
+                    removeSelf()
+                }
+            })
+            .background {
+                GeometryReader { geometry in
+                    Rectangle().fill(.clear).onAppear {
+                        frame = geometry.frame(in: .named("compactTags"))
+                    }
+                }
             }
     }
+    
+    private func removeSelf() {
+        if let i = selectedTags.firstIndex(of: tag) {
+            selectedTags.remove(at: i)
+        }
+    }
+    
     #if os(macOS)
     /// no longer needed, just for your reference for how to change the cursor
     private func handleCursor(_ hover: Bool) {
@@ -219,21 +316,27 @@ struct CompactTagView: View {
         }
     }
     #endif
-    
-    private var isDragging: Bool {
-        (ContinuousClock.now - eventPublisher.lastMouseDrag) < .milliseconds(500)
-    }
 }
 
 struct TagInput: View {
+    let titleKey: LocalizedStringKey
     var index: Int
     @FocusState.Binding var focusIndex: Int?
     @Binding var tagText: String
     @Binding var commands: Deque<KeyEquivalent>
     @Binding var selectedTags: [Tag]
+    
+    init(_ titleKey: LocalizedStringKey = "", index: Int, focusIndex: FocusState<Int?>.Binding, tagText: Binding<String>, commands: Binding<Deque<KeyEquivalent>>, selectedTags: Binding<[Tag]>) {
+        self.titleKey = titleKey
+        self.index = index
+        self._focusIndex = focusIndex
+        self._tagText = tagText
+        self._commands = commands
+        self._selectedTags = selectedTags
+    }
         
     var body: some View {
-        TextField("", text: isFocused ? $tagText : .constant(""))
+        TextField(titleKey, text: isFocused ? $tagText : .constant(""))
             .textFieldStyle(.plain)
             .multilineTextAlignment(textAlignment)
             .padding(.horizontal, padding)
@@ -249,6 +352,10 @@ struct TagInput: View {
             .onChange(of: focusIndex) {
                 tagText = ""
             }
+            .autocorrectionDisabled()
+        #if os(iOS)
+            .textInputAutocapitalization(.never)
+        #endif
     }
     
     private var isFocused: Bool {
