@@ -29,7 +29,7 @@ struct ContentView: View {
             Dashboard()
                 .navigationSplitViewColumnWidth(ideal: 500)
         } detail: {
-            Text("Detail View")
+            ProjectSummary()
                 .navigationSplitViewColumnWidth(ideal: 0, max: detailMax) // this only works for macOS
         }
         .toolbar {

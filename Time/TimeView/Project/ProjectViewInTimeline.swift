@@ -8,30 +8,46 @@
 import SwiftUI
 
 struct ProjectViewInTimeline: View {
+    var period: PeriodRecord
     var body: some View {
-        ShortLayout {
-            Timeline(circleSize: 10)
-            HStack(alignment: .top) {
-                ProjectInfo()
-                Spacer()
-                DurationView()
+        VStack(alignment: .leading, spacing: 16) {
+            TimePoint(date: period.startTime!)
+            ShortLayout {
+                Timeline(color: period.project.color, circleSize: 10)
+                HStack(alignment: .top) {
+                    ProjectInfo(project: period.project)
+                    Spacer()
+                    if let seconds = seconds {
+                        DurationView(duration: .seconds(seconds))
+                    } else {
+                        DurationView(start: period.startTime!)
+                    }
+                }
+                .padding(.vertical, 10)
             }
-            .padding(.vertical, 10)
+            TimePoint(date: period.endTime)
         }
+    }
+    var seconds: Double? {
+        period.endTime == nil ? nil : period.endTime!.timeIntervalSince(period.startTime!)
     }
 }
 
 struct TimePoint: View {
-    let date: Date = .now
+    var date: Date? = .now
     var body: some View {
-        Text(date, style: .time)
-            .font(.body)
-            .foregroundStyle(.gray)
+        if let date = date {
+            Text(date, style: .time)
+                .font(.body)
+                .foregroundStyle(.gray)
+        } else {
+            TimelineView(.everyMinute) { time in
+                Text(time.date, style: .time)
+                    .font(.body)
+                    .foregroundStyle(.gray)
+            }
+        }
     }
-}
-
-#Preview("TimePoint") {
-    TimePoint()
 }
 
 struct Timeline: View {
@@ -57,8 +73,7 @@ struct Timeline: View {
 }
 
 struct ProjectInfo: View {
-    var firstLine: String = "Time"
-    var secondLine: String = "Programming projects"
+    var project: ProjectItem
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             Group {
@@ -70,10 +85,17 @@ struct ProjectInfo: View {
             .lineLimit(1, reservesSpace: true)
         }
     }
+    var firstLine: String {
+        project.name
+    }
+    var secondLine: String {
+        project.parent?.name ?? ""
+    }
 }
 
 struct DurationView: View {
     var duration: Duration = .seconds(9874560) + .milliseconds(12)
+    var start: Date? = nil
     var format: Duration.UnitsFormatStyle = .units(
         allowed: [.weeks, .days, .hours, .minutes, .seconds],
         width: .narrow,
@@ -82,7 +104,28 @@ struct DurationView: View {
         valueLength: nil,
         fractionalPart: .hide
     )
+    init(duration: Duration, format: Duration.UnitsFormatStyle? = nil) {
+        self.duration = duration
+        if let format = format {
+            self.format = format
+        }
+    }
+    init(start: Date, format: Duration.UnitsFormatStyle? = nil) {
+        self.start = start
+        if let format = format {
+            self.format = format
+        }
+    }
     var body: some View {
+        if let start = start {
+            TimelineView(.periodic(from: start, by: 1)) { time in
+                wrapped(duration: .seconds(time.date.timeIntervalSince(start)))
+            }
+        } else {
+            wrapped(duration: duration)
+        }
+    }
+    func wrapped(duration: Duration) -> some View {
         HStack(alignment: .top, spacing: 0) {
             Text(duration.formatted(format))
                 .textCase(.uppercase)
@@ -165,24 +208,4 @@ struct ShortLayout: Layout {
         }
         return x! - y!
     }
-}
-
-#Preview {
-    ProjectViewInTimeline()
-        .frame(width: 400, height: 200)
-}
-
-#Preview("Timeline") {
-    Timeline()
-        .frame(width: 100, height: 100)
-}
-
-#Preview("ProjectInfo") {
-    ProjectInfo()
-        .frame(width: 200, height: 100)
-}
-
-#Preview("Duration") {
-    DurationView()
-        .frame(width: 200, height: 100)
 }

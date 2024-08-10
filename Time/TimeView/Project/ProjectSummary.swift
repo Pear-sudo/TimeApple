@@ -30,6 +30,7 @@ struct ProjectSummary: View {
             }
             .padding(8)
         }
+        .defaultScrollAnchor(.top)
     }
 }
 

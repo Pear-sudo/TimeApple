@@ -167,22 +167,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9F66ECB7-84A9-422F-835E-1137C4CC096A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Time/Services/PeriodRecordService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "getRangedPredicate(start:end:strict:polarize:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D21FA074-7BDF-4B2E-8367-6DA87C4F5943"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -190,8 +174,8 @@
             filePath = "Time/Services/PeriodRecordService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "getDailyPeriods(from:to:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -232,7 +216,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "97FBA993-4488-4C68-BE0E-89EE4056E51F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Time/TimeView/Project/ProjectCreation.swift"
@@ -248,14 +232,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D4E9C9DF-D8BE-4AAB-9D09-12172FD2C002"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Time/TimeView/Project/ProjectViewInTimeline.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "placeSubviews(in:proposal:subviews:cache:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -264,14 +248,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "151E3AE0-5918-4A42-8D0C-19896EA21BD5"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Time/TimeView/Project/ProjectViewInTimeline.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "sizeThatFits(proposal:subviews:cache:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -280,16 +264,30 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "BAC470DD-3D3B-421C-BCF3-FFF2B89CCA29"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Time/TimeView/Project/ProjectViewInTimeline.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "widths(proposal:subviews:spacing:maxHeight:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DA5A11FB-8BEE-4C61-A613-B3FCCE062A4D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../var/folders/t8/7dcl37zs5gx7msdn5klmv12c0000gn/T/swift-generated-sources/@__swiftmacro_4Time14ProjectSummaryV7periods5QueryfMp_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

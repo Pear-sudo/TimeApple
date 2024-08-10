@@ -83,7 +83,10 @@ class PeriodRecordService {
         return descriptor
     }
     
-    private func getRangedPredicate(start: Date, end: Date, strict: Bool = false, polarize: Bool = true) -> Predicate<PeriodRecord>? {
+    static private let logger = Logger(subsystem: "cyou.b612.model.service", category: "period_record")
+    static private let calendar = Calendar.autoupdatingCurrent
+    
+    static func getRangedPredicate(start: Date, end: Date, strict: Bool = false, polarize: Bool = true) -> Predicate<PeriodRecord>? {
         var start = start
         var end = end
         if polarize {
@@ -168,7 +171,7 @@ class PeriodRecordService {
     
     /// fetch all periods within the range, if some periods are spanning across the range boundaries, clip those periods so that the start times and end times of these periods are guaranteed to fall within the range
     func getPeriods(from start: Date, to end: Date) -> [PeriodRecord] {
-        guard let predicate = getRangedPredicate(start: start, end: end) else {
+        guard let predicate = PeriodRecordService.getRangedPredicate(start: start, end: end) else {
             return []
         }
         guard let periods = try? context.fetch(FetchDescriptor(predicate: predicate)) else {

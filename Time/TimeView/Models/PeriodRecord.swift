@@ -11,6 +11,7 @@ import SwiftData
 @Model
 class PeriodRecord {
     
+    @Attribute(originalName: "id")
     private(set) var id: UUID = UUID()
     private(set) var creationTime: Date = Date()
     
@@ -44,6 +45,16 @@ class PeriodRecord {
         descriptor.fetchLimit = 1
         return descriptor
     }()
+}
+
+extension PeriodRecord {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(creationTime)
+        hasher.combine(startTime)
+        hasher.combine(endTime)
+        hasher.combine(project)
+    }
 }
 
 extension PeriodRecord {

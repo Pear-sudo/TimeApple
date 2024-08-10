@@ -31,6 +31,7 @@
 		00522DCC2C66277500DA781A /* ProjectViewInTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DCB2C66277500DA781A /* ProjectViewInTimeline.swift */; };
 		00522DCE2C666AEC00DA781A /* ProjectTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DCD2C666AEC00DA781A /* ProjectTimeline.swift */; };
 		00522DD02C66FFF700DA781A /* ProjectSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DCF2C66FFF700DA781A /* ProjectSummary.swift */; };
+		00522DD32C672F6600DA781A /* ClassAndViewUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DD22C672F6600DA781A /* ClassAndViewUpdates.swift */; };
 		008039B32C630DD600B49561 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008039B22C630DD600B49561 /* Color.swift */; };
 		0086A3E42C605499004B574E /* StatsOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086A3E32C605499004B574E /* StatsOverview.swift */; };
 		00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1ED2C57DE690026CE81 /* GeneralMacro */; };
@@ -93,6 +94,7 @@
 		00522DCB2C66277500DA781A /* ProjectViewInTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewInTimeline.swift; sourceTree = "<group>"; };
 		00522DCD2C666AEC00DA781A /* ProjectTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTimeline.swift; sourceTree = "<group>"; };
 		00522DCF2C66FFF700DA781A /* ProjectSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSummary.swift; sourceTree = "<group>"; };
+		00522DD22C672F6600DA781A /* ClassAndViewUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassAndViewUpdates.swift; sourceTree = "<group>"; };
 		008039B22C630DD600B49561 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0086A3E32C605499004B574E /* StatsOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsOverview.swift; sourceTree = "<group>"; };
 		00B1A1F12C57E0610026CE81 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -200,6 +202,7 @@
 		00132E6C2C3EBFCC00BB7997 /* TimeView */ = {
 			isa = PBXGroup;
 			children = (
+				00522DD12C672F3500DA781A /* Pitfall */,
 				00522DCA2C64A7D400DA781A /* Commands */,
 				00522DC92C64A38B00DA781A /* Periods */,
 				004559A62C63B26E00A0C857 /* Charts */,
@@ -262,6 +265,14 @@
 			children = (
 			);
 			path = Commands;
+			sourceTree = "<group>";
+		};
+		00522DD12C672F3500DA781A /* Pitfall */ = {
+			isa = PBXGroup;
+			children = (
+				00522DD22C672F6600DA781A /* ClassAndViewUpdates.swift */,
+			);
+			path = Pitfall;
 			sourceTree = "<group>";
 		};
 		00E15AAB2C4D23CE0019FEE0 /* Util */ = {
@@ -458,6 +469,7 @@
 				001545912C5E09EB00CC5D6E /* ContentView.swift in Sources */,
 				00522DD02C66FFF700DA781A /* ProjectSummary.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
+				00522DD32C672F6600DA781A /* ClassAndViewUpdates.swift in Sources */,
 				00132E882C4B957400BB7997 /* ProjectCreation.swift in Sources */,
 				008039B32C630DD600B49561 /* Color.swift in Sources */,
 			);
