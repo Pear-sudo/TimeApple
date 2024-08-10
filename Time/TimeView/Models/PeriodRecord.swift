@@ -48,6 +48,17 @@ class PeriodRecord {
 }
 
 extension PeriodRecord {
+    var duration: Duration? {
+        if let startTime = startTime, let endTime = endTime {
+            return .seconds(endTime.timeIntervalSince(startTime))
+        }
+        else {
+            return nil
+        }
+    }
+}
+
+extension PeriodRecord {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(creationTime)

@@ -32,6 +32,13 @@
 		00522DCE2C666AEC00DA781A /* ProjectTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DCD2C666AEC00DA781A /* ProjectTimeline.swift */; };
 		00522DD02C66FFF700DA781A /* ProjectSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DCF2C66FFF700DA781A /* ProjectSummary.swift */; };
 		00522DD32C672F6600DA781A /* ClassAndViewUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DD22C672F6600DA781A /* ClassAndViewUpdates.swift */; };
+		00522DD62C677A9600DA781A /* PeriodEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DD52C677A9600DA781A /* PeriodEditingView.swift */; };
+		00522DD82C6787C200DA781A /* ParentProjectPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DD72C6787C200DA781A /* ParentProjectPicker.swift */; };
+		00522DDA2C67880600DA781A /* ProjectNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DD92C67880600DA781A /* ProjectNote.swift */; };
+		00522DDC2C67883100DA781A /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DDB2C67883100DA781A /* TimePicker.swift */; };
+		00522DDE2C67885F00DA781A /* TimeIntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DDD2C67885F00DA781A /* TimeIntervalPicker.swift */; };
+		00522DE02C67888000DA781A /* ProjectDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DDF2C67888000DA781A /* ProjectDatePicker.swift */; };
+		00522DE32C6788EF00DA781A /* SubmitControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DE22C6788EF00DA781A /* SubmitControls.swift */; };
 		008039B32C630DD600B49561 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008039B22C630DD600B49561 /* Color.swift */; };
 		0086A3E42C605499004B574E /* StatsOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086A3E32C605499004B574E /* StatsOverview.swift */; };
 		00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1ED2C57DE690026CE81 /* GeneralMacro */; };
@@ -95,6 +102,13 @@
 		00522DCD2C666AEC00DA781A /* ProjectTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTimeline.swift; sourceTree = "<group>"; };
 		00522DCF2C66FFF700DA781A /* ProjectSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSummary.swift; sourceTree = "<group>"; };
 		00522DD22C672F6600DA781A /* ClassAndViewUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassAndViewUpdates.swift; sourceTree = "<group>"; };
+		00522DD52C677A9600DA781A /* PeriodEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodEditingView.swift; sourceTree = "<group>"; };
+		00522DD72C6787C200DA781A /* ParentProjectPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentProjectPicker.swift; sourceTree = "<group>"; };
+		00522DD92C67880600DA781A /* ProjectNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectNote.swift; sourceTree = "<group>"; };
+		00522DDB2C67883100DA781A /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
+		00522DDD2C67885F00DA781A /* TimeIntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalPicker.swift; sourceTree = "<group>"; };
+		00522DDF2C67888000DA781A /* ProjectDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDatePicker.swift; sourceTree = "<group>"; };
+		00522DE22C6788EF00DA781A /* SubmitControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitControls.swift; sourceTree = "<group>"; };
 		008039B22C630DD600B49561 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0086A3E32C605499004B574E /* StatsOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsOverview.swift; sourceTree = "<group>"; };
 		00B1A1F12C57E0610026CE81 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -202,6 +216,7 @@
 		00132E6C2C3EBFCC00BB7997 /* TimeView */ = {
 			isa = PBXGroup;
 			children = (
+				00522DE12C6788D000DA781A /* Common */,
 				00522DD12C672F3500DA781A /* Pitfall */,
 				00522DCA2C64A7D400DA781A /* Commands */,
 				00522DC92C64A38B00DA781A /* Periods */,
@@ -213,6 +228,8 @@
 				001545902C5E09EB00CC5D6E /* ContentView.swift */,
 				001545942C5E1B8100CC5D6E /* TagSelector.swift */,
 				0086A3E32C605499004B574E /* StatsOverview.swift */,
+				00522DDB2C67883100DA781A /* TimePicker.swift */,
+				00522DDD2C67885F00DA781A /* TimeIntervalPicker.swift */,
 			);
 			path = TimeView;
 			sourceTree = "<group>";
@@ -256,6 +273,7 @@
 		00522DC92C64A38B00DA781A /* Periods */ = {
 			isa = PBXGroup;
 			children = (
+				00522DD52C677A9600DA781A /* PeriodEditingView.swift */,
 			);
 			path = Periods;
 			sourceTree = "<group>";
@@ -273,6 +291,14 @@
 				00522DD22C672F6600DA781A /* ClassAndViewUpdates.swift */,
 			);
 			path = Pitfall;
+			sourceTree = "<group>";
+		};
+		00522DE12C6788D000DA781A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				00522DE22C6788EF00DA781A /* SubmitControls.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		00E15AAB2C4D23CE0019FEE0 /* Util */ = {
@@ -295,6 +321,9 @@
 				00522DCB2C66277500DA781A /* ProjectViewInTimeline.swift */,
 				00522DCD2C666AEC00DA781A /* ProjectTimeline.swift */,
 				00522DCF2C66FFF700DA781A /* ProjectSummary.swift */,
+				00522DD72C6787C200DA781A /* ParentProjectPicker.swift */,
+				00522DD92C67880600DA781A /* ProjectNote.swift */,
+				00522DDF2C67888000DA781A /* ProjectDatePicker.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -452,7 +481,10 @@
 				004559A42C6389C500A0C857 /* ProjectItemService.swift in Sources */,
 				00132E812C47B01700BB7997 /* Dashboard.swift in Sources */,
 				003D16702C5B7C2500D02472 /* ProjectList.swift in Sources */,
+				00522DDE2C67885F00DA781A /* TimeIntervalPicker.swift in Sources */,
 				003D166E2C5B739600D02472 /* SortButton.swift in Sources */,
+				00522DE02C67888000DA781A /* ProjectDatePicker.swift in Sources */,
+				00522DDC2C67883100DA781A /* TimePicker.swift in Sources */,
 				00522DCE2C666AEC00DA781A /* ProjectTimeline.swift in Sources */,
 				0016C09A2C6213DA005308EA /* ProjectHeader.swift in Sources */,
 				00D385542C56066D0091135F /* ProjectViewInHeader.swift in Sources */,
@@ -460,18 +492,22 @@
 				00132E702C3EC04500BB7997 /* ProjectViewInList.swift in Sources */,
 				004559A82C63B29500A0C857 /* History.swift in Sources */,
 				004559A22C6342FB00A0C857 /* PeriodRecordService.swift in Sources */,
+				00522DDA2C67880600DA781A /* ProjectNote.swift in Sources */,
 				0015458F2C5E00C800CC5D6E /* SettingsView.swift in Sources */,
 				00132E7B2C46128200BB7997 /* ProjectItem.swift in Sources */,
 				00E15AAD2C4D23E20019FEE0 /* Util.swift in Sources */,
 				00E15AB52C514B010019FEE0 /* PeriodRecord.swift in Sources */,
 				001545932C5E191000CC5D6E /* Tag.swift in Sources */,
 				001545952C5E1B8100CC5D6E /* TagSelector.swift in Sources */,
+				00522DE32C6788EF00DA781A /* SubmitControls.swift in Sources */,
 				001545912C5E09EB00CC5D6E /* ContentView.swift in Sources */,
 				00522DD02C66FFF700DA781A /* ProjectSummary.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
+				00522DD62C677A9600DA781A /* PeriodEditingView.swift in Sources */,
 				00522DD32C672F6600DA781A /* ClassAndViewUpdates.swift in Sources */,
 				00132E882C4B957400BB7997 /* ProjectCreation.swift in Sources */,
 				008039B32C630DD600B49561 /* Color.swift in Sources */,
+				00522DD82C6787C200DA781A /* ParentProjectPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
