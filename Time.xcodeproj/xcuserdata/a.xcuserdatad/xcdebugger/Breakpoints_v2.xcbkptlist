@@ -190,9 +190,9 @@
             filePath = "Time/Services/PeriodRecordService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "getDailyClippedPeriods(from:to:)"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "getDailyPeriods(from:to:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

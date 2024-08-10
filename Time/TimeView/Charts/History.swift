@@ -52,7 +52,7 @@ struct History: View {
         }
     }
     var periods: [PeriodRecord] {
-        let periods = periodRecordService.getDailyClippedPeriods(from: calendar.date(byAdding: .day, value: -1, to: .now)!, to: .now)
+        let periods = periodRecordService.getDailyPeriods(from: calendar.date(byAdding: .day, value: -1, to: .now)!, to: .now)
         return periods
     }
 }

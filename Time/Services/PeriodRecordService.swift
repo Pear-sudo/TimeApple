@@ -157,12 +157,17 @@ class PeriodRecordService {
         return sumPeriods(periods: activePeriods.map(\.value), component: .weekOfYear) + (accumulatedSecondsWeekly ?? 0)
     }
     
-    func getClippedPeriods(`in` component: Calendar.Component, anchor: Date) -> [PeriodRecord] {
+    func getPeriods(`in` component: Calendar.Component, anchor: Date) -> [PeriodRecord] {
         guard let interval = calendar.dateInterval(of: component, for: anchor) else {
             logger.error("Calendar cannot return the requested date")
             return []
         }
         let (start, end) = (interval.start, interval.end)
+        return getPeriods(from: start, to: end)
+    }
+    
+    /// fetch all periods within the range, if some periods are spanning across the range boundaries, clip those periods so that the start times and end times of these periods are guaranteed to fall within the range
+    func getPeriods(from start: Date, to end: Date) -> [PeriodRecord] {
         guard let predicate = getRangedPredicate(start: start, end: end) else {
             return []
         }
@@ -172,14 +177,14 @@ class PeriodRecordService {
         return periods
     }
     
-    func getDailyClippedPeriods(from: Date, to: Date) -> [PeriodRecord] {
+    func getDailyPeriods(from: Date, to: Date) -> [PeriodRecord] {
         if from >= to {
             return []
         }
         var periods: [PeriodRecord] = []
         var position = from
         while calendar.compare(position, to: to, toGranularity: .day) != .orderedDescending {
-            periods.append(contentsOf: getClippedPeriods(in: .day, anchor: position))
+            periods.append(contentsOf: getPeriods(in: .day, anchor: position))
             guard let newPosition = calendar.date(byAdding: .day, value: 1, to: position) else {
                 logger.error("Calendar cannot return the requested date")
                 break
@@ -192,7 +197,7 @@ class PeriodRecordService {
     private func sumPeriods(periods: [PeriodRecord], component: Calendar.Component) -> Double {
         let result =  periods.reduce(0) { result, period in
             
-            guard let (start, end) = clipPeriod(period, into: component) else {
+            guard let (start, end) = clipToDateRange(period, into: component) else {
                 return result
             }
             
@@ -206,17 +211,15 @@ class PeriodRecordService {
         return result
     }
     
-    private func clipPeriod(_ period: PeriodRecord, into component: Calendar.Component, anchor: Date = .now) -> (Date, Date)? {
+    private func clipToDateRange(_ period: PeriodRecord, into component: Calendar.Component, anchor: Date = .now) -> (Date, Date)? {
         
         guard var start = period.startTime else { // we must have a start time
-            print("error") // TODO: error logging
+            logger.log("Detected a period without start time.")
             return nil
         }
-        
-        let now = Date.now
-        
-        guard let interval = calendar.dateInterval(of: component, for: now) else {
-            print("error") // TODO: error logging
+                
+        guard let interval = calendar.dateInterval(of: component, for: anchor) else {
+            logger.error("Calendar cannot return the requested date")
             return nil
         }
         let intervalStart = interval.start
