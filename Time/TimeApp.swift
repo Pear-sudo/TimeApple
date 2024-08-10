@@ -30,7 +30,7 @@ struct TimeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ProjectSummary()
                 .environment(\.viewModel, viewModel)
         }
         .modelContainer(sharedModelContainer)

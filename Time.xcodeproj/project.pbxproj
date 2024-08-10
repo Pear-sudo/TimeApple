@@ -28,6 +28,9 @@
 		004559A22C6342FB00A0C857 /* PeriodRecordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004559A12C6342FB00A0C857 /* PeriodRecordService.swift */; };
 		004559A42C6389C500A0C857 /* ProjectItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004559A32C6389C500A0C857 /* ProjectItemService.swift */; };
 		004559A82C63B29500A0C857 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004559A72C63B29500A0C857 /* History.swift */; };
+		00522DCC2C66277500DA781A /* ProjectViewInTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DCB2C66277500DA781A /* ProjectViewInTimeline.swift */; };
+		00522DCE2C666AEC00DA781A /* ProjectTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DCD2C666AEC00DA781A /* ProjectTimeline.swift */; };
+		00522DD02C66FFF700DA781A /* ProjectSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DCF2C66FFF700DA781A /* ProjectSummary.swift */; };
 		008039B32C630DD600B49561 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008039B22C630DD600B49561 /* Color.swift */; };
 		0086A3E42C605499004B574E /* StatsOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086A3E32C605499004B574E /* StatsOverview.swift */; };
 		00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1ED2C57DE690026CE81 /* GeneralMacro */; };
@@ -87,6 +90,9 @@
 		004559A12C6342FB00A0C857 /* PeriodRecordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRecordService.swift; sourceTree = "<group>"; };
 		004559A32C6389C500A0C857 /* ProjectItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItemService.swift; sourceTree = "<group>"; };
 		004559A72C63B29500A0C857 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		00522DCB2C66277500DA781A /* ProjectViewInTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewInTimeline.swift; sourceTree = "<group>"; };
+		00522DCD2C666AEC00DA781A /* ProjectTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTimeline.swift; sourceTree = "<group>"; };
+		00522DCF2C66FFF700DA781A /* ProjectSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSummary.swift; sourceTree = "<group>"; };
 		008039B22C630DD600B49561 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0086A3E32C605499004B574E /* StatsOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsOverview.swift; sourceTree = "<group>"; };
 		00B1A1F12C57E0610026CE81 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -275,6 +281,9 @@
 				00D385532C56066D0091135F /* ProjectViewInHeader.swift */,
 				003D166F2C5B7C2500D02472 /* ProjectList.swift */,
 				0016C0992C6213DA005308EA /* ProjectHeader.swift */,
+				00522DCB2C66277500DA781A /* ProjectViewInTimeline.swift */,
+				00522DCD2C666AEC00DA781A /* ProjectTimeline.swift */,
+				00522DCF2C66FFF700DA781A /* ProjectSummary.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -433,8 +442,10 @@
 				00132E812C47B01700BB7997 /* Dashboard.swift in Sources */,
 				003D16702C5B7C2500D02472 /* ProjectList.swift in Sources */,
 				003D166E2C5B739600D02472 /* SortButton.swift in Sources */,
+				00522DCE2C666AEC00DA781A /* ProjectTimeline.swift in Sources */,
 				0016C09A2C6213DA005308EA /* ProjectHeader.swift in Sources */,
 				00D385542C56066D0091135F /* ProjectViewInHeader.swift in Sources */,
+				00522DCC2C66277500DA781A /* ProjectViewInTimeline.swift in Sources */,
 				00132E702C3EC04500BB7997 /* ProjectViewInList.swift in Sources */,
 				004559A82C63B29500A0C857 /* History.swift in Sources */,
 				004559A22C6342FB00A0C857 /* PeriodRecordService.swift in Sources */,
@@ -445,6 +456,7 @@
 				001545932C5E191000CC5D6E /* Tag.swift in Sources */,
 				001545952C5E1B8100CC5D6E /* TagSelector.swift in Sources */,
 				001545912C5E09EB00CC5D6E /* ContentView.swift in Sources */,
+				00522DD02C66FFF700DA781A /* ProjectSummary.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
 				00132E882C4B957400BB7997 /* ProjectCreation.swift in Sources */,
 				008039B32C630DD600B49561 /* Color.swift in Sources */,
@@ -632,6 +644,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -672,6 +686,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
