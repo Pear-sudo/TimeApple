@@ -39,12 +39,12 @@ struct TimePoint: View {
         if let date = date {
             Text(date, style: .time)
                 .font(.body)
-                .foregroundStyle(.gray)
+                .foregroundStyle(.secondary)
         } else {
             TimelineView(.everyMinute) { time in
                 Text(time.date, style: .time)
                     .font(.body)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.secondary)
             }
         }
     }
@@ -80,7 +80,7 @@ struct ProjectInfo: View {
                 Text(LocalizedStringKey(firstLine))
                     .font(.title)
                 Text(LocalizedStringKey(secondLine))
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.secondary)
             }
             .lineLimit(1, reservesSpace: true)
         }

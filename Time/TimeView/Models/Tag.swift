@@ -7,6 +7,14 @@
 
 import Foundation
 import SwiftData
+import LoremSwiftum
+
+struct TagSkeleton {
+    var name: String = Lorem.word
+    
+    var creationTime: Date = Date()
+    var modificationTime: Date = Date()
+}
 
 @Model
 class Tag {

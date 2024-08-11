@@ -36,9 +36,8 @@
 		00522DD82C6787C200DA781A /* ParentProjectPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DD72C6787C200DA781A /* ParentProjectPicker.swift */; };
 		00522DDA2C67880600DA781A /* ProjectNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DD92C67880600DA781A /* ProjectNote.swift */; };
 		00522DDC2C67883100DA781A /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DDB2C67883100DA781A /* TimePicker.swift */; };
-		00522DDE2C67885F00DA781A /* TimeIntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DDD2C67885F00DA781A /* TimeIntervalPicker.swift */; };
 		00522DE02C67888000DA781A /* ProjectDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DDF2C67888000DA781A /* ProjectDatePicker.swift */; };
-		00522DE32C6788EF00DA781A /* SubmitControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00522DE22C6788EF00DA781A /* SubmitControls.swift */; };
+		007F93C62C689AE000528F36 /* LoremSwiftum in Frameworks */ = {isa = PBXBuildFile; productRef = 007F93C52C689AE000528F36 /* LoremSwiftum */; };
 		008039B32C630DD600B49561 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008039B22C630DD600B49561 /* Color.swift */; };
 		0086A3E42C605499004B574E /* StatsOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0086A3E32C605499004B574E /* StatsOverview.swift */; };
 		00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1ED2C57DE690026CE81 /* GeneralMacro */; };
@@ -106,9 +105,7 @@
 		00522DD72C6787C200DA781A /* ParentProjectPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentProjectPicker.swift; sourceTree = "<group>"; };
 		00522DD92C67880600DA781A /* ProjectNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectNote.swift; sourceTree = "<group>"; };
 		00522DDB2C67883100DA781A /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
-		00522DDD2C67885F00DA781A /* TimeIntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalPicker.swift; sourceTree = "<group>"; };
 		00522DDF2C67888000DA781A /* ProjectDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDatePicker.swift; sourceTree = "<group>"; };
-		00522DE22C6788EF00DA781A /* SubmitControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitControls.swift; sourceTree = "<group>"; };
 		008039B22C630DD600B49561 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0086A3E32C605499004B574E /* StatsOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsOverview.swift; sourceTree = "<group>"; };
 		00B1A1F12C57E0610026CE81 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -128,6 +125,7 @@
 				00B1A1F02C57DE690026CE81 /* GeneralMacroClient in Frameworks */,
 				00B1A1FC2C57E1530026CE81 /* HeapModule in Frameworks */,
 				00B1A1F82C57E1530026CE81 /* DequeModule in Frameworks */,
+				007F93C62C689AE000528F36 /* LoremSwiftum in Frameworks */,
 				00B1A1F62C57E1530026CE81 /* Collections in Frameworks */,
 				00B1A1FE2C57E1530026CE81 /* OrderedCollections in Frameworks */,
 				00B1A1F42C57E1530026CE81 /* BitCollections in Frameworks */,
@@ -229,7 +227,6 @@
 				001545942C5E1B8100CC5D6E /* TagSelector.swift */,
 				0086A3E32C605499004B574E /* StatsOverview.swift */,
 				00522DDB2C67883100DA781A /* TimePicker.swift */,
-				00522DDD2C67885F00DA781A /* TimeIntervalPicker.swift */,
 			);
 			path = TimeView;
 			sourceTree = "<group>";
@@ -296,7 +293,6 @@
 		00522DE12C6788D000DA781A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				00522DE22C6788EF00DA781A /* SubmitControls.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -354,6 +350,7 @@
 				00B1A1FB2C57E1530026CE81 /* HeapModule */,
 				00B1A1FD2C57E1530026CE81 /* OrderedCollections */,
 				00B1A1FF2C57E1530026CE81 /* _RopeModule */,
+				007F93C52C689AE000528F36 /* LoremSwiftum */,
 			);
 			productName = Time;
 			productReference = 00132E3C2C3EBFBB00BB7997 /* Time.app */;
@@ -433,6 +430,7 @@
 				00132E8F2C4B9C6A00BB7997 /* XCLocalSwiftPackageReference "../GeneralMacro" */,
 				00D385562C57D1BF0091135F /* XCRemoteSwiftPackageReference "not-just-another-init-macro" */,
 				00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				007F93C42C689AE000528F36 /* XCRemoteSwiftPackageReference "LoremSwiftum" */,
 			);
 			productRefGroup = 00132E3D2C3EBFBB00BB7997 /* Products */;
 			projectDirPath = "";
@@ -481,7 +479,6 @@
 				004559A42C6389C500A0C857 /* ProjectItemService.swift in Sources */,
 				00132E812C47B01700BB7997 /* Dashboard.swift in Sources */,
 				003D16702C5B7C2500D02472 /* ProjectList.swift in Sources */,
-				00522DDE2C67885F00DA781A /* TimeIntervalPicker.swift in Sources */,
 				003D166E2C5B739600D02472 /* SortButton.swift in Sources */,
 				00522DE02C67888000DA781A /* ProjectDatePicker.swift in Sources */,
 				00522DDC2C67883100DA781A /* TimePicker.swift in Sources */,
@@ -499,7 +496,6 @@
 				00E15AB52C514B010019FEE0 /* PeriodRecord.swift in Sources */,
 				001545932C5E191000CC5D6E /* Tag.swift in Sources */,
 				001545952C5E1B8100CC5D6E /* TagSelector.swift in Sources */,
-				00522DE32C6788EF00DA781A /* SubmitControls.swift in Sources */,
 				001545912C5E09EB00CC5D6E /* ContentView.swift in Sources */,
 				00522DD02C66FFF700DA781A /* ProjectSummary.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
@@ -881,6 +877,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		007F93C42C689AE000528F36 /* XCRemoteSwiftPackageReference "LoremSwiftum" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lukaskubanek/LoremSwiftum.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.2.1;
+			};
+		};
 		00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -900,6 +904,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		007F93C52C689AE000528F36 /* LoremSwiftum */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 007F93C42C689AE000528F36 /* XCRemoteSwiftPackageReference "LoremSwiftum" */;
+			productName = LoremSwiftum;
+		};
 		00B1A1ED2C57DE690026CE81 /* GeneralMacro */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 00132E8F2C4B9C6A00BB7997 /* XCLocalSwiftPackageReference "../GeneralMacro" */;

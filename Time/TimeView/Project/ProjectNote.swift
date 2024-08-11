@@ -6,13 +6,40 @@
 //
 
 import SwiftUI
+import LoremSwiftum
 
 struct ProjectNote: View {
+    @Binding var text: String
+    @FocusState private var fieldIsFocused: Bool
+    private let focusedColor = Color.blue.opacity(0.6)
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TextField("Note", text: $text, prompt: Text("Note").foregroundStyle(fieldIsFocused ? focusedColor : .secondary))
+            .labelsHidden()
+            .focused($fieldIsFocused)
+//            .animation(.easeIn(duration: 3), value: fieldIsFocused)
+#if os(iOS)
+            .textInputAutocapitalization(.never)
+#endif
+            .disableAutocorrection(true)
+            .padding()
+            .background {
+                UnevenRoundedRectangle(cornerRadii: .init(topLeading: 5, topTrailing: 5))
+                    .fill(.thickMaterial)
+            }
+            .overlay(
+                VStack {
+                    Spacer()
+                    (fieldIsFocused ? focusedColor : .secondary)
+                        .frame(height: 1)
+                        .offset(x: 0, y: 0)
+                }
+                    .frame(maxHeight: .infinity)
+            )
+            .textFieldStyle(.plain)
     }
 }
 
 #Preview {
-    ProjectNote()
+    ProjectNote(text: .constant(Lorem.sentences(0)))
+        .padding()
 }

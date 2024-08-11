@@ -55,10 +55,8 @@ class ViewModel {
     }
     
     private func timerFired() {
-        Task {
-            for action in timerActions.values {
-                action()
-            }
+        for action in timerActions.values {
+            action()
         }
     }
     

@@ -9,50 +9,76 @@ import SwiftUI
 import SwiftData
 
 struct PeriodEditingView: View {
-    var period: PeriodRecord
+    @Bindable var period: PeriodRecord
+    @State private var cachedPeriod = PeriodRecordSkeleton()
+    init(period: Bindable<PeriodRecord>) {
+        self._period = period
+//        self.cachedPeriod = period.wrappedValue.skeleton
+    }
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            HStack() {
-                Image(systemName: "folder")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20)
-                ParentProjectPicker()
-            }
-            HStack {
-                Image(systemName: "pencil")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20)
-                ProjectNote()
-            }
-            HStack {
-                Image(systemName: "clock")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20)
-                TimeIntervalPicker()
-            }
-            HStack {
-                Image(systemName: "calendar")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20)
-                ProjectDatePicker()
-            }
-            HStack {
-                Image(systemName: "timer")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20)
-                VStack(alignment: .leading) {
-                    Text("Duration")
-                    DurationView(duration: period.duration!)
+        ScrollView {
+            Grid(alignment: .leading, horizontalSpacing: 10) {
+                GridRow() {
+                    Image(systemName: "folder")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20)
+                    ParentProjectPicker()
+                }
+                GridRow {
+                    Image(systemName: "pencil")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20)
+                    ProjectNote(text: $cachedPeriod.notes)
+                }
+                GridRow {
+                    Image(systemName: "clock")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20)
+                    TimePicker("From", date: $cachedPeriod.startTime)
+                    TimePicker("To", date: $cachedPeriod.endTime)
+                }
+                GridRow {
+                    Image(systemName: "calendar")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20)
+                    ProjectDatePicker(date: $cachedPeriod.startTime)
+                }
+                GridRow {
+                    Image(systemName: "timer")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20)
+                        .foregroundStyle(.secondary)
+                    VStack(alignment: .leading) {
+                        Text("Duration")
+                            .foregroundStyle(.secondary)
+                        DurationView(duration: period.duration!)
+                    }
                 }
             }
-            Spacer()
-            SubmitControls()
         }
+        .padding()
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                Button("Delete", role: .destructive) {
+                    
+                }
+                Spacer()
+                Button("Cancel") {
+                    
+                }
+                Button("OK") {
+                    
+                }
+                .padding(.leading)
+            }
+            .padding(.horizontal)
+        }
+        .navigationTitle("Entry")
     }
 }
 
@@ -72,7 +98,8 @@ struct PeriodEditingView: View {
             context = ModelContext(container)
         }
         var body: some View {
-            PeriodEditingView(period: setUpData())
+            @Bindable var period = setUpData()
+            PeriodEditingView(period: $period)
                 .modelContext(context)
         }
         func setUpData() -> PeriodRecord {

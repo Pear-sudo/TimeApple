@@ -26,11 +26,11 @@ struct ContentView: View {
                     }
                 }
         } content: {
-            Dashboard()
-                .navigationSplitViewColumnWidth(ideal: 500)
-        } detail: {
             ProjectSummary()
                 .navigationSplitViewColumnWidth(ideal: 0, max: detailMax) // this only works for macOS
+        } detail: {
+            Dashboard()
+                .navigationSplitViewColumnWidth(ideal: 500)
         }
         .toolbar {
             ToolbarItem(placement: .automatic) {
@@ -38,12 +38,6 @@ struct ContentView: View {
                     hideDetailColumn.toggle()
                 }
                 .help("Hide detail")
-            }
-        }
-        .onChange(of: columnVisibility) {
-            // feeding the lib a manipulated binding won't work
-            if columnVisibility == .detailOnly {
-                columnVisibility = .doubleColumn
             }
         }
     }

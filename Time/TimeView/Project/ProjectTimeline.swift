@@ -49,7 +49,7 @@ struct BreakLine: View {
                 .aspectRatio(contentMode: .fit)
             HStack {
                 Text("Break")
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.secondary)
                 Spacer()
                 if let start = start {
                     DurationView(start: start)

@@ -7,10 +7,11 @@
 
 import Foundation
 import SwiftData
+import LoremSwiftum
 
 @Model
 class PeriodRecord {
-    
+        
     @Attribute(originalName: "id")
     private(set) var id: UUID = UUID()
     private(set) var creationTime: Date = Date()
@@ -19,6 +20,7 @@ class PeriodRecord {
     var endTime: Date?
     
     var project: ProjectItem
+    var notes: String = ""
     
     init(project: ProjectItem) {
         self.project = project
@@ -46,6 +48,31 @@ class PeriodRecord {
         return descriptor
     }()
 }
+
+struct PeriodRecordSkeleton {
+    var id: UUID = UUID()
+    var creationTime: Date = .now - 69520
+    
+    var startTime: Date = .now - 6952
+    var endTime: Date = .now
+    
+    var project: ProjectItemSkeleton = ProjectItemSkeleton()
+    
+    var notes: String = Lorem.words(Int.random(in: 0...5))
+}
+
+//extension PeriodRecord {
+//    var skeleton: PeriodRecordSkeleton {
+//        PeriodRecordSkeleton(
+//            id: self.id,
+//            creationTime: self.creationTime,
+//            startTime: self.startTime,
+//            endTime: self.endTime,
+//            project: self.project,
+//            notes: self.notes
+//        )
+//    }
+//}
 
 extension PeriodRecord {
     var duration: Duration? {

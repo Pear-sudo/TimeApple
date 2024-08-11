@@ -8,6 +8,24 @@
 import Foundation
 import SwiftUI
 import SwiftData
+import LoremSwiftum
+
+struct ProjectItemSkeleton {
+    var id = UUID()
+    var creationTime = Date()
+    var accessTime = Date()
+    
+    var name: String = Lorem.words(Int.random(in: 1...4))
+    var parent: ProjectItemSkeleton {
+        ProjectItemSkeleton()
+    }
+    var notes: String = Lorem.words(Int.random(in: 0...10))
+    var tags: [TagSkeleton] = (0..<Int.random(in: 0...5)).map { _ in .init() }
+    
+    var r: Float = Float.random(in: 0...255) / 255
+    var g: Float = Float.random(in: 0...255) / 255
+    var b: Float = Float.random(in: 0...255) / 255
+}
 
 @Model
 class ProjectItem: Identifiable, CustomStringConvertible {
