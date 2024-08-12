@@ -9,24 +9,9 @@ import Foundation
 import SwiftUI
 import SwiftData
 import LoremSwiftum
+import GeneralMacro
 
-struct ProjectItemSkeleton {
-    var id = UUID()
-    var creationTime = Date()
-    var accessTime = Date()
-    
-    var name: String = Lorem.words(Int.random(in: 1...4))
-    var parent: ProjectItemSkeleton {
-        ProjectItemSkeleton()
-    }
-    var notes: String = Lorem.words(Int.random(in: 0...10))
-    var tags: [TagSkeleton] = (0..<Int.random(in: 0...5)).map { _ in .init() }
-    
-    var r: Float = Float.random(in: 0...255) / 255
-    var g: Float = Float.random(in: 0...255) / 255
-    var b: Float = Float.random(in: 0...255) / 255
-}
-
+@Skeleton
 @Model
 class ProjectItem: Identifiable, CustomStringConvertible {
     
@@ -39,9 +24,9 @@ class ProjectItem: Identifiable, CustomStringConvertible {
         self.parent = parent
     }
     
-    var id = UUID()
-    var creationTime = Date()
-    var accessTime = Date()
+    var id: UUID = UUID()
+    var creationTime: Date = Date()
+    var accessTime: Date = Date()
     
     var name: String
     var parent: ProjectItem?
@@ -53,7 +38,7 @@ class ProjectItem: Identifiable, CustomStringConvertible {
     var b: Float = Float.random(in: 0...255) / 255
     
     @Attribute(.ephemeral)
-    var isPopoverShown = false
+    var isPopoverShown: Bool = false
     
     var color: Color {
         return Color(.displayP3, red: Double(r), green: Double(g), blue: Double(b))
@@ -79,7 +64,7 @@ class ProjectItem: Identifiable, CustomStringConvertible {
         )
     }
     
-    static let sortByAccessTime = FetchDescriptor<ProjectItem>(
+    static let sortByAccessTime: FetchDescriptor<ProjectItem> = FetchDescriptor<ProjectItem>(
         sortBy: [.init(\.accessTime, order: .reverse)]
     )
 }

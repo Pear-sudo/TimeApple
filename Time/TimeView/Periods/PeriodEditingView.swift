@@ -10,10 +10,10 @@ import SwiftData
 
 struct PeriodEditingView: View {
     @Bindable var period: PeriodRecord
-    @State private var cachedPeriod = PeriodRecordSkeleton()
+    @State private var cachedPeriod: PeriodRecordSkeleton
     init(period: Bindable<PeriodRecord>) {
         self._period = period
-//        self.cachedPeriod = period.wrappedValue.skeleton
+        self.cachedPeriod = period.skeleton.wrappedValue
     }
     var body: some View {
         ScrollView {

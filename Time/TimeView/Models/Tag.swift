@@ -8,21 +8,16 @@
 import Foundation
 import SwiftData
 import LoremSwiftum
+import GeneralMacro
 
-struct TagSkeleton {
-    var name: String = Lorem.word
-    
-    var creationTime: Date = Date()
-    var modificationTime: Date = Date()
-}
-
+@Skeleton
 @Model
 class Tag {
     
     @Attribute(.unique)
     private(set) var name: String
     
-    let creationTime: Date = Date()
+    var creationTime: Date = Date()
     private(set) var modificationTime: Date = Date()
     
     init(name: String) {
