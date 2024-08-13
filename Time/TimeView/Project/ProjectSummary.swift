@@ -10,6 +10,7 @@ import SwiftData
 
 struct ProjectSummary: View {
     @Environment(\.viewModel) private var viewModel
+    @Query(filter: PeriodRecordService.getRangedPredicate(start: .now, end: .now), animation: .default) private var periods: [PeriodRecord]
     var interval: DateInterval
     init() {
         self.init(
@@ -25,7 +26,8 @@ struct ProjectSummary: View {
             ScrollView {
                 LazyVStack(spacing: 8) {
                     Group {
-                        ProjectTimeline()
+                        SummaryByProjectsView(periods: periods)
+                        ProjectTimeline(periods: periods)
                     }
                     .padding()
                     .background(Color.backgroundColor)

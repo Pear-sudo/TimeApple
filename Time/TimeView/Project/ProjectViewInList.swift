@@ -67,6 +67,7 @@ struct ProjectViewInList: View {
     }
     
     private func onTap() {
+        print("t"); return
         periodRecordService.start(project: item)
     }
     

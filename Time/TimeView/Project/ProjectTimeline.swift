@@ -15,7 +15,7 @@ struct ProjectTimeline: View {
     private let logger = Logger(subsystem: "\(domainName).view", category: "ProjectTimeline")
     @Environment(\.viewModel.periodRecordService) private var periodRecordService
     @Environment(\.viewModel) private var viewModel
-    @Query(filter: PeriodRecordService.getRangedPredicate(start: .now, end: .now), animation: .default) private var periods: [PeriodRecord]
+    var periods: [PeriodRecord]
     var body: some View {
         LazyVStack(alignment: .leading, spacing: 16) {
             Text("Timeline")

@@ -78,7 +78,7 @@ struct ProjectInfo: View {
         VStack(alignment: .leading, spacing: 2) {
             Group {
                 Text(LocalizedStringKey(firstLine))
-                    .font(.title)
+                    .font(.title3)
                 Text(LocalizedStringKey(secondLine))
                     .foregroundStyle(.secondary)
             }

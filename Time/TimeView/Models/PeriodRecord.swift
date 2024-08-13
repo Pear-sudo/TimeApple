@@ -108,6 +108,19 @@ extension PeriodRecord {
 }
 
 extension PeriodRecord {
+    /// get the duration in seconds, if not completed, compute start time to now
+    ///  - Returns:
+    ///  nil if it is not started
+    var seconds: Int? {
+        if let startTime = startTime {
+            let endTime = endTime ?? .now
+            return Int(endTime.timeIntervalSince(startTime))
+        }
+        return nil
+    }
+}
+
+extension PeriodRecord {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(creationTime)
