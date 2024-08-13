@@ -33,9 +33,10 @@ struct ProjectHeader: View {
             }
             .background {
                 GeometryReader { reader in
-                    Color.clear.onAppear {
+                    Color.clear.frame(idealWidth: {
                         scrollSize = reader.size
-                    }
+                        return reader.size.width
+                    }())
                 }
             }
             .animation(.easeInOut, value: headerProjects) // do not put animation too far away from the changing view or it won't work

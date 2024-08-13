@@ -77,9 +77,7 @@ struct ProjectList: View {
             .listRowSeparator(.hidden)
             .listRowInsets(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
         }
-#if os(macOS)
-        .padding(.bottom, 10)
-#endif
+        .safeAreaPadding(.bottom, 10)
         .environment(\.defaultMinListRowHeight, 0)
         .listStyle(.plain)
         .scrollContentBackground(.hidden)

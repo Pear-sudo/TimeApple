@@ -61,6 +61,7 @@ struct PeriodEditingView: View {
                             .foregroundStyle(.secondary)
                         DurationView(duration: period.duration!)
                     }
+                    .gridCellColumns(2)
                 }
             }
         }
