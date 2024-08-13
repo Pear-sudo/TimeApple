@@ -15,6 +15,7 @@ class ViewModel {
     var sortOrder: SortOrder = .reverse
     
     var searchText: String = ""
+    var presentedPeriods: [PeriodRecord] = []
         
     private var context: ModelContext
     

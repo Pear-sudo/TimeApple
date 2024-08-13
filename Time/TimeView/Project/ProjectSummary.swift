@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct ProjectSummary: View {
+    @Environment(\.viewModel) private var viewModel
     var interval: DateInterval
     init() {
         self.init(
@@ -19,18 +20,24 @@ struct ProjectSummary: View {
         self.interval = interval
     }
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 8) {
-                Group {
-                    ProjectTimeline()
+        @Bindable var viewModel = viewModel
+        NavigationStack(path: $viewModel.presentedPeriods) {
+            ScrollView {
+                LazyVStack(spacing: 8) {
+                    Group {
+                        ProjectTimeline()
+                    }
+                    .padding()
+                    .background(Color.backgroundColor)
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
                 }
-                .padding()
-                .background(Color.backgroundColor)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .padding(8)
             }
-            .padding(8)
+            .defaultScrollAnchor(.top)
+            .navigationDestination(for: PeriodRecord.self) { period in
+                PeriodEditingView(period: period)
+            }
         }
-        .defaultScrollAnchor(.top)
     }
 }
 

@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct TimePicker<Label>: View where Label: View {
-    @Binding var date: Date
+    @Binding var date: Date?
     @ViewBuilder var label: () ->  Label
     
     @State private var pickerIsShown: Bool = false
     @State private var dateCache: Date = .now
     
-    init(date: Binding<Date>, label: @escaping () -> Label = {EmptyView()}) {
+    init(date: Binding<Date?>, label: @escaping () -> Label = {EmptyView()}) {
         self._date = date
         self.label = label
-        self.dateCache = date.wrappedValue
+        self.dateCache = date.wrappedValue ?? .now
     }
-    init(_ title: String, date: Binding<Date>) where Label == Text {
+    init(_ title: String, date: Binding<Date?>) where Label == Text {
         self.init(date: date) {
             Text(title)
         }
@@ -28,8 +28,12 @@ struct TimePicker<Label>: View where Label: View {
         VStack(alignment: .leading, spacing: 4) {
             label()
                 .foregroundStyle(.secondary)
-            Text(date, style: .time)
-                .font(.title2)
+            if let date = date {
+                Text(date, style: .time)
+                    .font(.title2)
+            } else {
+                Text("No time")
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
@@ -45,6 +49,7 @@ struct TimePicker<Label>: View where Label: View {
         }
         #endif
         .onTapGesture {
+            dateCache = date ?? .now
             pickerIsShown = true
         }
     }

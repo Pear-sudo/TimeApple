@@ -17,34 +17,38 @@ struct ProjectHeader: View {
         self.headerProjects = headerProjects
     }
     
+    @State private var scrollSize: CGSize = .zero
+    
     var body: some View {
-        ZStack {
-            ProjectViewInHeader(project: headerProjects.first!, isDummy: true)
-                .disabled(true)
-                .hidden()
-            GeometryReader { geometry in
-                ScrollViewReader { proxy in
-                    ScrollView([.horizontal]) {
-                        HStack(spacing: horizontalSpacing) {
-                            ForEach(headerProjects) { project in
-                                ProjectViewInHeader(project: project)
-                                    .frame(minWidth: calculateActiveProjectViewWidth(geometry.size.width))
-                                    .id(project.id)
-                            }
-                        }
+        
+        ScrollViewReader { proxy in
+            ScrollView([.horizontal]) {
+                HStack(spacing: horizontalSpacing) {
+                    ForEach(headerProjects) { project in
+                        ProjectViewInHeader(project: project)
+                            .frame(minWidth: calculateActiveProjectViewWidth(scrollSize))
+                            .id(project.id)
                     }
-                    .animation(.easeInOut, value: headerProjects) // do not put animation too far away from the changing view or it won't work
-                    .scrollIndicators(.never, axes: [.horizontal, .vertical]) // do not use hidden; it will show white space on macos, and that's the indicator
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                    .defaultScrollAnchor(.trailing)
                 }
             }
+            .background {
+                GeometryReader { reader in
+                    Color.clear.onAppear {
+                        scrollSize = reader.size
+                    }
+                }
+            }
+            .animation(.easeInOut, value: headerProjects) // do not put animation too far away from the changing view or it won't work
+            .scrollIndicators(.never, axes: [.horizontal, .vertical]) // do not use hidden; it will show white space on macos, and that's the indicator
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+            .defaultScrollAnchor(.trailing)
         }
         .listRowBackground(Color.white.opacity(0)) // note that this view is part of the surrounding list
         .listRowSeparator(.hidden)
     }
     
-    private func calculateActiveProjectViewWidth(_ width: CGFloat) -> CGFloat {
+    private func calculateActiveProjectViewWidth(_ size: CGSize) -> CGFloat {
+        let width = size.width
         
         let minWidth: CGFloat = 100
         let numberOfPeriods = CGFloat(headerProjects.count)

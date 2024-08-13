@@ -10,10 +10,11 @@ import SwiftData
 
 struct PeriodEditingView: View {
     @Bindable var period: PeriodRecord
+    @Environment(\.dismiss) private var dismiss
     @State private var cachedPeriod: PeriodRecordSkeleton
-    init(period: Bindable<PeriodRecord>) {
-        self._period = period
-        self.cachedPeriod = period.skeleton.wrappedValue
+    init(period: PeriodRecord) {
+        self.period = period
+        self.cachedPeriod = period.skeleton
     }
     var body: some View {
         ScrollView {
@@ -31,6 +32,7 @@ struct PeriodEditingView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 20)
                     ProjectNote(text: $cachedPeriod.notes)
+                        .gridCellColumns(2)
                 }
                 GridRow {
                     Image(systemName: "clock")
@@ -46,6 +48,7 @@ struct PeriodEditingView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 20)
                     ProjectDatePicker(date: $cachedPeriod.startTime)
+                        .gridCellColumns(2)
                 }
                 GridRow {
                     Image(systemName: "timer")
@@ -65,19 +68,22 @@ struct PeriodEditingView: View {
         .safeAreaInset(edge: .bottom) {
             HStack {
                 Button("Delete", role: .destructive) {
-                    
+                    dismiss()
+                    // TODO: deletion needs to be managed by the service
                 }
                 Spacer()
                 Button("Cancel") {
-                    
+                    dismiss()
                 }
                 Button("OK") {
-                    
+                    period.skeleton = cachedPeriod
+                    dismiss()
                 }
                 .padding(.leading)
             }
             .padding(.horizontal)
         }
+        .padding()
         .navigationTitle("Entry")
     }
 }
@@ -99,7 +105,7 @@ struct PeriodEditingView: View {
         }
         var body: some View {
             @Bindable var period = setUpData()
-            PeriodEditingView(period: $period)
+            PeriodEditingView(period: period)
                 .modelContext(context)
         }
         func setUpData() -> PeriodRecord {

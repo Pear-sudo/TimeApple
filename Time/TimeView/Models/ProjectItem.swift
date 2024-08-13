@@ -11,7 +11,6 @@ import SwiftData
 import LoremSwiftum
 import GeneralMacro
 
-@Skeleton
 @Model
 class ProjectItem: Identifiable, CustomStringConvertible {
     

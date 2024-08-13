@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct ProjectDatePicker: View {
-    @Binding var date: Date
+    @Binding var date: Date?
     @State private var cachedDate: Date = .now
     @State private var showDatePicker = false
     var body: some View {
         VStack(alignment: .leading) {
             Text("Date")
                 .foregroundStyle(.secondary)
-            Text(date.formatted(Date.FormatStyle()
-                .year(.defaultDigits)
-                .day(.twoDigits)
-                .month(.abbreviated)
-                .weekday(.abbreviated)
-            ))
-            .font(.title2)
+            if let date = date {
+                Text(date.formatted(Date.FormatStyle()
+                    .year(.defaultDigits)
+                    .day(.twoDigits)
+                    .month(.abbreviated)
+                    .weekday(.abbreviated)
+                ))
+                .font(.title2)
+            } else {
+                Text("No date")
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -38,7 +42,7 @@ struct ProjectDatePicker: View {
         #endif
         .onTapGesture {
             showDatePicker = true
-            cachedDate = date
+            cachedDate = date ?? .now
         }
     }
     

@@ -10,7 +10,31 @@ import SwiftData
 import LoremSwiftum
 import GeneralMacro
 
-@Skeleton
+class PeriodRecordSkeleton {
+    
+    init(id: UUID = UUID(), creationTime: Date = Date(), startTime: Date? = nil, endTime: Date? = nil, project: ProjectItem, notes: String = "") {
+        self.id = id
+        self.creationTime = creationTime
+        self.startTime = startTime
+        self.endTime = endTime
+        self.project = project
+        self.notes = notes
+    }
+    
+    private(set) var id: UUID = UUID()
+    private(set) var creationTime: Date = Date()
+    
+    var startTime: Date?
+    var endTime: Date?
+    
+    var project: ProjectItem
+    var notes: String = ""
+    
+    init(project: ProjectItem) {
+        self.project = project
+    }
+}
+
 @Model
 class PeriodRecord {
         
@@ -26,6 +50,27 @@ class PeriodRecord {
     
     init(project: ProjectItem) {
         self.project = project
+    }
+    
+    var skeleton: PeriodRecordSkeleton {
+        get {
+            return PeriodRecordSkeleton(
+                id: id,
+                creationTime: creationTime,
+                startTime: startTime,
+                endTime: endTime,
+                project: project,
+                notes: notes
+            )
+        }
+        set {
+            self.id = newValue.id
+            self.creationTime = newValue.creationTime
+            self.startTime = newValue.startTime
+            self.endTime = newValue.endTime
+            self.project = newValue.project
+            self.notes = newValue.notes
+        }
     }
     
     static let descriptorRunning: FetchDescriptor<PeriodRecord> = FetchDescriptor<PeriodRecord>(

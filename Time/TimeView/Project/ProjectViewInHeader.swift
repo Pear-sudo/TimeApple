@@ -61,23 +61,25 @@ struct ProjectViewInHeader: View {
             .padding(.vertical, 10)
             .background(project.color)
             .onTapGesture(perform: onTap)
-            HStack {
-                Button("Add note") {
-                    
+            if hasRunningPeriod {
+                HStack {
+                    Button("Add note") {
+                        
+                    }
+                    .fixedSize()
+                    .padding(.trailing ,20)
+                    Button("Edit entry") {
+                        
+                    }
+                    .fixedSize()
+                    Spacer()
                 }
-                .fixedSize()
-                .padding(.trailing ,20)
-                Button("Edit entry") {
-                    
-                }
-                .fixedSize()
-                Spacer()
+                .buttonStyle(PlainButtonStyle())
+                .foregroundStyle(.blue)
+                .padding(.all, 10)
+                .frame(maxWidth: .infinity)
+                .background(Color.backgroundColor) // the order matters, set size first, then color
             }
-            .buttonStyle(PlainButtonStyle())
-            .foregroundStyle(.blue)
-            .padding(.all, 10)
-            .frame(maxWidth: .infinity)
-            .background(Color.backgroundColor) // the order matters, set size first, then color
         }
         .clipShape(RoundedRectangle(cornerRadius: 5))
         .onChange(of: hasRunningPeriod) {

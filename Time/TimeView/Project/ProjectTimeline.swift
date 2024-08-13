@@ -14,6 +14,7 @@ let domainName = "cyou.b612.time"
 struct ProjectTimeline: View {
     private let logger = Logger(subsystem: "\(domainName).view", category: "ProjectTimeline")
     @Environment(\.viewModel.periodRecordService) private var periodRecordService
+    @Environment(\.viewModel) private var viewModel
     @Query(filter: PeriodRecordService.getRangedPredicate(start: .now, end: .now), animation: .default) private var periods: [PeriodRecord]
     var body: some View {
         LazyVStack(alignment: .leading, spacing: 16) {
@@ -22,6 +23,10 @@ struct ProjectTimeline: View {
             ForEach(Array(periods.enumerated()), id: \.element.hashValue) { index, period in
                 ProjectViewInTimeline(period: period)
                     .padding(.leading, 8)
+                    .contentShape(.rect)
+                    .onTapGesture {
+                        viewModel.presentedPeriods.append(period)
+                    }
                 if index != periods.count - 1 {
                     BreakLine(duration: .seconds(periods[index + 1].startTime!.timeIntervalSince(periods[index].endTime!)))
                 } else if period.isStopped {
