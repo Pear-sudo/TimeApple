@@ -20,7 +20,6 @@ struct ProjectHeader: View {
     @State private var scrollSize: CGSize = .zero
     
     var body: some View {
-        
         ScrollViewReader { proxy in
             ScrollView([.horizontal]) {
                 HStack(spacing: horizontalSpacing) {

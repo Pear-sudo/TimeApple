@@ -28,7 +28,9 @@ struct ProjectTimeline: View {
                         viewModel.presentedPeriods.append(period)
                     }
                 if index != periods.count - 1 && period.isStopped {
-                    BreakLine(duration: .seconds(periods[index + 1].startTime!.timeIntervalSince(periods[index].endTime!)))
+                    if periods[index + 1].startTime!.timeIntervalSince(periods[index].endTime!) >= 0 {
+                        BreakLine(duration: .seconds(periods[index + 1].startTime!.timeIntervalSince(periods[index].endTime!)))
+                    }
                 } else if period.isStopped {
                     BreakLine(start: period.endTime!)
                 }
