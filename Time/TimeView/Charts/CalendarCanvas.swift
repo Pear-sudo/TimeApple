@@ -47,7 +47,7 @@ struct CalendarCanvas: View {
                 let plotY = intervalStart.timeIntervalSince(calendar.startOfDay(for: intervalStart)) / secondsPerDay * height + plotHeight / 2
                 
                 let plotWidth = width / CGFloat(numberOfDates)
-                let index = datesBetween.reduce(0, {result, date in date > intervalStart ? result + 1 : result}) - 1
+                let index = datesBetween.reduce(0, {result, date in date < intervalStart ? result + 1 : result}) - 1
                 let plotX = CGFloat(index) * plotWidth + plotWidth / 2
                 plots.append(.init(x: plotX, y: plotY, width: plotWidth, height: plotHeight, period: period))
             }
