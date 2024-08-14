@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CalendarView: View {
+    @Query(filter: PeriodRecordService.getRangedPredicate(start: Calendar.autoupdatingCurrent.dateInterval(of: .weekOfYear, for: .now)!.start, end: .now), animation: .default) private var periods: [PeriodRecord]
     @State private var gridRect: CGRect = .zero
     @State private var cellHeight: CGFloat = 40
     @GestureState private var magnifyBy = 1.0
@@ -22,6 +24,9 @@ struct CalendarView: View {
                         ZStack {
                             CalendarBackgroundGrid()
                                 .frame(height: getGridHeight(geometry))
+                                .contentShape(.rect)
+                                .gesture(tap)
+                            CalendarCanvas(periods: periods, start: getStartDate(), end: getEndDate())
                         }
                         .background {
                             GeometryReader { gridGeometry in
@@ -52,6 +57,13 @@ struct CalendarView: View {
             }
             return .handled
         }
+    }
+    
+    var tap: some Gesture {
+        SpatialTapGesture()
+            .onEnded { event in
+                print(event.location)
+            }
     }
     
     var magnification: some Gesture {

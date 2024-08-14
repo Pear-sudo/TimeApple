@@ -11,6 +11,8 @@
 		00027DD52C6C7105008F7E02 /* TimeMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027DD42C6C7105008F7E02 /* TimeMark.swift */; };
 		00027DD72C6C7930008F7E02 /* WeekDayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027DD62C6C7930008F7E02 /* WeekDayHeader.swift */; };
 		00027DDA2C6CAEA0008F7E02 /* TabViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027DD92C6CAEA0008F7E02 /* TabViewNavigation.swift */; };
+		00027DDC2C6CC1F6008F7E02 /* CalendarCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027DDB2C6CC1F6008F7E02 /* CalendarCanvas.swift */; };
+		00027DDE2C6CD89B008F7E02 /* PeriodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027DDD2C6CD89B008F7E02 /* PeriodTest.swift */; };
 		00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */; };
 		00132E462C3EBFBC00BB7997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E452C3EBFBC00BB7997 /* Assets.xcassets */; };
 		00132E4A2C3EBFBC00BB7997 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E492C3EBFBC00BB7997 /* Preview Assets.xcassets */; };
@@ -82,6 +84,8 @@
 		00027DD42C6C7105008F7E02 /* TimeMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeMark.swift; sourceTree = "<group>"; };
 		00027DD62C6C7930008F7E02 /* WeekDayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayHeader.swift; sourceTree = "<group>"; };
 		00027DD92C6CAEA0008F7E02 /* TabViewNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewNavigation.swift; sourceTree = "<group>"; };
+		00027DDB2C6CC1F6008F7E02 /* CalendarCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCanvas.swift; sourceTree = "<group>"; };
+		00027DDD2C6CD89B008F7E02 /* PeriodTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodTest.swift; sourceTree = "<group>"; };
 		00132E3C2C3EBFBB00BB7997 /* Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeApp.swift; sourceTree = "<group>"; };
 		00132E452C3EBFBC00BB7997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				00132E532C3EBFBC00BB7997 /* TimeTests.swift */,
+				00027DDD2C6CD89B008F7E02 /* PeriodTest.swift */,
 			);
 			path = TimeTests;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				00027DD22C6C60C7008F7E02 /* CalendarView.swift */,
 				00027DD42C6C7105008F7E02 /* TimeMark.swift */,
 				00027DD62C6C7930008F7E02 /* WeekDayHeader.swift */,
+				00027DDB2C6CC1F6008F7E02 /* CalendarCanvas.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -511,6 +517,7 @@
 				00027DDA2C6CAEA0008F7E02 /* TabViewNavigation.swift in Sources */,
 				00522DCE2C666AEC00DA781A /* ProjectTimeline.swift in Sources */,
 				0016C09A2C6213DA005308EA /* ProjectHeader.swift in Sources */,
+				00027DDC2C6CC1F6008F7E02 /* CalendarCanvas.swift in Sources */,
 				00D385542C56066D0091135F /* ProjectViewInHeader.swift in Sources */,
 				00522DCC2C66277500DA781A /* ProjectViewInTimeline.swift in Sources */,
 				00DF8E662C6BA235000DEAE5 /* ProjectViewInSummary.swift in Sources */,
@@ -544,6 +551,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00027DDE2C6CD89B008F7E02 /* PeriodTest.swift in Sources */,
 				00132E542C3EBFBC00BB7997 /* TimeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

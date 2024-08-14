@@ -258,3 +258,38 @@ extension TimeInterval {
         return "0s"
     }
 }
+
+extension PeriodRecord {
+    /// segment the interval to daily basis, if the period has no end time, the current time will be treated as the end time
+    ///
+    ///  e.g. 23:00 - 1:00 will become 23:00-00:00 and 00:00 - 01:00
+    func dailySegments() -> [DateInterval] {
+        guard let startTime = self.startTime else {
+            return []
+        }
+        let endTime = self.endTime ?? .now
+        
+        guard endTime > startTime else {
+            return []
+        }
+        
+        guard endTime.timeIntervalSince(startTime) > 1 else {
+            return [.init(start: startTime, end: endTime)]
+        }
+        
+        let calendar = Calendar.current
+        var intervals: [DateInterval] = []
+        
+        var checkPoint = startTime
+        repeat {
+            let endOfCheckPoint = calendar.dateInterval(of: .day, for: checkPoint)!.end
+            if endOfCheckPoint > endTime {
+                intervals.append(.init(start: checkPoint, end: endTime))
+                break
+            }
+            intervals.append(.init(start: checkPoint, end: endOfCheckPoint))
+            checkPoint = endOfCheckPoint
+        } while true
+        return intervals
+    }
+}
