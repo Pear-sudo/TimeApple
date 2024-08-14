@@ -10,7 +10,6 @@ import SwiftData
 import LoremSwiftum
 import GeneralMacro
 
-@Skeleton
 @Model
 class Tag {
     

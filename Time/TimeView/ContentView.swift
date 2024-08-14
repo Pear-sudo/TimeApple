@@ -26,7 +26,7 @@ struct ContentView: View {
                     }
                 }
         } content: {
-            ProjectSummary()
+            TabViewNavigation()
                 .navigationSplitViewColumnWidth(ideal: 0, max: detailMax) // this only works for macOS
         } detail: {
             Dashboard()
