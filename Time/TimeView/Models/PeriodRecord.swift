@@ -9,6 +9,7 @@ import Foundation
 import SwiftData
 import LoremSwiftum
 import GeneralMacro
+import MetaCodable
 
 class PeriodRecordSkeleton {
     
@@ -36,7 +37,28 @@ class PeriodRecordSkeleton {
 }
 
 @Model
-class PeriodRecord {
+@Codable
+@Inherits(decodable: false, encodable: false)
+final class PeriodRecord: Identifiable {
+    
+    init(id: UUID = UUID(), creationTime: Date = Date(), startTime: Date? = nil, endTime: Date? = nil, project: ProjectItem, notes: String = "") {
+        self.id = id
+        self.creationTime = creationTime
+        self.startTime = startTime
+        self.endTime = endTime
+        self.project = project
+        self.notes = notes
+    }
+    
+//    init(from decoder: any Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        id = try values.decode(UUID.self, forKey: .id)
+//        creationTime = try values.decode(Date.self, forKey: .creationTime)
+//        startTime = try values.decode(Date.self, forKey: .startTime)
+//        endTime = try values.decode(Date.self, forKey: .endTime)
+//        project = try values.decode(ProjectItem.self, forKey: .project)
+//        notes = try values.decode(String.self, forKey: .notes)
+//    }
         
     @Attribute(originalName: "id")
     private(set) var id: UUID = UUID()
@@ -72,29 +94,30 @@ class PeriodRecord {
             self.notes = newValue.notes
         }
     }
-    
-    static let descriptorRunning: FetchDescriptor<PeriodRecord> = FetchDescriptor<PeriodRecord>(
-        predicate: #Predicate { record in
-            record.startTime != nil && record.endTime == nil
-        },
-        sortBy: [
-            .init(\.startTime, order: .forward)
-        ]
-    )
-    
-    static let descriptorLastStopped: FetchDescriptor<PeriodRecord> = {
-        var descriptor = FetchDescriptor<PeriodRecord> (
-            predicate: #Predicate { record in
-                record.startTime != nil && record.endTime != nil
-            },
-            sortBy: [
-                .init(\.endTime, order: .reverse)
-            ]
-        )
-        descriptor.fetchLimit = 1
-        return descriptor
-    }()
 }
+
+// MARK: - Codable
+
+//extension PeriodRecord: Encodable {
+//    enum CodingKeys: String, CodingKey {
+//        case id
+//        case creationTime
+//        case startTime
+//        case endTime
+//        case project
+//        case notes
+//    }
+//    func encode(to encoder: any Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//        try container.encode(creationTime, forKey: .creationTime)
+//        try container.encode(startTime, forKey: .startTime)
+//        try container.encode(endTime, forKey: .endTime)
+//        try container.encode(project, forKey: .project)
+//        try container.encode(notes, forKey: .notes)
+//    }
+//}
+
 
 extension PeriodRecord {
     var duration: Duration? {
@@ -170,7 +193,31 @@ extension PeriodRecord {
     }
 }
 
+// MARK: Predicate
+
 extension PeriodRecord {
+    static let descriptorRunning: FetchDescriptor<PeriodRecord> = FetchDescriptor<PeriodRecord>(
+        predicate: #Predicate { record in
+            record.startTime != nil && record.endTime == nil
+        },
+        sortBy: [
+            .init(\.startTime, order: .forward)
+        ]
+    )
+    
+    static let descriptorLastStopped: FetchDescriptor<PeriodRecord> = {
+        var descriptor = FetchDescriptor<PeriodRecord> (
+            predicate: #Predicate { record in
+                record.startTime != nil && record.endTime != nil
+            },
+            sortBy: [
+                .init(\.endTime, order: .reverse)
+            ]
+        )
+        descriptor.fetchLimit = 1
+        return descriptor
+    }()
+    
     static var predicateDailyApproximation: Predicate<PeriodRecord> {
         // fuck swift data framework. do not use ternary operator (I know the doc says you can), and make sure now is a constant. a lot of time is wasted.
         // why constant: to convert type to sql code rather than convert sql data back to type in a predicate !!!

@@ -10,9 +10,24 @@ import SwiftUI
 import SwiftData
 import LoremSwiftum
 import GeneralMacro
+import MetaCodable
+
+struct ParentAsIDCoder: HelperCoder {
+    func encode(_ value: ProjectItem, to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(value.id)
+    }
+
+    func decode(from decoder: Decoder) throws -> ProjectItem {
+        // Decoding is not needed as per your use case, so just throw an error or return a dummy value
+        throw DecodingError.dataCorrupted(.init(codingPath: decoder.codingPath, debugDescription: "Decoding not supported"))
+    }
+}
 
 @Model
-class ProjectItem: Identifiable, CustomStringConvertible {
+@Codable
+@Inherits(decodable: false, encodable: false)
+final class ProjectItem: Identifiable, CustomStringConvertible {
     
     var description: String {
         self.name
@@ -28,6 +43,7 @@ class ProjectItem: Identifiable, CustomStringConvertible {
     var accessTime: Date = Date()
     
     var name: String
+    @CodedBy(ParentAsIDCoder())
     var parent: ProjectItem?
     var notes: String = ""
     var tags: [Tag] = []
@@ -37,6 +53,7 @@ class ProjectItem: Identifiable, CustomStringConvertible {
     var b: Float = Float.random(in: 0...255) / 255
     
     @Attribute(.ephemeral)
+    @IgnoreCoding
     var isPopoverShown: Bool = false
     
     var color: Color {

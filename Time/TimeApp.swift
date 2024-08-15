@@ -53,6 +53,7 @@ struct TimeApp: App {
         Settings {
             SettingsView()
         }
+        .modelContainer(sharedModelContainer)
 #endif
     }
 }

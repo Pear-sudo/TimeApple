@@ -22,24 +22,28 @@ struct StatsOverview: View {
             HStack {
                 Spacer()
                 VStack(alignment: .center) {
-                    Text("Today")
+                    Text("Today").fixedSize()
                     HStack(alignment: .firstTextBaseline, spacing: 0) {
                         Text(periodRecordService.totalSecondsDaily.timeIntervalString)
                             .font(.title)
                             .textSelection(.enabled)
+                            .fixedSize()
                         Text(" / \((periodRecordService.totalSecondsDaily / secondsInDay).toPercentage(decimalPlaces: 2))")
                             .textSelection(.enabled)
+                            .fixedSize()
                     }
                 }
                 Spacer()
                 VStack(alignment: .center) {
-                    Text("This week")
+                    Text("This week").fixedSize()
                     HStack(alignment: .firstTextBaseline, spacing: 0) {
                         Text(periodRecordService.totalSecondsWeekly.timeIntervalString)
                             .font(.title)
                             .textSelection(.enabled)
+                            .fixedSize()
                         Text(" / \((periodRecordService.totalSecondsWeekly / secondsInWeek).toPercentage(decimalPlaces: 2))")
                             .textSelection(.enabled)
+                            .fixedSize()
                     }
                 }
                 Spacer()

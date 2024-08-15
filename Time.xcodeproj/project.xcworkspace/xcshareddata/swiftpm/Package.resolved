@@ -1,5 +1,5 @@
 {
-  "originHash" : "e0ccb99ea35a6c6f35b2e43a4b5a24788d9bbfc3c2e888ccf59b4060ddfdee50",
+  "originHash" : "26be25ebe4bd12a75d2b5a2f279d366b5b158b0e00a4b8b289a1a24263a3db7c",
   "pins" : [
     {
       "identity" : "loremswiftum",
@@ -11,12 +11,30 @@
       }
     },
     {
+      "identity" : "metacodable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftyLab/MetaCodable.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a8d69e8d538ab23c9a3f9392052521583b46050d"
+      }
+    },
+    {
       "identity" : "not-just-another-init-macro",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/TheInkedEngineer/not-just-another-init-macro",
       "state" : {
         "branch" : "main",
         "revision" : "05d624ba4fb868fc8360e0fa22bb51b65efea1df"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
+        "version" : "1.5.0"
       }
     },
     {

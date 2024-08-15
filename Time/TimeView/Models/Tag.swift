@@ -9,9 +9,12 @@ import Foundation
 import SwiftData
 import LoremSwiftum
 import GeneralMacro
+import MetaCodable
 
 @Model
-class Tag {
+@Codable
+@Inherits(decodable: false, encodable: false)
+final class Tag {
     
     @Attribute(.unique)
     private(set) var name: String

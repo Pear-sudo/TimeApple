@@ -13,7 +13,17 @@ struct ProjectNote: View {
     @FocusState private var fieldIsFocused: Bool
     private let focusedColor = Color.blue.opacity(0.6)
     var body: some View {
-        TextField("Note", text: $text, prompt: Text("Note").foregroundStyle(fieldIsFocused ? focusedColor : .secondary))
+        TextFieldWithUnderline(hint: "Note", text: $text)
+    }
+}
+
+struct TextFieldWithUnderline: View {
+    var hint: String
+    @Binding var text: String
+    @FocusState private var fieldIsFocused: Bool
+    private let focusedColor = Color.blue.opacity(0.6)
+    var body: some View {
+        TextField(hint, text: $text, prompt: Text(hint).foregroundStyle(fieldIsFocused ? focusedColor : .secondary))
             .labelsHidden()
             .focused($fieldIsFocused)
 //            .animation(.easeIn(duration: 3), value: fieldIsFocused)

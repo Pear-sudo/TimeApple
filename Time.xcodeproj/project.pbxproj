@@ -21,6 +21,10 @@
 		00027DED2C6D0716008F7E02 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00027DEC2C6D0716008F7E02 /* MainMenu.xib */; };
 		00027DF22C6D0872008F7E02 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00027DF12C6D0872008F7E02 /* test.cpp */; };
 		00027DF52C6D09F6008F7E02 /* metal.metal in Sources */ = {isa = PBXBuildFile; fileRef = 00027DF42C6D09F6008F7E02 /* metal.metal */; };
+		00027DFC2C6DC254008F7E02 /* HelperCoders in Frameworks */ = {isa = PBXBuildFile; productRef = 00027DFB2C6DC254008F7E02 /* HelperCoders */; };
+		00027DFE2C6DC254008F7E02 /* MetaCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 00027DFD2C6DC254008F7E02 /* MetaCodable */; };
+		00027E022C6DE4AF008F7E02 /* JsonExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027E012C6DE4AF008F7E02 /* JsonExporter.swift */; };
+		00027E042C6DF5D5008F7E02 /* BackupSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027E032C6DF5D5008F7E02 /* BackupSettingsView.swift */; };
 		00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */; };
 		00132E462C3EBFBC00BB7997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E452C3EBFBC00BB7997 /* Assets.xcassets */; };
 		00132E4A2C3EBFBC00BB7997 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E492C3EBFBC00BB7997 /* Preview Assets.xcassets */; };
@@ -60,7 +64,6 @@
 		00B1A1F82C57E1530026CE81 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1F72C57E1530026CE81 /* DequeModule */; };
 		00B1A1FA2C57E1530026CE81 /* HashTreeCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1F92C57E1530026CE81 /* HashTreeCollections */; };
 		00B1A1FC2C57E1530026CE81 /* HeapModule in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1FB2C57E1530026CE81 /* HeapModule */; };
-		00B1A1FE2C57E1530026CE81 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1FD2C57E1530026CE81 /* OrderedCollections */; };
 		00B1A2002C57E1530026CE81 /* _RopeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 00B1A1FF2C57E1530026CE81 /* _RopeModule */; };
 		00D385542C56066D0091135F /* ProjectViewInHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D385532C56066D0091135F /* ProjectViewInHeader.swift */; };
 		00DF8E642C6B9AE9000DEAE5 /* SummaryByProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00DF8E632C6B9AE9000DEAE5 /* SummaryByProjectsView.swift */; };
@@ -104,6 +107,9 @@
 		00027DF02C6D0872008F7E02 /* test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test.hpp; sourceTree = "<group>"; };
 		00027DF12C6D0872008F7E02 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		00027DF42C6D09F6008F7E02 /* metal.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = metal.metal; sourceTree = "<group>"; };
+		00027DF72C6DABAC008F7E02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00027E012C6DE4AF008F7E02 /* JsonExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonExporter.swift; sourceTree = "<group>"; };
+		00027E032C6DF5D5008F7E02 /* BackupSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSettingsView.swift; sourceTree = "<group>"; };
 		00132E3C2C3EBFBB00BB7997 /* Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeApp.swift; sourceTree = "<group>"; };
 		00132E452C3EBFBC00BB7997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -156,13 +162,14 @@
 			files = (
 				00B1A2002C57E1530026CE81 /* _RopeModule in Frameworks */,
 				00B1A1FA2C57E1530026CE81 /* HashTreeCollections in Frameworks */,
+				00027DFC2C6DC254008F7E02 /* HelperCoders in Frameworks */,
 				00B1A1EE2C57DE690026CE81 /* GeneralMacro in Frameworks */,
 				00B1A1FC2C57E1530026CE81 /* HeapModule in Frameworks */,
 				00B1A1F82C57E1530026CE81 /* DequeModule in Frameworks */,
 				007F93C62C689AE000528F36 /* LoremSwiftum in Frameworks */,
 				00B1A1F62C57E1530026CE81 /* Collections in Frameworks */,
-				00B1A1FE2C57E1530026CE81 /* OrderedCollections in Frameworks */,
 				00B1A1F42C57E1530026CE81 /* BitCollections in Frameworks */,
+				00027DFE2C6DC254008F7E02 /* MetaCodable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +247,15 @@
 			path = SingleProject;
 			sourceTree = "<group>";
 		};
+		00027DF92C6DB200008F7E02 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				00027E032C6DF5D5008F7E02 /* BackupSettingsView.swift */,
+				00027E012C6DE4AF008F7E02 /* JsonExporter.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		00132E332C3EBFBB00BB7997 = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +292,7 @@
 				00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */,
 				00132E452C3EBFBC00BB7997 /* Assets.xcassets */,
 				00132E472C3EBFBC00BB7997 /* Time.entitlements */,
+				00027DF72C6DABAC008F7E02 /* Info.plist */,
 				00132E482C3EBFBC00BB7997 /* Preview Content */,
 			);
 			path = Time;
@@ -331,6 +348,7 @@
 		00132E7C2C4612A600BB7997 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				00027DF92C6DB200008F7E02 /* Data */,
 				00132E7A2C46128200BB7997 /* ProjectItem.swift */,
 				00E15AB42C514B010019FEE0 /* PeriodRecord.swift */,
 				003D166B2C5B5F4900D02472 /* ViewModel.swift */,
@@ -448,9 +466,10 @@
 				00B1A1F72C57E1530026CE81 /* DequeModule */,
 				00B1A1F92C57E1530026CE81 /* HashTreeCollections */,
 				00B1A1FB2C57E1530026CE81 /* HeapModule */,
-				00B1A1FD2C57E1530026CE81 /* OrderedCollections */,
 				00B1A1FF2C57E1530026CE81 /* _RopeModule */,
 				007F93C52C689AE000528F36 /* LoremSwiftum */,
+				00027DFB2C6DC254008F7E02 /* HelperCoders */,
+				00027DFD2C6DC254008F7E02 /* MetaCodable */,
 			);
 			productName = Time;
 			productReference = 00132E3C2C3EBFBB00BB7997 /* Time.app */;
@@ -532,6 +551,7 @@
 				00D385562C57D1BF0091135F /* XCRemoteSwiftPackageReference "not-just-another-init-macro" */,
 				00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				007F93C42C689AE000528F36 /* XCRemoteSwiftPackageReference "LoremSwiftum" */,
+				00027DFA2C6DC254008F7E02 /* XCRemoteSwiftPackageReference "MetaCodable" */,
 			);
 			productRefGroup = 00132E3D2C3EBFBB00BB7997 /* Products */;
 			projectDirPath = "";
@@ -590,11 +610,13 @@
 				00522DDC2C67883100DA781A /* TimePicker.swift in Sources */,
 				00027DDA2C6CAEA0008F7E02 /* TabViewNavigation.swift in Sources */,
 				00522DCE2C666AEC00DA781A /* ProjectTimeline.swift in Sources */,
+				00027E022C6DE4AF008F7E02 /* JsonExporter.swift in Sources */,
 				0016C09A2C6213DA005308EA /* ProjectHeader.swift in Sources */,
 				00027DE52C6D06BC008F7E02 /* Model.xcdatamodeld in Sources */,
 				00027DDC2C6CC1F6008F7E02 /* CalendarCanvas.swift in Sources */,
 				00D385542C56066D0091135F /* ProjectViewInHeader.swift in Sources */,
 				00522DCC2C66277500DA781A /* ProjectViewInTimeline.swift in Sources */,
+				00027E042C6DF5D5008F7E02 /* BackupSettingsView.swift in Sources */,
 				00DF8E662C6BA235000DEAE5 /* ProjectViewInSummary.swift in Sources */,
 				00132E702C3EC04500BB7997 /* ProjectViewInList.swift in Sources */,
 				00DF8E682C6C54E3000DEAE5 /* CalendarBackgroundGrid.swift in Sources */,
@@ -1004,6 +1026,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		00027DFA2C6DC254008F7E02 /* XCRemoteSwiftPackageReference "MetaCodable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyLab/MetaCodable.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		007F93C42C689AE000528F36 /* XCRemoteSwiftPackageReference "LoremSwiftum" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lukaskubanek/LoremSwiftum.git";
@@ -1031,6 +1061,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		00027DFB2C6DC254008F7E02 /* HelperCoders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00027DFA2C6DC254008F7E02 /* XCRemoteSwiftPackageReference "MetaCodable" */;
+			productName = HelperCoders;
+		};
+		00027DFD2C6DC254008F7E02 /* MetaCodable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00027DFA2C6DC254008F7E02 /* XCRemoteSwiftPackageReference "MetaCodable" */;
+			productName = MetaCodable;
+		};
 		007F93C52C689AE000528F36 /* LoremSwiftum */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 007F93C42C689AE000528F36 /* XCRemoteSwiftPackageReference "LoremSwiftum" */;
@@ -1065,11 +1105,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = HeapModule;
-		};
-		00B1A1FD2C57E1530026CE81 /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 00B1A1F22C57E1530026CE81 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
 		};
 		00B1A1FF2C57E1530026CE81 /* _RopeModule */ = {
 			isa = XCSwiftPackageProductDependency;

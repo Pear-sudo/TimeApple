@@ -16,7 +16,7 @@ struct WeekDayHeader: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
-                Text("33")
+                Text(calendar.component(.weekOfYear, from: startDate).formatted())
                     .font(.caption.monospacedDigit())
                 HStack(spacing: 0) {
                     ForEach(dates, id: \.self) { date in

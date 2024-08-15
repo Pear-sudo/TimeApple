@@ -49,7 +49,7 @@ struct SettingsView: View {
     private func SettingsInTabView() -> some View {
         TabView {
             ForEach(Settings.allCases, id: \.self) { item in
-                Text("Work in progress...")
+                settingView(for: item)
                     .tabItem {
                         Label(item.rawValue, systemImage: item.image)
                     }
@@ -57,6 +57,24 @@ struct SettingsView: View {
             }
         }
         .frame(minWidth: 375, minHeight: 150)
+    }
+    
+    @ViewBuilder
+    private func settingView(for setting: Settings) -> some View {
+        switch setting {
+        case .general:
+            GeneralSettingsView()
+        case .backup:
+            BackupSettingsView()
+        }
+    }
+}
+
+struct GeneralSettingsView: View {
+    var body: some View {
+        Text("General Settings")
+            .padding()
+            .navigationTitle("General")
     }
 }
 

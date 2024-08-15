@@ -24,7 +24,8 @@ struct PeriodEditingView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 20)
-                    ParentProjectPicker()
+                    ParentProjectPicker(project: $cachedPeriod.project)
+                        .gridCellColumns(2)
                 }
                 GridRow {
                     Image(systemName: "pencil")
@@ -65,6 +66,7 @@ struct PeriodEditingView: View {
                 }
             }
         }
+        .scrollIndicators(.never)
         .padding()
         .safeAreaInset(edge: .bottom) {
             HStack {
