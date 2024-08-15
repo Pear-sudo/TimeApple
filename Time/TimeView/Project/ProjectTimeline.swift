@@ -9,8 +9,6 @@ import SwiftUI
 import SwiftData
 import OSLog
 
-let domainName = "cyou.b612.time"
-
 struct ProjectTimeline: View {
     private let logger = Logger(subsystem: "\(domainName).view", category: "ProjectTimeline")
     @Environment(\.viewModel.periodRecordService) private var periodRecordService

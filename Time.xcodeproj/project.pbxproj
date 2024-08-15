@@ -25,6 +25,7 @@
 		00027DFE2C6DC254008F7E02 /* MetaCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 00027DFD2C6DC254008F7E02 /* MetaCodable */; };
 		00027E022C6DE4AF008F7E02 /* JsonExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027E012C6DE4AF008F7E02 /* JsonExporter.swift */; };
 		00027E042C6DF5D5008F7E02 /* BackupSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027E032C6DF5D5008F7E02 /* BackupSettingsView.swift */; };
+		00027E072C6E3D8F008F7E02 /* LoggerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027E062C6E3D8F008F7E02 /* LoggerCategory.swift */; };
 		00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */; };
 		00132E462C3EBFBC00BB7997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E452C3EBFBC00BB7997 /* Assets.xcassets */; };
 		00132E4A2C3EBFBC00BB7997 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E492C3EBFBC00BB7997 /* Preview Assets.xcassets */; };
@@ -110,6 +111,7 @@
 		00027DF72C6DABAC008F7E02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00027E012C6DE4AF008F7E02 /* JsonExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonExporter.swift; sourceTree = "<group>"; };
 		00027E032C6DF5D5008F7E02 /* BackupSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSettingsView.swift; sourceTree = "<group>"; };
+		00027E062C6E3D8F008F7E02 /* LoggerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerCategory.swift; sourceTree = "<group>"; };
 		00132E3C2C3EBFBB00BB7997 /* Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeApp.swift; sourceTree = "<group>"; };
 		00132E452C3EBFBC00BB7997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -256,6 +258,14 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		00027E052C6E3D7D008F7E02 /* logging */ = {
+			isa = PBXGroup;
+			children = (
+				00027E062C6E3D8F008F7E02 /* LoggerCategory.swift */,
+			);
+			path = logging;
+			sourceTree = "<group>";
+		};
 		00132E332C3EBFBB00BB7997 = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +292,7 @@
 		00132E3E2C3EBFBB00BB7997 /* Time */ = {
 			isa = PBXGroup;
 			children = (
+				00027E052C6E3D7D008F7E02 /* logging */,
 				00027DF32C6D09E4008F7E02 /* gpu */,
 				00027DE22C6D069F008F7E02 /* Coredata */,
 				00027DDF2C6D0637008F7E02 /* Storyboard */,
@@ -601,6 +612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0086A3E42C605499004B574E /* StatsOverview.swift in Sources */,
+				00027E072C6E3D8F008F7E02 /* LoggerCategory.swift in Sources */,
 				003D166C2C5B5F4900D02472 /* ViewModel.swift in Sources */,
 				004559A42C6389C500A0C857 /* ProjectItemService.swift in Sources */,
 				00132E812C47B01700BB7997 /* Dashboard.swift in Sources */,
