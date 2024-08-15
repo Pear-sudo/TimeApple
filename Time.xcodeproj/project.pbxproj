@@ -13,6 +13,14 @@
 		00027DDA2C6CAEA0008F7E02 /* TabViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027DD92C6CAEA0008F7E02 /* TabViewNavigation.swift */; };
 		00027DDC2C6CC1F6008F7E02 /* CalendarCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027DDB2C6CC1F6008F7E02 /* CalendarCanvas.swift */; };
 		00027DDE2C6CD89B008F7E02 /* PeriodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00027DDD2C6CD89B008F7E02 /* PeriodTest.swift */; };
+		00027DE12C6D0650008F7E02 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00027DE02C6D0650008F7E02 /* Storyboard.storyboard */; };
+		00027DE52C6D06BC008F7E02 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 00027DE32C6D06BC008F7E02 /* Model.xcdatamodeld */; };
+		00027DE72C6D06ED008F7E02 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00027DE62C6D06ED008F7E02 /* Application.xib */; };
+		00027DE92C6D06FA008F7E02 /* Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00027DE82C6D06FA008F7E02 /* Window.xib */; };
+		00027DEB2C6D0708008F7E02 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00027DEA2C6D0708008F7E02 /* View.xib */; };
+		00027DED2C6D0716008F7E02 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00027DEC2C6D0716008F7E02 /* MainMenu.xib */; };
+		00027DF22C6D0872008F7E02 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 00027DF12C6D0872008F7E02 /* test.cpp */; };
+		00027DF52C6D09F6008F7E02 /* metal.metal in Sources */ = {isa = PBXBuildFile; fileRef = 00027DF42C6D09F6008F7E02 /* metal.metal */; };
 		00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */; };
 		00132E462C3EBFBC00BB7997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E452C3EBFBC00BB7997 /* Assets.xcassets */; };
 		00132E4A2C3EBFBC00BB7997 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00132E492C3EBFBC00BB7997 /* Preview Assets.xcassets */; };
@@ -86,6 +94,16 @@
 		00027DD92C6CAEA0008F7E02 /* TabViewNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewNavigation.swift; sourceTree = "<group>"; };
 		00027DDB2C6CC1F6008F7E02 /* CalendarCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCanvas.swift; sourceTree = "<group>"; };
 		00027DDD2C6CD89B008F7E02 /* PeriodTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodTest.swift; sourceTree = "<group>"; };
+		00027DE02C6D0650008F7E02 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		00027DE42C6D06BC008F7E02 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		00027DE62C6D06ED008F7E02 /* Application.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
+		00027DE82C6D06FA008F7E02 /* Window.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Window.xib; sourceTree = "<group>"; };
+		00027DEA2C6D0708008F7E02 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		00027DEC2C6D0716008F7E02 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		00027DEF2C6D0872008F7E02 /* Time-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Time-Bridging-Header.h"; sourceTree = "<group>"; };
+		00027DF02C6D0872008F7E02 /* test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = test.hpp; sourceTree = "<group>"; };
+		00027DF12C6D0872008F7E02 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		00027DF42C6D09F6008F7E02 /* metal.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = metal.metal; sourceTree = "<group>"; };
 		00132E3C2C3EBFBB00BB7997 /* Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00132E3F2C3EBFBB00BB7997 /* TimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeApp.swift; sourceTree = "<group>"; };
 		00132E452C3EBFBC00BB7997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -173,9 +191,59 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		00027DDF2C6D0637008F7E02 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				00027DE02C6D0650008F7E02 /* Storyboard.storyboard */,
+				00027DE62C6D06ED008F7E02 /* Application.xib */,
+				00027DE82C6D06FA008F7E02 /* Window.xib */,
+				00027DEA2C6D0708008F7E02 /* View.xib */,
+				00027DEC2C6D0716008F7E02 /* MainMenu.xib */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		00027DE22C6D069F008F7E02 /* Coredata */ = {
+			isa = PBXGroup;
+			children = (
+				00027DE32C6D06BC008F7E02 /* Model.xcdatamodeld */,
+			);
+			path = Coredata;
+			sourceTree = "<group>";
+		};
+		00027DEE2C6D084A008F7E02 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				00027DF02C6D0872008F7E02 /* test.hpp */,
+				00027DF12C6D0872008F7E02 /* test.cpp */,
+				00027DEF2C6D0872008F7E02 /* Time-Bridging-Header.h */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		00027DF32C6D09E4008F7E02 /* gpu */ = {
+			isa = PBXGroup;
+			children = (
+				00027DF42C6D09F6008F7E02 /* metal.metal */,
+			);
+			path = gpu;
+			sourceTree = "<group>";
+		};
+		00027DF62C6D8BCD008F7E02 /* SingleProject */ = {
+			isa = PBXGroup;
+			children = (
+				00132E6F2C3EC04500BB7997 /* ProjectViewInList.swift */,
+				00D385532C56066D0091135F /* ProjectViewInHeader.swift */,
+				00522DCB2C66277500DA781A /* ProjectViewInTimeline.swift */,
+				00DF8E652C6BA235000DEAE5 /* ProjectViewInSummary.swift */,
+			);
+			path = SingleProject;
+			sourceTree = "<group>";
+		};
 		00132E332C3EBFBB00BB7997 = {
 			isa = PBXGroup;
 			children = (
+				00027DEE2C6D084A008F7E02 /* C */,
 				00B1A1F12C57E0610026CE81 /* Playground.playground */,
 				00132E3E2C3EBFBB00BB7997 /* Time */,
 				00132E522C3EBFBC00BB7997 /* TimeTests */,
@@ -198,6 +266,9 @@
 		00132E3E2C3EBFBB00BB7997 /* Time */ = {
 			isa = PBXGroup;
 			children = (
+				00027DF32C6D09E4008F7E02 /* gpu */,
+				00027DE22C6D069F008F7E02 /* Coredata */,
+				00027DDF2C6D0637008F7E02 /* Storyboard */,
 				00E15AAB2C4D23CE0019FEE0 /* Util */,
 				004559A02C63424B00A0C857 /* Services */,
 				00132E7C2C4612A600BB7997 /* Models */,
@@ -340,19 +411,16 @@
 		00E88DB82C621A5E0036D88C /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				00132E6F2C3EC04500BB7997 /* ProjectViewInList.swift */,
+				00027DF62C6D8BCD008F7E02 /* SingleProject */,
 				00132E872C4B957400BB7997 /* ProjectCreation.swift */,
-				00D385532C56066D0091135F /* ProjectViewInHeader.swift */,
 				003D166F2C5B7C2500D02472 /* ProjectList.swift */,
 				0016C0992C6213DA005308EA /* ProjectHeader.swift */,
-				00522DCB2C66277500DA781A /* ProjectViewInTimeline.swift */,
 				00522DCD2C666AEC00DA781A /* ProjectTimeline.swift */,
 				00522DCF2C66FFF700DA781A /* ProjectSummary.swift */,
 				00522DD72C6787C200DA781A /* ParentProjectPicker.swift */,
 				00522DD92C67880600DA781A /* ProjectNote.swift */,
 				00522DDF2C67888000DA781A /* ProjectDatePicker.swift */,
 				00DF8E632C6B9AE9000DEAE5 /* SummaryByProjectsView.swift */,
-				00DF8E652C6BA235000DEAE5 /* ProjectViewInSummary.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -438,6 +506,7 @@
 				TargetAttributes = {
 					00132E3B2C3EBFBB00BB7997 = {
 						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1600;
 					};
 					00132E4E2C3EBFBC00BB7997 = {
 						CreatedOnToolsVersion = 15.4;
@@ -480,8 +549,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00027DE72C6D06ED008F7E02 /* Application.xib in Resources */,
+				00027DE92C6D06FA008F7E02 /* Window.xib in Resources */,
 				00132E4A2C3EBFBC00BB7997 /* Preview Assets.xcassets in Resources */,
 				00132E462C3EBFBC00BB7997 /* Assets.xcassets in Resources */,
+				00027DEB2C6D0708008F7E02 /* View.xib in Resources */,
+				00027DED2C6D0716008F7E02 /* MainMenu.xib in Resources */,
+				00027DE12C6D0650008F7E02 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +591,7 @@
 				00027DDA2C6CAEA0008F7E02 /* TabViewNavigation.swift in Sources */,
 				00522DCE2C666AEC00DA781A /* ProjectTimeline.swift in Sources */,
 				0016C09A2C6213DA005308EA /* ProjectHeader.swift in Sources */,
+				00027DE52C6D06BC008F7E02 /* Model.xcdatamodeld in Sources */,
 				00027DDC2C6CC1F6008F7E02 /* CalendarCanvas.swift in Sources */,
 				00D385542C56066D0091135F /* ProjectViewInHeader.swift in Sources */,
 				00522DCC2C66277500DA781A /* ProjectViewInTimeline.swift in Sources */,
@@ -538,12 +613,14 @@
 				00522DD02C66FFF700DA781A /* ProjectSummary.swift in Sources */,
 				00132E402C3EBFBB00BB7997 /* TimeApp.swift in Sources */,
 				00522DD62C677A9600DA781A /* PeriodEditingView.swift in Sources */,
+				00027DF22C6D0872008F7E02 /* test.cpp in Sources */,
 				00522DD32C672F6600DA781A /* ClassAndViewUpdates.swift in Sources */,
 				00DF8E642C6B9AE9000DEAE5 /* SummaryByProjectsView.swift in Sources */,
 				00132E882C4B957400BB7997 /* ProjectCreation.swift in Sources */,
 				008039B32C630DD600B49561 /* Color.swift in Sources */,
 				00522DD82C6787C200DA781A /* ParentProjectPicker.swift in Sources */,
 				00027DD52C6C7105008F7E02 /* TimeMark.swift in Sources */,
+				00027DF52C6D09F6008F7E02 /* metal.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,6 +779,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Time/Time.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -735,6 +813,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "C/Time-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -745,6 +825,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Time/Time.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -778,6 +859,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "C/Time-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -995,6 +1077,19 @@
 			productName = _RopeModule;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		00027DE32C6D06BC008F7E02 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				00027DE42C6D06BC008F7E02 /* Model.xcdatamodel */,
+			);
+			currentVersion = 00027DE42C6D06BC008F7E02 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 00132E342C3EBFBB00BB7997 /* Project object */;
 }
