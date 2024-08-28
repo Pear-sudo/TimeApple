@@ -14,6 +14,7 @@ struct BackupSettingsView: View {
     @State private var fileExporterIsPresented = false
     @State private var fileImporterIsPresented = false
     @AppStorage("backupFolder") private var backupURL: Data = .init()
+    @State private var lastSavedURL: URL?
     private let exporter = JsonExporter()
     var body: some View {
         VStack {
@@ -40,7 +41,7 @@ struct BackupSettingsView: View {
                             Button("Show in Finder") {
                                 let workspace = NSWorkspace.shared
                                 if let url = loadThisBookmark() {
-                                    let result = workspace.selectFile(url.path(), inFileViewerRootedAtPath: "")
+                                    let result = workspace.selectFile(url.path(), inFileViewerRootedAtPath: url.path())
                                     if !result {
                                         logger.error("Cannot open \(url.path()) in finder")
                                     }
@@ -66,7 +67,9 @@ struct BackupSettingsView: View {
         }
         .fileExporter(isPresented: $fileExporterIsPresented, item: exporter, onCompletion: { result in
             if case .success(let url) = result {
-                print(url)
+                lastSavedURL = url
+            } else if case .failure(let error) = result {
+                logger.error("Cannot save file, error \(error)")
             }
         })
         .fileImporter(isPresented: $fileImporterIsPresented, allowedContentTypes: [.folder], allowsMultipleSelection: false, onCompletion: onFolderSelected, onCancellation: onFolderSelectionCancelled)
@@ -158,4 +161,8 @@ struct BackupSettingsView: View {
     private func onFolderSelectionCancelled() {
         
     }
+}
+
+#Preview {
+    BackupSettingsView()
 }
