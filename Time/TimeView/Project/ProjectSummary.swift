@@ -33,7 +33,6 @@ struct ProjectSummary: View {
                         SummaryInstance(periods: periods)
                     }
                     .offset(x: offset)
-                    .animation(.easeOut, value: offset)
                 }
                 .gesture(drag(geometry: geometry))
             }
@@ -55,10 +54,14 @@ struct ProjectSummary: View {
     private func onDragEnded(geometry: GeometryProxy) -> (DragGesture.Value) -> Void {
         { value in
             if abs(value.predictedEndTranslation.width) > geometry.size.width / 2 && !dragIsAtEdge(geometry: geometry) {
-                offset = previousOffset + geometry.size.width * (value.predictedEndTranslation.width > 0 ? 1 : -1)
+                animateDrag {
+                    offset = previousOffset + geometry.size.width * (value.predictedEndTranslation.width > 0 ? 1 : -1)
+                }
                 previousOffset = offset
             } else {
-                offset = previousOffset
+                animateDrag {
+                    offset = previousOffset
+                }
             }
         }
     }
@@ -73,6 +76,20 @@ struct ProjectSummary: View {
         } else {
             return false
         }
+    }
+    
+    private func animateDrag<Result>(_ body: () -> Result, callCompletionHandler: Bool = true) {
+        let _ = withAnimation(.easeOut) {
+            body()
+        } completion: {
+            if callCompletionHandler {
+                handleDragAnimationComplete()
+            }
+        }
+    }
+    
+    private func handleDragAnimationComplete() {
+        // TODO: check and replace underlying views
     }
 }
 
