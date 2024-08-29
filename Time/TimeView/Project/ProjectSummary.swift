@@ -12,6 +12,7 @@ struct ProjectSummary: View {
     @Environment(\.viewModel) private var viewModel
     @Query(filter: PeriodRecordService.getRangedPredicate(start: .now, end: .now), animation: .default) private var periods: [PeriodRecord]
     @State private var offset: CGFloat = 0
+    @State private var previousOffset: CGFloat = 0
     var interval: DateInterval
     init() {
         self.init(
@@ -24,31 +25,54 @@ struct ProjectSummary: View {
     var body: some View {
         @Bindable var viewModel = viewModel
         NavigationStack(path: $viewModel.presentedPeriods) {
-            HPager {
-                Group {
-                    SummaryInstance(periods: periods)
-                    SummaryInstance(periods: periods)
-                    SummaryInstance(periods: periods)
+            GeometryReader { geometry in
+                HPager {
+                    Group {
+                        SummaryInstance(periods: periods)
+                        SummaryInstance(periods: periods)
+                        SummaryInstance(periods: periods)
+                    }
+                    .offset(x: offset)
+                    .animation(.easeOut, value: offset)
                 }
-                .offset(x: offset)
+                .gesture(drag(geometry: geometry))
             }
-            .gesture(drag)
         }
     }
     
-    var drag: some Gesture {
+    private func drag(geometry: GeometryProxy) -> some Gesture {
         DragGesture()
-            .onChanged(onDragging)
-            .onEnded(onDragEnded)
+            .onChanged(onDragging(geometry: geometry))
+            .onEnded(onDragEnded(geometry: geometry))
     }
     
-    private func onDragging(value: DragGesture.Value) {
-        offset = value.translation.width
-        print(offset)
+    private func onDragging(geometry: GeometryProxy) -> (DragGesture.Value) -> Void {
+        { value in
+            offset = previousOffset + value.translation.width
+        }
     }
     
-    private func onDragEnded(value: DragGesture.Value) {
-        offset = 0
+    private func onDragEnded(geometry: GeometryProxy) -> (DragGesture.Value) -> Void {
+        { value in
+            if abs(value.predictedEndTranslation.width) > geometry.size.width / 2 && !dragIsAtEdge(geometry: geometry) {
+                offset = previousOffset + geometry.size.width * (value.predictedEndTranslation.width > 0 ? 1 : -1)
+                previousOffset = offset
+            } else {
+                offset = previousOffset
+            }
+        }
+    }
+    
+    private func dragIsAtEdge(geometry: GeometryProxy) -> Bool {
+        let anchor = 1
+        let total = 3
+        let leftEdge = CGFloat(0 - anchor) * geometry.size.width
+        let rightEdge = CGFloat(total - 1 - anchor) * geometry.size.width
+        if offset < leftEdge || offset > rightEdge {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
