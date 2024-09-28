@@ -71,10 +71,15 @@ struct SettingsView: View {
 }
 
 struct GeneralSettingsView: View {
+    @Environment(\.modelContext) var modelContext
     var body: some View {
-        Text("General Settings")
-            .padding()
-            .navigationTitle("General")
+        VStack {
+            Button("Delete all data") {
+                try? modelContext.container.erase()
+            }
+        }
+        .padding()
+        .navigationTitle("General")
     }
 }
 
