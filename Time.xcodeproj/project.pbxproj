@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -146,6 +146,7 @@
 		00522DD92C67880600DA781A /* ProjectNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectNote.swift; sourceTree = "<group>"; };
 		00522DDB2C67883100DA781A /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		00522DDF2C67888000DA781A /* ProjectDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDatePicker.swift; sourceTree = "<group>"; };
+		0074DB1F2CA7FD2600AA5342 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		008039B22C630DD600B49561 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0086A3E32C605499004B574E /* StatsOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsOverview.swift; sourceTree = "<group>"; };
 		00B1A1F12C57E0610026CE81 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -156,6 +157,22 @@
 		00E15AAC2C4D23E20019FEE0 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		00E15AB42C514B010019FEE0 /* PeriodRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRecord.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0074DB252CA8041500AA5342 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				calendar.png,
+				creation.png,
+				main.png,
+			);
+			target = 00132E3B2C3EBFBB00BB7997 /* Time */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0074DB202CA8014400AA5342 /* screenshots */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (0074DB252CA8041500AA5342 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = screenshots; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		00132E392C3EBFBB00BB7997 /* Frameworks */ = {
@@ -269,6 +286,8 @@
 		00132E332C3EBFBB00BB7997 = {
 			isa = PBXGroup;
 			children = (
+				0074DB202CA8014400AA5342 /* screenshots */,
+				0074DB1F2CA7FD2600AA5342 /* README.md */,
 				00027DEE2C6D084A008F7E02 /* C */,
 				00B1A1F12C57E0610026CE81 /* Playground.playground */,
 				00132E3E2C3EBFBB00BB7997 /* Time */,
